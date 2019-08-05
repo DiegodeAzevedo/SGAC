@@ -1,0 +1,26 @@
+31 32 33 39 36 
+
+Accessibility=[
+else -> 
+Or(And(s0, r0, c1),
+   And(s0, r1, c1),
+   And(s0, r3, c1),
+   And(s0, r5, c1),
+   And(s1, r1, c1),   
+   And(s1, r5, c1),
+   And(s4, r1, c0),
+   And(s4, r1, c1),
+   And(s4, r5, c0),
+   And(s4, r5, c1),
+   )]
+   
+s0 r0 c1
+s0 r1 c1
+s0 r3 c1
+s0 r5 c1
+s1 r1 c1
+s1 r5 c1
+s4 r1 c0
+s4 r1 c1
+s4 r5 c0
+s4 r5 c1
