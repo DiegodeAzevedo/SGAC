@@ -183,7 +183,7 @@ if expressionList1:  # If the expression list is not empty. The graph is not emp
 # Adding the REQUEST_T constant as a z3 relation between (V_SUB-dom(e_sub)) * (V_RES-dom(e_res))
 REQUEST_T = Function('REQUEST_T', V_SUB, V_RES, BoolSort())
 notDomainSUB = Function('notDomainSub', V_SUB, BoolSort())
-notDomainRES = Function('notDomainRES', V_RES, BoolSort())
+notDomainRES = Function('notDomainRes', V_RES, BoolSort())
 # Auxiliary variables to the declaration of the predicate of REQUEST_T.
 auxSub1, auxSub2 = Consts('auxSub1 auxSub2', V_SUB)
 # Auxiliary variables to the declaration of the predicate of REQUEST_T.
@@ -458,7 +458,8 @@ if s.check() == sat:
     dictOfFormulas = dict()
 
     formulas = [Sub_Graph, Subject_Closure_Graph, Res_Graph, Resource_Closure_Graph, REQUEST_T, rule_subject,
-                rule_resource, rule_modality, rule_priority, rule_condition, lessSpecific, conRule, applicable]
+                rule_resource, rule_modality, rule_priority, rule_condition, lessSpecific, conRule, applicable,
+                notDomainSUB, notDomainRES]
     with open("model.txt", 'r') as f:
         modelContent = f.read()
 
@@ -557,10 +558,40 @@ if s.check() == sat:
                                                 rule_priority(auxRule1, auxInt) == True,  # Then True
                                                 rule_priority(auxRule1, auxInt) == False)))  # Else -> False))
 
+        if formula == 'lessSpecific':
+            predicate = eval(dictOfFormulas['lessSpecific'].replace(', r', ', auxRule2 == r').replace(
+                'And(r', 'And(auxRule1 == r'))
+            r.add(ForAll([auxRule1, auxRule2], If(predicate,
+                                                  lessSpecific(auxRule1, auxRule2),
+                                                  Not(lessSpecific(auxRule1, auxRule2)))))
 
+        if formula == 'conRule':
+            predicate = eval(dictOfFormulas['conRule'].replace(', r', ', auxRule1 == r').replace(
+                'And(c', 'And(auxCon == c'))
+            r.add(ForAll([auxRule1, auxCon], If(predicate,
+                                                conRule(auxCon, auxRule1),
+                                                Not(conRule(auxCon, auxRule1)))))
 
+        if formula == 'applicable':
+            predicate = eval(dictOfFormulas['applicable'].replace(
+                ', rule', ', auxRule1 == rule').replace(', r', ', auxRes1 == r').replace('And(s', 'And(auxSub1 == s'))
+            r.add(ForAll([auxRule1, auxSub1, auxRes1], If(predicate,
+                                                          applicable(auxSub1, auxRes1, auxRule1),
+                                                          Not(applicable(auxSub1, auxRes1, auxRule1)))))
 
+        if formula == 'notDomainSub':
+            predicate = eval(dictOfFormulas['notDomainSub'].replace('(s', '(auxSub1 == s').replace(', s',
+                                                                                                   ', auxSub1 == s'))
+            r.add(ForAll([auxSub1], If(predicate,
+                                       notDomainSUB(auxSub1),
+                                       Not(notDomainSUB(auxSub1)))))
 
+        if formula == 'notDomainRes':
+            predicate = eval(dictOfFormulas['notDomainRes'].replace('(r', '(auxRes1 == r').replace(', r',
+                                                                                                   ', auxRes1 == r'))
+            r.add(ForAll([auxRes1], If(predicate,
+                                       notDomainRES(auxRes1),
+                                       Not(notDomainRES(auxRes1)))))
     print(r.check())
     if r.check() == sat:
         print(r.model())
