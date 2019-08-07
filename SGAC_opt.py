@@ -515,7 +515,6 @@ if s.check() == sat:
                                                 REQUEST_T(auxSub1, auxRes1) == True,
                                                 REQUEST_T(auxSub1, auxRes1) == False)))
 
-
         if formula == 'rule_modality':
             predicate = eval(
                 dictOfFormulas['rule_modality'].replace('Not(p', 'Not(auxModality == p').replace(
@@ -543,7 +542,25 @@ if s.check() == sat:
                                                  rule_resource(auxRule1, auxRes1) == True,  # Then True
                                                  rule_resource(auxRule1, auxRes1) == False)))  # Else -> False)
 
+        if formula == 'rule_condition':
+            predicate = eval(dictOfFormulas['rule_condition'].replace(
+                ', c', ', auxCon == c').replace('And(rule', 'And(auxRule1 == rule'))
+            r.add(ForAll([auxRule1, auxCon], If(predicate,  # If it is this
+                                                rule_condition(auxRule1, auxCon) == True,  # Then True
+                                                rule_condition(auxRule1, auxCon) == False)))  # Else -> False))
+
+        if formula == 'rule_priority':
+            predicate = eval(dictOfFormulas['rule_priority'].replace(', 4', ', auxInt == 4').replace(
+                ', 2', ', auxInt == 2').replace(', 3', ', auxInt == 3').replace(', 0', ', auxInt == 0').replace(
+                ', 1', ', auxInt == 1').replace('And(rule', 'And(auxRule1 == rule'))
+            r.add(ForAll([auxRule1, auxInt], If(predicate,  # If it is this
+                                                rule_priority(auxRule1, auxInt) == True,  # Then True
+                                                rule_priority(auxRule1, auxInt) == False)))  # Else -> False))
+
+
+
+
+
     print(r.check())
     if r.check() == sat:
         print(r.model())
-        x = 0
