@@ -218,7 +218,7 @@ s.add(Implies(notDomainSUB(auxSub1), And(Not(Exists(auxSub2, Sub_Graph(auxSub1, 
 s.add(Implies(REQUEST_T(auxSub1, auxRes1), And(notDomainSUB(auxSub1),
                                                notDomainRES(auxRes1))))
 # Making REQUEST_T only valid to the described Subjects and Resources
-s.add(Not(Exists([auxSub1, auxRes1], And(And(auxSub1 != s0, auxSub1 != s1, auxSub1 != s2, auxSub1 != s3, auxSub1 != s4,
+s.add(Not(Exists([auxSub1, auxRes1], Or(And(auxSub1 != s0, auxSub1 != s1, auxSub1 != s2, auxSub1 != s3, auxSub1 != s4,
                                              auxSub1 != s5, auxSub1 != s6, auxSub1 != s7, auxSub1 != s8, auxSub1 != s9,
                                              auxSub1 != s10, auxSub1 != s11, auxSub1 != s12, auxSub1 != s13,
                                              auxSub1 != s14, auxSub1 != s15, auxSub1 != s16, auxSub1 != s17,

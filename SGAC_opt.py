@@ -218,7 +218,7 @@ s.add(Implies(notDomainSUB(auxSub1), And(Not(Exists(auxSub2, Sub_Graph(auxSub1, 
 s.add(Implies(REQUEST_T(auxSub1, auxRes1), And(notDomainSUB(auxSub1),
                                                notDomainRES(auxRes1))))
 # Making REQUEST_T only valid to the described Subjects and Resources
-s.add(Not(Exists([auxSub1, auxRes1], And(And(auxSub1 != s0, auxSub1 != s1, auxSub1 != s2, auxSub1 != s3, auxSub1 != s4,
+s.add(Not(Exists([auxSub1, auxRes1], Or(And(auxSub1 != s0, auxSub1 != s1, auxSub1 != s2, auxSub1 != s3, auxSub1 != s4,
                                              auxSub1 != s5, auxSub1 != s6, auxSub1 != s7, auxSub1 != s8, auxSub1 != s9,
                                              auxSub1 != s10, auxSub1 != s11, auxSub1 != s12, auxSub1 != s13,
                                              auxSub1 != s14, auxSub1 != s15, auxSub1 != s16, auxSub1 != s17,
@@ -443,8 +443,10 @@ if s.check() == sat:
     # Erasing weird syntax from the solver (If(Var(0) == ...)
     modelContent = re.sub(r"If\(Var\([0-9]\) == [0-9a-zA-Z!]+, [0-9a-zA-Z!]+, [0-9a-zA-Z!]+\)+ == ", "", modelContent)
     modelContent = re.sub(r"If\(Var\([0-9]\) == [0-9a-zA-Z!]+, [0-9a-zA-Z!]+, ", "", modelContent)
+    modelContent = re.sub(r"Var\([0-9]\) == ", "", modelContent)
     # modelContent = re.sub(r"\[(.*?)else ->[ \n]", "[", modelContent)
     modelContent = re.sub(r"\[else ->[ \n]", "[", modelContent)
+    modelContent = re.sub(r"\[.*?else ->", "[", modelContent)
     modelContent = re.sub(r"\[ Or", "[Or", modelContent)
     f = open("model.txt", "w+")
     f.write(modelContent)
@@ -461,12 +463,18 @@ if s.check() == sat:
         modelContent = f.read()
 
     for formula in formulas:
-        matches = re.finditer(r"%s=\[.*?\n\s*.*?\]" % formula.name(), modelContent, re.MULTILINE | re.DOTALL)
-        for matchNum, match in enumerate(matches, start=1):
-            dictOfFormulas[formula.name()] = modelContent[match.start()+len(formula.name())+2:match.end()-1:]
+        if re.search(r"%s=\[.*?\s*.*?\]" % formula.name(), modelContent, re.MULTILINE) is not None:
+            matches = re.finditer(r"%s=\[.*?\s*.*?\]" % formula.name(), modelContent, re.MULTILINE)
+            for matchNum, match in enumerate(matches, start=1):
+                dictOfFormulas[formula.name()] = modelContent[match.start()+len(formula.name())+2:match.end()-1:]
+        else:
+            matches = re.finditer(r"%s=\[.*?\n\s*.*?\]" % formula.name(), modelContent, re.MULTILINE | re.DOTALL)
+            for matchNum, match in enumerate(matches, start=1):
+                dictOfFormulas[formula.name()] = modelContent[match.start()+len(formula.name())+2:match.end()-1:]
 
     r.add(Distinct(s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19))
     r.add(Distinct(r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19))
+    r.add(Distinct(rule30, rule31, rule32, rule33, rule34, rule35, rule36, rule37, rule38, rule39))
     for formula in dictOfFormulas.keys():
         if formula == 'Subject_Graph':
             predicate = eval(
@@ -501,9 +509,41 @@ if s.check() == sat:
                          )
                   )
         if formula == 'REQUEST_T':
-            print(dictOfFormulas['REQUEST_T'])
+            predicate = eval(
+                dictOfFormulas['REQUEST_T'].replace(', r', ', auxRes1 == r').replace('And(s', 'And(auxSub1 == s'))
+            r.add(ForAll([auxSub1, auxRes1], If(predicate,
+                                                REQUEST_T(auxSub1, auxRes1) == True,
+                                                REQUEST_T(auxSub1, auxRes1) == False)))
+
+
+        if formula == 'rule_modality':
+            predicate = eval(
+                dictOfFormulas['rule_modality'].replace('Not(p', 'Not(auxModality == p').replace(
+                    'Not(rule', 'Not(auxRule1 == rule'))
+            # predicate = eval(
+            #     dictOfFormulas['rule_modality'].replace(')))', ")").replace('), Not(p', ', auxModality == p').replace(
+            #         'Not(Or(Not(rule', 'And(auxRule1 == rule'))
+            r.add(ForAll([auxRule1, auxModality], If(predicate,  # If it is this
+                                                     rule_modality(auxRule1, auxModality) == True,  # Then True
+                                                     rule_modality(auxRule1, auxModality) == False)))  # Else -> False)
+
+        if formula == 'rule_subject':
+            predicate = eval(
+                dictOfFormulas['rule_subject'].replace(', s', ', auxSub1 == s').replace(
+                    'And(rule', 'And(auxRule1 == rule'))
+            r.add(ForAll([auxRule1, auxSub1], If(predicate,  # If it is this
+                                                 rule_subject(auxRule1, auxSub1) == True,  # Then True
+                                                 rule_subject(auxRule1, auxSub1) == False)))  # Else -> False)
+
+        if formula == 'rule_resource':
+            predicate = eval(
+                dictOfFormulas['rule_resource'].replace(', r', ', auxRes1 == r').replace(
+                    'And(rule', 'And(auxRule1 == rule'))
+            r.add(ForAll([auxRule1, auxRes1], If(predicate,  # If it is this
+                                                 rule_resource(auxRule1, auxRes1) == True,  # Then True
+                                                 rule_resource(auxRule1, auxRes1) == False)))  # Else -> False)
 
     print(r.check())
     if r.check() == sat:
+        print(r.model())
         x = 0
-        # print(r.model())
