@@ -476,6 +476,7 @@ if s.check() == sat:
     r.add(Distinct(s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19))
     r.add(Distinct(r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19))
     r.add(Distinct(rule30, rule31, rule32, rule33, rule34, rule35, rule36, rule37, rule38, rule39))
+    r.add(Distinct(c0, c1, c2))
     r.add(Or(auxRule1 == rule30, auxRule1 == rule31, auxRule1 == rule32, auxRule1 == rule33, auxRule1 == rule34,
              auxRule1 == rule35, auxRule1 == rule36, auxRule1 == rule37, auxRule1 == rule38, auxRule1 == rule39))
     r.add(Or(auxRule2 == rule30, auxRule2 == rule31, auxRule2 == rule32, auxRule2 == rule33, auxRule2 == rule34,
@@ -614,70 +615,70 @@ if s.check() == sat:
                      )
               )
 
-        isPrecededBy = Function('isPrecededBy', V_SUB, V_RES, rules, rules, BoolSort())
-        auxRule1, auxRule2, auxRule3 = Consts('auxRule1 auxRule2 auxRule3', rules)
-        auxRes1 = Const('auxRes1', V_RES)
-        auxSub1 = Const('auxSub1', V_SUB)
-        r.add(Implies(isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2),
-                      And(REQUEST_T(auxSub1, auxRes1),  # xx == (auxSub1, auxRes1) == REQUEST_T
-                          applicable(auxSub1, auxRes1, auxRule1),  # auxRule1 == yy, yy : applicable(xx)
-                          applicable(auxSub1, auxRes1, auxRule2),  # auxRule2 == zz, zz : applicable(xx)
-                          auxRule1 != auxRule2,  # yy != zz
-                          Or(lessSpecific(auxRule1, auxRule2),  # yy|->zz : lessSpecific OR
-                             And(maxElem(auxSub1, auxRes1, auxRule1),
-                                 maxElem(auxSub1, auxRes1, auxRule2),
-                                 rule_modality(auxRule1, permission),  # rules(yy))'mo = per
-                                 rule_modality(auxRule2, prohibition)  # rules(zz))'mo = pro
-                                 )
-                             )
-                          )
-                      )
-              )
-        r.add(ForAll([auxSub1, auxRes1, auxRule1, auxRule2],
-                     Implies(And(REQUEST_T(auxSub1, auxRes1),  # xx == (auxSub1, auxRes1) == REQUEST_T
-                                 applicable(auxSub1, auxRes1, auxRule1),  # auxRule1 == yy, yy : applicable(xx)
-                                 applicable(auxSub1, auxRes1, auxRule2),  # auxRule2 == zz, zz : applicable(xx)
-                                 auxRule1 != auxRule2,  # yy != zz
-                                 Or(lessSpecific(auxRule1, auxRule2),  # yy|->zz : lessSpecific OR
-                                    And(maxElem(auxSub1, auxRes1, auxRule1),
-                                        maxElem(auxSub1, auxRes1, auxRule2),
-                                        rule_modality(auxRule1, permission),  # rules(yy))'mo = per
-                                        rule_modality(auxRule2, prohibition)  # rules(zz))'mo = pro
-                                        )
-                                    )
-                                 ), isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)
-                             )
-                     )
-              )
+        # isPrecededBy = Function('isPrecededBy', V_SUB, V_RES, rules, rules, BoolSort())
+        # auxRule1, auxRule2, auxRule3 = Consts('auxRule1 auxRule2 auxRule3', rules)
+        # auxRes1 = Const('auxRes1', V_RES)
+        # auxSub1 = Const('auxSub1', V_SUB)
+        # r.add(Implies(isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2),
+        #               And(REQUEST_T(auxSub1, auxRes1),  # xx == (auxSub1, auxRes1) == REQUEST_T
+        #                   applicable(auxSub1, auxRes1, auxRule1),  # auxRule1 == yy, yy : applicable(xx)
+        #                   applicable(auxSub1, auxRes1, auxRule2),  # auxRule2 == zz, zz : applicable(xx)
+        #                   auxRule1 != auxRule2,  # yy != zz
+        #                   Or(lessSpecific(auxRule1, auxRule2),  # yy|->zz : lessSpecific OR
+        #                      And(maxElem(auxSub1, auxRes1, auxRule1),
+        #                          maxElem(auxSub1, auxRes1, auxRule2),
+        #                          rule_modality(auxRule1, permission),  # rules(yy))'mo = per
+        #                          rule_modality(auxRule2, prohibition)  # rules(zz))'mo = pro
+        #                          )
+        #                      )
+        #                   )
+        #               )
+        #       )
+        # r.add(ForAll([auxSub1, auxRes1, auxRule1, auxRule2],
+        #              Implies(And(REQUEST_T(auxSub1, auxRes1),  # xx == (auxSub1, auxRes1) == REQUEST_T
+        #                          applicable(auxSub1, auxRes1, auxRule1),  # auxRule1 == yy, yy : applicable(xx)
+        #                          applicable(auxSub1, auxRes1, auxRule2),  # auxRule2 == zz, zz : applicable(xx)
+        #                          auxRule1 != auxRule2,  # yy != zz
+        #                          Or(lessSpecific(auxRule1, auxRule2),  # yy|->zz : lessSpecific OR
+        #                             And(maxElem(auxSub1, auxRes1, auxRule1),
+        #                                 maxElem(auxSub1, auxRes1, auxRule2),
+        #                                 rule_modality(auxRule1, permission),  # rules(yy))'mo = per
+        #                                 rule_modality(auxRule2, prohibition)  # rules(zz))'mo = pro
+        #                                 )
+        #                             )
+        #                          ), isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)
+        #                      )
+        #              )
+        #       )
 
-        pseudoSink = Function('pseudoSink', V_SUB, V_RES, CONTEXT, rules, BoolSort())
-        auxRes1 = Const('auxRes1', V_RES)
-        auxSub1 = Const('auxSub1', V_SUB)
-        auxRule1, auxRule2 = Consts('auxRule1 auxRule2', rules)
-        auxCon = Const('auxCon', CONTEXT)
-        r.add(ForAll([auxSub1, auxRes1, auxCon, auxRule1],
-                     If(And(REQUEST_T(auxSub1, auxRes1),
-                            applicable(auxSub1, auxRes1, auxRule1),
-                            conRule(auxCon, auxRule1),
-                            Not(Exists(auxRule2,
-                                       And(applicable(auxSub1, auxRes1, auxRule2),
-                                           conRule(auxCon, auxRule2),
-                                           isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2))))),
-                        pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
-                        Not(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1))
-                        )
-                     )
-              )
-        r.add(Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
-                      And(REQUEST_T(auxSub1, auxRes1),
-                          applicable(auxSub1, auxRes1, auxRule1),
-                          conRule(auxCon, auxRule1),
-                          Not(Exists(auxRule2,
-                                     And(applicable(auxSub1, auxRes1, auxRule2),
-                                         conRule(auxCon, auxRule2),
-                                         isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)))))
-                      )
-              )
+        # pseudoSink = Function('pseudoSink', V_SUB, V_RES, CONTEXT, rules, BoolSort())
+        # auxRes1 = Const('auxRes1', V_RES)
+        # auxSub1 = Const('auxSub1', V_SUB)
+        # auxRule1, auxRule2 = Consts('auxRule1 auxRule2', rules)
+        # auxCon = Const('auxCon', CONTEXT)
+        # r.add(ForAll([auxSub1, auxRes1, auxCon, auxRule1],
+        #              If(And(REQUEST_T(auxSub1, auxRes1),
+        #                     applicable(auxSub1, auxRes1, auxRule1),
+        #                     conRule(auxCon, auxRule1),
+        #                     Not(Exists(auxRule2,
+        #                                And(applicable(auxSub1, auxRes1, auxRule2),
+        #                                    conRule(auxCon, auxRule2),
+        #                                    isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2))))),
+        #                 pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
+        #                 Not(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1))
+        #                 )
+        #              )
+        #       )
+        # r.add(Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
+        #               And(REQUEST_T(auxSub1, auxRes1),
+        #                   applicable(auxSub1, auxRes1, auxRule1),
+        #                   conRule(auxCon, auxRule1),
+        #                   Not(Exists(auxRule2,
+        #                              And(applicable(auxSub1, auxRes1, auxRule2),
+        #                                  conRule(auxCon, auxRule2),
+        #                                  isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)))))
+        #               )
+        #       )
 
     print(r.check())
     if r.check() == sat:
@@ -706,7 +707,6 @@ if s.check() == sat:
             modelContent = f.read()
         f.close()
         for key in dictOfSubstitutions.keys():
-            print(key, dictOfSubstitutions[key])
             modelContent = re.sub(r"\b%s\b" % dictOfSubstitutions[key], str(key), modelContent, 0, re.MULTILINE)
         # Erasing the k!#### and replacing for the variables
         modelContent = re.sub(r"(k![0-9]+\(Var\([0-9]\)\)) == ", "", modelContent)
@@ -724,3 +724,934 @@ if s.check() == sat:
         f = open("model2.txt", "w+")
         f.write(modelContent)
         f.close()
+
+        # Rewriting the model for rerun in another Z3 model and accomplish the Exists quantification
+        # Adding a new solver
+        q = Solver()
+        dictOfFormulas = dict()
+
+        formulas = [Sub_Graph, Subject_Closure_Graph, Res_Graph, Resource_Closure_Graph, REQUEST_T, rule_subject,
+                    rule_resource, rule_modality, rule_priority, rule_condition, lessSpecific, conRule, applicable,
+                    notDomainSUB, notDomainRES, maxElem]
+        with open("model2.txt", 'r') as f:
+            modelContent = f.read()
+
+        for formula in formulas:
+            if re.search(r"%s=\[.*?\s*.*?\]" % formula.name(), modelContent, re.MULTILINE) is not None:
+                matches = re.finditer(r"%s=\[.*?\s*.*?\]" % formula.name(), modelContent, re.MULTILINE)
+                for matchNum, match in enumerate(matches, start=1):
+                    dictOfFormulas[formula.name()] = modelContent[
+                                                     match.start() + len(formula.name()) + 2:match.end() - 1:]
+            else:
+                matches = re.finditer(r"%s=\[.*?\n\s*.*?\]" % formula.name(), modelContent, re.MULTILINE | re.DOTALL)
+                for matchNum, match in enumerate(matches, start=1):
+                    dictOfFormulas[formula.name()] = modelContent[
+                                                     match.start() + len(formula.name()) + 2:match.end() - 1:]
+
+        q.add(Distinct(s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19))
+        q.add(Distinct(r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19))
+        q.add(Distinct(rule30, rule31, rule32, rule33, rule34, rule35, rule36, rule37, rule38, rule39))
+        q.add(Distinct(c0, c1, c2))
+        q.add(Or(auxRule1 == rule30, auxRule1 == rule31, auxRule1 == rule32, auxRule1 == rule33, auxRule1 == rule34,
+                 auxRule1 == rule35, auxRule1 == rule36, auxRule1 == rule37, auxRule1 == rule38, auxRule1 == rule39))
+        q.add(Or(auxRule2 == rule30, auxRule2 == rule31, auxRule2 == rule32, auxRule2 == rule33, auxRule2 == rule34,
+                 auxRule2 == rule35, auxRule2 == rule36, auxRule2 == rule37, auxRule2 == rule38, auxRule2 == rule39))
+        for formula in dictOfFormulas.keys():
+            if formula == 'Subject_Graph':
+                predicate = eval(
+                    dictOfFormulas['Subject_Graph'].replace('(Not(s', '(Not(auxSub1 == s').replace(', Not(s',
+                                                                                                   ', Not(auxSub2 == s')
+                )
+                q.add(ForAll([auxSub1, auxSub2], If(predicate,
+                                                    Sub_Graph(auxSub1, auxSub2) == True,
+                                                    Sub_Graph(auxSub1, auxSub2) == False)
+                             )
+                      )
+            if formula == 'Resources_Graph':
+                predicate = eval(
+                    dictOfFormulas['Resources_Graph'].replace('(Not(r',
+                                                              '(Not(auxRes1 == r').replace(', Not(r',
+                                                                                           ', Not(auxRes2 == r'))
+                q.add(ForAll([auxRes1, auxRes2], If(predicate,
+                                                    Res_Graph(auxRes1, auxRes2) == True,
+                                                    Res_Graph(auxRes1, auxRes2) == False)
+                             )
+                      )
+            if formula == 'Transitive_Closure_Subject_Graph':
+                predicate = eval(
+                    dictOfFormulas['Transitive_Closure_Subject_Graph'].replace('(Not(s',
+                                                                               '(Not(auxSub1 == s').replace(', Not(s',
+                                                                                                            ', Not(auxSub2 == s')
+                )
+                q.add(ForAll([auxSub1, auxSub2], If(predicate,
+                                                    Subject_Closure_Graph(auxSub1, auxSub2) == True,
+                                                    Subject_Closure_Graph(auxSub1, auxSub2) == False)
+                             )
+                      )
+            if formula == 'Transitive_Closure_Resources_Graph':
+                predicate = eval(
+                    dictOfFormulas['Transitive_Closure_Resources_Graph'].replace('(Not(r',
+                                                                                 '(Not(auxRes1 == r').replace(', Not(r',
+                                                                                                              ', Not(auxRes2 == r'))
+                q.add(ForAll([auxRes1, auxRes2], If(predicate,
+                                                    Resource_Closure_Graph(auxRes1, auxRes2) == True,
+                                                    Resource_Closure_Graph(auxRes1, auxRes2) == False)
+                             )
+                      )
+            if formula == 'REQUEST_T':
+                predicate = eval(
+                    dictOfFormulas['REQUEST_T'].replace(', r', ', auxRes1 == r').replace('And(s', 'And(auxSub1 == s'))
+                q.add(ForAll([auxSub1, auxRes1], If(predicate,
+                                                    REQUEST_T(auxSub1, auxRes1) == True,
+                                                    REQUEST_T(auxSub1, auxRes1) == False)))
+
+            if formula == 'rule_modality':
+                predicate = eval(
+                    dictOfFormulas['rule_modality'].replace('Not(p', 'Not(auxModality == p').replace(
+                        'Not(rule', 'Not(auxRule1 == rule'))
+                q.add(ForAll([auxRule1, auxModality], If(predicate,  # If it is this
+                                                         rule_modality(auxRule1, auxModality) == True,  # Then True
+                                                         rule_modality(auxRule1,
+                                                                       auxModality) == False)))  # Else -> False)
+
+            if formula == 'rule_subject':
+                predicate = eval(
+                    dictOfFormulas['rule_subject'].replace(', Not(s', ', Not(auxSub1 == s').replace(
+                        'Not(rule', 'Not(auxRule1 == rule'))
+                q.add(ForAll([auxRule1, auxSub1], If(predicate,  # If it is this
+                                                     rule_subject(auxRule1, auxSub1) == True,  # Then True
+                                                     rule_subject(auxRule1, auxSub1) == False)))  # Else -> False)
+
+            if formula == 'rule_resource':
+                predicate = eval(
+                    dictOfFormulas['rule_resource'].replace(', Not(r', ', Not(auxRes1 == r').replace(
+                        'Not(rule', 'Not(auxRule1 == rule'))
+                q.add(ForAll([auxRule1, auxRes1], If(predicate,  # If it is this
+                                                     rule_resource(auxRule1, auxRes1) == True,  # Then True
+                                                     rule_resource(auxRule1, auxRes1) == False)))  # Else -> False)
+
+            if formula == 'rule_condition':
+                predicate = eval(dictOfFormulas['rule_condition'].replace(
+                    ', Not(c', ', Not(auxCon == c').replace('Not(rule', 'Not(auxRule1 == rule'))
+                q.add(ForAll([auxRule1, auxCon], If(predicate,  # If it is this
+                                                    rule_condition(auxRule1, auxCon) == True,  # Then True
+                                                    rule_condition(auxRule1, auxCon) == False)))  # Else -> False))
+
+            if formula == 'rule_priority':
+                predicate = eval(dictOfFormulas['rule_priority'].replace(', Not(4', ', Not(auxInt == 4').replace(
+                    ', Not(2', ', Not(auxInt == 2').replace(
+                    ', Not(3', ', Not(auxInt == 3').replace(
+                    ', Not(0', ', Not(auxInt == 0').replace(
+                    ', Not(1', ', Not(auxInt == 1').replace('Not(rule', 'Not(auxRule1 == rule'))
+                q.add(ForAll([auxRule1, auxInt], If(predicate,  # If it is this
+                                                    rule_priority(auxRule1, auxInt) == True,  # Then True
+                                                    rule_priority(auxRule1, auxInt) == False)))  # Else -> False))
+
+            if formula == 'lessSpecific':
+                predicate = eval(dictOfFormulas['lessSpecific'].replace(', r', ', auxRule2 == r').replace(
+                    'And(r', 'And(auxRule1 == r'))
+                q.add(ForAll([auxRule1, auxRule2], If(predicate,
+                                                      lessSpecific(auxRule1, auxRule2),
+                                                      Not(lessSpecific(auxRule1, auxRule2)))))
+
+            if formula == 'conRule':
+                predicate = eval(dictOfFormulas['conRule'].replace(', Not(r', ', Not(auxRule1 == r').replace(
+                    'Not(c', 'Not(auxCon == c'))
+                q.add(ForAll([auxRule1, auxCon], If(predicate,
+                                                    conRule(auxCon, auxRule1),
+                                                    Not(conRule(auxCon, auxRule1)))))
+
+            if formula == 'applicable':
+                predicate = eval(dictOfFormulas['applicable'].replace(
+                    ', rule', ', auxRule1 == rule').replace(', r', ', auxRes1 == r').replace('And(s',
+                                                                                             'And(auxSub1 == s'))
+                q.add(ForAll([auxRule1, auxSub1, auxRes1], If(predicate,
+                                                              applicable(auxSub1, auxRes1, auxRule1),
+                                                              Not(applicable(auxSub1, auxRes1, auxRule1)))))
+
+            if formula == 'notDomainSub':
+                predicate = eval(dictOfFormulas['notDomainSub'].replace('(s', '(auxSub1 == s').replace(', s',
+                                                                                                       ', auxSub1 == s'))
+                q.add(ForAll([auxSub1], If(predicate,
+                                           notDomainSUB(auxSub1),
+                                           Not(notDomainSUB(auxSub1)))))
+
+            if formula == 'notDomainRes':
+                predicate = eval(dictOfFormulas['notDomainRes'].replace('(r', '(auxRes1 == r').replace(', r',
+                                                                                                       ', auxRes1 == r'))
+                q.add(ForAll([auxRes1], If(predicate,
+                                           notDomainRES(auxRes1),
+                                           Not(notDomainRES(auxRes1)))))
+
+            if formula == 'maxElem':
+                predicate = eval(dictOfFormulas['maxElem'].replace(
+                    ', rule', ', auxRule1 == rule').replace(', r', ', auxRes1 == r').replace('And(s',
+                                                                                             'And(auxSub1 == s'))
+                q.add(ForAll([auxRule1, auxSub1, auxRes1], If(predicate,
+                                                              maxElem(auxSub1, auxRes1, auxRule1),
+                                                              Not(maxElem(auxSub1, auxRes1, auxRule1)))))
+
+            isPrecededBy = Function('isPrecededBy', V_SUB, V_RES, rules, rules, BoolSort())
+            auxRule1, auxRule2, auxRule3 = Consts('auxRule1 auxRule2 auxRule3', rules)
+            auxRes1 = Const('auxRes1', V_RES)
+            auxSub1 = Const('auxSub1', V_SUB)
+            q.add(Implies(isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2),
+                          And(REQUEST_T(auxSub1, auxRes1),  # xx == (auxSub1, auxRes1) == REQUEST_T
+                              applicable(auxSub1, auxRes1, auxRule1),  # auxRule1 == yy, yy : applicable(xx)
+                              applicable(auxSub1, auxRes1, auxRule2),  # auxRule2 == zz, zz : applicable(xx)
+                              auxRule1 != auxRule2,  # yy != zz
+                              Or(lessSpecific(auxRule1, auxRule2),  # yy|->zz : lessSpecific OR
+                                 And(maxElem(auxSub1, auxRes1, auxRule1),
+                                     maxElem(auxSub1, auxRes1, auxRule2),
+                                     rule_modality(auxRule1, permission),  # rules(yy))'mo = per
+                                     rule_modality(auxRule2, prohibition)  # rules(zz))'mo = pro
+                                     )
+                                 )
+                              )
+                          )
+                  )
+            q.add(ForAll([auxSub1, auxRes1, auxRule1, auxRule2],
+                         Implies(And(REQUEST_T(auxSub1, auxRes1),  # xx == (auxSub1, auxRes1) == REQUEST_T
+                                     applicable(auxSub1, auxRes1, auxRule1),  # auxRule1 == yy, yy : applicable(xx)
+                                     applicable(auxSub1, auxRes1, auxRule2),  # auxRule2 == zz, zz : applicable(xx)
+                                     auxRule1 != auxRule2,  # yy != zz
+                                     Or(lessSpecific(auxRule1, auxRule2),  # yy|->zz : lessSpecific OR
+                                        And(maxElem(auxSub1, auxRes1, auxRule1),
+                                            maxElem(auxSub1, auxRes1, auxRule2),
+                                            rule_modality(auxRule1, permission),  # rules(yy))'mo = per
+                                            rule_modality(auxRule2, prohibition)  # rules(zz))'mo = pro
+                                            )
+                                        )
+                                     ), isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)
+                                 )
+                         )
+                  )
+
+        print(q.check())
+        if q.check() == sat:
+            f = open("model3.txt", "w+")
+            for variable in q.model():
+                f.write(str(variable)), f.write("="), f.write(str(q.model()[variable])), f.write("\n")
+            f.close()
+
+            dictOfSubstitutions = dict()
+            chosenVariables = [s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18,
+                               s19,
+                               r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18,
+                               r19,
+                               rule30, rule31, rule32, rule33, rule34, rule35, rule36, rule37, rule38, rule39, c0,
+                               c1, c2,
+                               permission, prohibition]
+
+            # Rewriting the variables
+            for variable in chosenVariables:
+                with open("model3.txt") as f:
+                    for line in f:
+                        matches = re.finditer(r"" + str(variable) + "=", line)
+                        for matchNum, match in enumerate(matches):
+                            dictOfSubstitutions[variable] = line[match.end():len(line) - 1:]
+                f.close()
+
+            with open("model3.txt", 'r') as f:
+                modelContent = f.read()
+            f.close()
+            for key in dictOfSubstitutions.keys():
+                modelContent = re.sub(r"\b%s\b" % dictOfSubstitutions[key], str(key), modelContent, 0, re.MULTILINE)
+            # Erasing the k!#### and replacing for the variables
+            modelContent = re.sub(r"(k![0-9]+\(Var\([0-9]\)\)) == ", "", modelContent)
+            # Erasing k!#### variables
+            modelContent = re.sub(r"k![0-9]+=(.*?)\n", "", modelContent)
+            # Erasing weird syntax from the solver (If(Var(0) == ...)
+            modelContent = re.sub(r"If\(Var\([0-9]\) == [0-9a-zA-Z!]+, [0-9a-zA-Z!]+, [0-9a-zA-Z!]+\)+ == ", "",
+                                  modelContent)
+            modelContent = re.sub(r"If\(Var\([0-9]\) == [0-9a-zA-Z!]+, [0-9a-zA-Z!]+, ", "", modelContent)
+            modelContent = re.sub(r"Var\([0-9]\) == ", "", modelContent)
+            # modelContent = re.sub(r"\[(.*?)else ->[ \n]", "[", modelContent)
+            modelContent = re.sub(r"\[else ->[ \n]", "[", modelContent)
+            modelContent = re.sub(r"\[.*?else ->", "[", modelContent)
+            modelContent = re.sub(r"\[ Or", "[Or", modelContent)
+            f = open("model3.txt", "w+")
+            f.write(modelContent)
+            f.close()
+
+            # Rewriting the model for rerun in another Z3 model and accomplish the Exists quantification
+            # Adding a new solver
+            u = Solver()
+            dictOfFormulas = dict()
+
+            formulas = [Sub_Graph, Subject_Closure_Graph, Res_Graph, Resource_Closure_Graph, REQUEST_T,
+                        rule_subject,
+                        rule_resource, rule_modality, rule_priority, rule_condition, lessSpecific, conRule,
+                        applicable,
+                        notDomainSUB, notDomainRES, maxElem, isPrecededBy]
+            with open("model3.txt", 'r') as f:
+                modelContent = f.read()
+
+            for formula in formulas:
+                if re.search(r"%s=\[.*?\s*.*?\]" % formula.name(), modelContent, re.MULTILINE) is not None:
+                    matches = re.finditer(r"%s=\[.*?\s*.*?\]" % formula.name(), modelContent, re.MULTILINE)
+                    for matchNum, match in enumerate(matches, start=1):
+                        dictOfFormulas[formula.name()] = modelContent[
+                                                         match.start() + len(formula.name()) + 2:match.end() - 1:]
+                else:
+                    matches = re.finditer(r"%s=\[.*?\n\s*.*?\]" % formula.name(), modelContent,
+                                          re.MULTILINE | re.DOTALL)
+                    for matchNum, match in enumerate(matches, start=1):
+                        dictOfFormulas[formula.name()] = modelContent[
+                                                         match.start() + len(formula.name()) + 2:match.end() - 1:]
+
+            u.add(
+                Distinct(s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19))
+            u.add(
+                Distinct(r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19))
+            u.add(Distinct(rule30, rule31, rule32, rule33, rule34, rule35, rule36, rule37, rule38, rule39))
+            u.add(Distinct(c0, c1, c2))
+            u.add(Or(auxRule1 == rule30, auxRule1 == rule31, auxRule1 == rule32, auxRule1 == rule33,
+                     auxRule1 == rule34,
+                     auxRule1 == rule35, auxRule1 == rule36, auxRule1 == rule37, auxRule1 == rule38,
+                     auxRule1 == rule39))
+            u.add(Or(auxRule2 == rule30, auxRule2 == rule31, auxRule2 == rule32, auxRule2 == rule33,
+                     auxRule2 == rule34,
+                     auxRule2 == rule35, auxRule2 == rule36, auxRule2 == rule37, auxRule2 == rule38,
+                     auxRule2 == rule39))
+            for formula in dictOfFormulas.keys():
+                if formula == 'Subject_Graph':
+                    predicate = eval(
+                        dictOfFormulas['Subject_Graph'].replace('(Not(s', '(Not(auxSub1 == s').replace(', Not(s',
+                                                                                                       ', Not(auxSub2 == s')
+                    )
+                    u.add(ForAll([auxSub1, auxSub2], If(predicate,
+                                                        Sub_Graph(auxSub1, auxSub2) == True,
+                                                        Sub_Graph(auxSub1, auxSub2) == False)
+                                 )
+                          )
+                if formula == 'Resources_Graph':
+                    predicate = eval(
+                        dictOfFormulas['Resources_Graph'].replace('(Not(r',
+                                                                  '(Not(auxRes1 == r').replace(', Not(r',
+                                                                                               ', Not(auxRes2 == r'))
+                    u.add(ForAll([auxRes1, auxRes2], If(predicate,
+                                                        Res_Graph(auxRes1, auxRes2) == True,
+                                                        Res_Graph(auxRes1, auxRes2) == False)
+                                 )
+                          )
+                if formula == 'Transitive_Closure_Subject_Graph':
+                    predicate = eval(
+                        dictOfFormulas['Transitive_Closure_Subject_Graph'].replace('(Not(s',
+                                                                                   '(Not(auxSub1 == s').replace(
+                            ', Not(s',
+                            ', Not(auxSub2 == s')
+                    )
+                    u.add(ForAll([auxSub1, auxSub2], If(predicate,
+                                                        Subject_Closure_Graph(auxSub1, auxSub2) == True,
+                                                        Subject_Closure_Graph(auxSub1, auxSub2) == False)
+                                 )
+                          )
+                if formula == 'Transitive_Closure_Resources_Graph':
+                    predicate = eval(
+                        dictOfFormulas['Transitive_Closure_Resources_Graph'].replace('(Not(r',
+                                                                                     '(Not(auxRes1 == r').replace(
+                            ', Not(r',
+                            ', Not(auxRes2 == r'))
+                    u.add(ForAll([auxRes1, auxRes2], If(predicate,
+                                                        Resource_Closure_Graph(auxRes1, auxRes2) == True,
+                                                        Resource_Closure_Graph(auxRes1, auxRes2) == False)
+                                 )
+                          )
+                if formula == 'REQUEST_T':
+                    predicate = eval(
+                        dictOfFormulas['REQUEST_T'].replace(', r', ', auxRes1 == r').replace('And(s',
+                                                                                             'And(auxSub1 == s'))
+                    u.add(ForAll([auxSub1, auxRes1], If(predicate,
+                                                        REQUEST_T(auxSub1, auxRes1) == True,
+                                                        REQUEST_T(auxSub1, auxRes1) == False)))
+
+                if formula == 'rule_modality':
+                    predicate = eval(
+                        dictOfFormulas['rule_modality'].replace(', p', ', auxModality == p').replace(
+                            'And(rule', 'And(auxRule1 == rule'))
+                    u.add(ForAll([auxRule1, auxModality], If(predicate,  # If it is this
+                                                             rule_modality(auxRule1, auxModality) == True,
+                                                             # Then True
+                                                             rule_modality(auxRule1,
+                                                                           auxModality) == False)))  # Else -> False)
+
+                if formula == 'rule_subject':
+                    predicate = eval(
+                        dictOfFormulas['rule_subject'].replace(', Not(s', ', Not(auxSub1 == s').replace(
+                            'Not(rule', 'Not(auxRule1 == rule'))
+                    u.add(ForAll([auxRule1, auxSub1], If(predicate,  # If it is this
+                                                         rule_subject(auxRule1, auxSub1) == True,  # Then True
+                                                         rule_subject(auxRule1,
+                                                                      auxSub1) == False)))  # Else -> False)
+
+                if formula == 'rule_resource':
+                    predicate = eval(
+                        dictOfFormulas['rule_resource'].replace(', Not(r', ', Not(auxRes1 == r').replace(
+                            'Not(rule', 'Not(auxRule1 == rule'))
+                    u.add(ForAll([auxRule1, auxRes1], If(predicate,  # If it is this
+                                                         rule_resource(auxRule1, auxRes1) == True,  # Then True
+                                                         rule_resource(auxRule1,
+                                                                       auxRes1) == False)))  # Else -> False)
+
+                if formula == 'rule_condition':
+                    predicate = eval(dictOfFormulas['rule_condition'].replace(
+                        ', Not(c', ', Not(auxCon == c').replace('Not(rule', 'Not(auxRule1 == rule'))
+                    u.add(ForAll([auxRule1, auxCon], If(predicate,  # If it is this
+                                                        rule_condition(auxRule1, auxCon) == True,  # Then True
+                                                        rule_condition(auxRule1,
+                                                                       auxCon) == False)))  # Else -> False))
+
+                if formula == 'rule_priority':
+                    predicate = eval(
+                        dictOfFormulas['rule_priority'].replace(', Not(4', ', Not(auxInt == 4').replace(
+                            ', Not(2', ', Not(auxInt == 2').replace(
+                            ', Not(3', ', Not(auxInt == 3').replace(
+                            ', Not(0', ', Not(auxInt == 0').replace(
+                            ', Not(1', ', Not(auxInt == 1').replace('Not(rule', 'Not(auxRule1 == rule'))
+                    u.add(ForAll([auxRule1, auxInt], If(predicate,  # If it is this
+                                                        rule_priority(auxRule1, auxInt) == True,  # Then True
+                                                        rule_priority(auxRule1,
+                                                                      auxInt) == False)))  # Else -> False))
+
+                if formula == 'lessSpecific':
+                    predicate = eval(dictOfFormulas['lessSpecific'].replace(', r', ', auxRule2 == r').replace(
+                        'And(r', 'And(auxRule1 == r'))
+                    u.add(ForAll([auxRule1, auxRule2], If(predicate,
+                                                          lessSpecific(auxRule1, auxRule2),
+                                                          Not(lessSpecific(auxRule1, auxRule2)))))
+
+                if formula == 'conRule':
+                    predicate = eval(dictOfFormulas['conRule'].replace(', Not(r', ', Not(auxRule1 == r').replace(
+                        '(Not(c', '(Not(auxCon == c'))
+                    u.add(ForAll([auxRule1, auxCon], If(predicate,
+                                                        conRule(auxCon, auxRule1),
+                                                        Not(conRule(auxCon, auxRule1)))))
+
+                if formula == 'applicable':
+                    predicate = eval(dictOfFormulas['applicable'].replace(
+                        ', rule', ', auxRule1 == rule').replace(', r', ', auxRes1 == r').replace('And(s',
+                                                                                                 'And(auxSub1 == s'))
+                    u.add(ForAll([auxRule1, auxSub1, auxRes1], If(predicate,
+                                                                  applicable(auxSub1, auxRes1, auxRule1),
+                                                                  Not(applicable(auxSub1, auxRes1, auxRule1)))))
+
+                if formula == 'notDomainSub':
+                    predicate = eval(dictOfFormulas['notDomainSub'].replace('(s', '(auxSub1 == s').replace(', s',
+                                                                                                           ', auxSub1 == s'))
+                    u.add(ForAll([auxSub1], If(predicate,
+                                               notDomainSUB(auxSub1),
+                                               Not(notDomainSUB(auxSub1)))))
+
+                if formula == 'notDomainRes':
+                    predicate = eval(dictOfFormulas['notDomainRes'].replace('(r', '(auxRes1 == r').replace(', r',
+                                                                                                           ', auxRes1 == r'))
+                    u.add(ForAll([auxRes1], If(predicate,
+                                               notDomainRES(auxRes1),
+                                               Not(notDomainRES(auxRes1)))))
+
+                if formula == 'maxElem':
+                    predicate = eval(dictOfFormulas['maxElem'].replace(
+                        ', rule', ', auxRule1 == rule').replace(', r', ', auxRes1 == r').replace('And(s',
+                                                                                                 'And(auxSub1 == s'))
+                    u.add(ForAll([auxRule1, auxSub1, auxRes1], If(predicate,
+                                                                  maxElem(auxSub1, auxRes1, auxRule1),
+                                                                  Not(maxElem(auxSub1, auxRes1, auxRule1)))))
+
+                if formula == 'isPrecededBy':
+                    dictOfFormulas['isPrecededBy'] = dictOfFormulas['isPrecededBy'].replace(', rule', ', auxRule1 == rule').replace(
+                        'And(s', 'And(auxSub1 == s').replace(', r', ', auxRes1 == r')
+
+                    matches = re.finditer(r"auxRule1", dictOfFormulas['isPrecededBy'], re.MULTILINE)
+
+                    for matchNum, match in enumerate(matches, start=1):
+                        if matchNum % 2 == 0:
+                            dictOfFormulas['isPrecededBy'] = list(dictOfFormulas['isPrecededBy'])
+                            dictOfFormulas['isPrecededBy'][match.end()-1] = '2'
+                            dictOfFormulas['isPrecededBy'] = "".join(dictOfFormulas['isPrecededBy'])
+
+                    predicate = eval(dictOfFormulas['isPrecededBy'])
+                    u.add(ForAll([auxSub1, auxRes1, auxRule1, auxRule2],
+                                 If(predicate,
+                                    isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2),
+                                    Not(isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)))))
+
+                pseudoSink = Function('pseudoSink', V_SUB, V_RES, CONTEXT, rules, BoolSort())
+                auxRes1 = Const('auxRes1', V_RES)
+                auxSub1 = Const('auxSub1', V_SUB)
+                auxRule1, auxRule2 = Consts('auxRule1 auxRule2', rules)
+                auxCon = Const('auxCon', CONTEXT)
+                u.add(ForAll([auxSub1, auxRes1, auxCon, auxRule1],
+                             If(And(REQUEST_T(auxSub1, auxRes1),
+                                    applicable(auxSub1, auxRes1, auxRule1),
+                                    conRule(auxCon, auxRule1),
+                                    Not(Exists(auxRule2,
+                                               And(applicable(auxSub1, auxRes1, auxRule2),
+                                                   conRule(auxCon, auxRule2),
+                                                   isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2))))),
+                                pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
+                                Not(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1))
+                                )
+                             )
+                      )
+                u.add(Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
+                              And(REQUEST_T(auxSub1, auxRes1),
+                                  applicable(auxSub1, auxRes1, auxRule1),
+                                  conRule(auxCon, auxRule1),
+                                  Not(Exists(auxRule2,
+                                             And(applicable(auxSub1, auxRes1, auxRule2),
+                                                 conRule(auxCon, auxRule2),
+                                                 isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)))))
+                              )
+                      )
+
+            print(u.check())
+            if u.check() == sat:
+                f = open("model4.txt", "w+")
+                for variable in u.model():
+                    f.write(str(variable)), f.write("="), f.write(str(u.model()[variable])), f.write("\n")
+                f.close()
+
+                dictOfSubstitutions = dict()
+                chosenVariables = [s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18,
+                                   s19,
+                                   r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18,
+                                   r19,
+                                   rule30, rule31, rule32, rule33, rule34, rule35, rule36, rule37, rule38, rule39, c0,
+                                   c1, c2,
+                                   permission, prohibition]
+
+                # Rewriting the variables
+                for variable in chosenVariables:
+                    with open("model4.txt") as f:
+                        for line in f:
+                            matches = re.finditer(r"" + str(variable) + "=", line)
+                            for matchNum, match in enumerate(matches):
+                                dictOfSubstitutions[variable] = line[match.end():len(line) - 1:]
+                    f.close()
+
+                with open("model4.txt", 'r') as f:
+                    modelContent = f.read()
+                f.close()
+                for key in dictOfSubstitutions.keys():
+                    modelContent = re.sub(r"\b%s\b" % dictOfSubstitutions[key], str(key), modelContent, 0, re.MULTILINE)
+                # Erasing the k!#### and replacing for the variables
+                modelContent = re.sub(r"(k![0-9]+\(Var\([0-9]\)\)) == ", "", modelContent)
+                # Erasing k!#### variables
+                modelContent = re.sub(r"k![0-9]+=(.*?)\n", "", modelContent)
+                # Erasing weird syntax from the solver (If(Var(0) == ...)
+                modelContent = re.sub(r"If\(Var\([0-9]\) == [0-9a-zA-Z!]+, [0-9a-zA-Z!]+, [0-9a-zA-Z!]+\)+ == ", "",
+                                      modelContent)
+                modelContent = re.sub(r"If\(Var\([0-9]\) == [0-9a-zA-Z!]+, [0-9a-zA-Z!]+, ", "", modelContent)
+                modelContent = re.sub(r"Var\([0-9]\) == ", "", modelContent)
+                # modelContent = re.sub(r"\[(.*?)else ->[ \n]", "[", modelContent)
+                modelContent = re.sub(r"\[else ->[ \n]", "[", modelContent)
+                modelContent = re.sub(r"\[.*?else ->", "[", modelContent)
+                modelContent = re.sub(r"\[ Or", "[Or", modelContent)
+                f = open("model4.txt", "w+")
+                f.write(modelContent)
+                f.close()
+
+                # Rewriting the model for rerun in another Z3 model and accomplish the Exists quantification
+                # Adding a new solver
+                v = Solver()
+                dictOfFormulas = dict()
+
+                formulas = [Sub_Graph, Subject_Closure_Graph, Res_Graph, Resource_Closure_Graph, REQUEST_T,
+                            rule_subject,
+                            rule_resource, rule_modality, rule_priority, rule_condition, lessSpecific, conRule,
+                            applicable,
+                            notDomainSUB, notDomainRES, maxElem, isPrecededBy, pseudoSink]
+                with open("model4.txt", 'r') as f:
+                    modelContent = f.read()
+
+                for formula in formulas:
+                    if re.search(r"%s=\[.*?\s*.*?\]" % formula.name(), modelContent, re.MULTILINE) is not None:
+                        matches = re.finditer(r"%s=\[.*?\s*.*?\]" % formula.name(), modelContent, re.MULTILINE)
+                        for matchNum, match in enumerate(matches, start=1):
+                            dictOfFormulas[formula.name()] = modelContent[
+                                                             match.start() + len(formula.name()) + 2:match.end() - 1:]
+                    else:
+                        matches = re.finditer(r"%s=\[.*?\n\s*.*?\]" % formula.name(), modelContent,
+                                              re.MULTILINE | re.DOTALL)
+                        for matchNum, match in enumerate(matches, start=1):
+                            dictOfFormulas[formula.name()] = modelContent[
+                                                             match.start() + len(formula.name()) + 2:match.end() - 1:]
+
+                v.add(
+                    Distinct(s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19))
+                v.add(
+                    Distinct(r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19))
+                v.add(Distinct(rule30, rule31, rule32, rule33, rule34, rule35, rule36, rule37, rule38, rule39))
+                v.add(Distinct(c0, c1, c2))
+                v.add(Or(auxRule1 == rule30, auxRule1 == rule31, auxRule1 == rule32, auxRule1 == rule33,
+                         auxRule1 == rule34,
+                         auxRule1 == rule35, auxRule1 == rule36, auxRule1 == rule37, auxRule1 == rule38,
+                         auxRule1 == rule39))
+                v.add(Or(auxRule2 == rule30, auxRule2 == rule31, auxRule2 == rule32, auxRule2 == rule33,
+                         auxRule2 == rule34,
+                         auxRule2 == rule35, auxRule2 == rule36, auxRule2 == rule37, auxRule2 == rule38,
+                         auxRule2 == rule39))
+                for formula in dictOfFormulas.keys():
+                    if formula == 'Subject_Graph':
+                        predicate = eval(
+                            dictOfFormulas['Subject_Graph'].replace('(Not(s', '(Not(auxSub1 == s').replace(', Not(s',
+                                                                                                           ', Not(auxSub2 == s')
+                        )
+                        v.add(ForAll([auxSub1, auxSub2], If(predicate,
+                                                            Sub_Graph(auxSub1, auxSub2) == True,
+                                                            Sub_Graph(auxSub1, auxSub2) == False)
+                                     )
+                              )
+                    if formula == 'Resources_Graph':
+                        predicate = eval(
+                            dictOfFormulas['Resources_Graph'].replace('(Not(r',
+                                                                      '(Not(auxRes1 == r').replace(', Not(r',
+                                                                                                   ', Not(auxRes2 == r'))
+                        v.add(ForAll([auxRes1, auxRes2], If(predicate,
+                                                            Res_Graph(auxRes1, auxRes2) == True,
+                                                            Res_Graph(auxRes1, auxRes2) == False)
+                                     )
+                              )
+                    if formula == 'Transitive_Closure_Subject_Graph':
+                        predicate = eval(
+                            dictOfFormulas['Transitive_Closure_Subject_Graph'].replace('(Not(s',
+                                                                                       '(Not(auxSub1 == s').replace(
+                                ', Not(s',
+                                ', Not(auxSub2 == s')
+                        )
+                        v.add(ForAll([auxSub1, auxSub2], If(predicate,
+                                                            Subject_Closure_Graph(auxSub1, auxSub2) == True,
+                                                            Subject_Closure_Graph(auxSub1, auxSub2) == False)
+                                     )
+                              )
+                    if formula == 'Transitive_Closure_Resources_Graph':
+                        predicate = eval(
+                            dictOfFormulas['Transitive_Closure_Resources_Graph'].replace('(Not(r',
+                                                                                         '(Not(auxRes1 == r').replace(
+                                ', Not(r',
+                                ', Not(auxRes2 == r'))
+                        v.add(ForAll([auxRes1, auxRes2], If(predicate,
+                                                            Resource_Closure_Graph(auxRes1, auxRes2) == True,
+                                                            Resource_Closure_Graph(auxRes1, auxRes2) == False)
+                                     )
+                              )
+                    if formula == 'REQUEST_T':
+                        predicate = eval(
+                            dictOfFormulas['REQUEST_T'].replace(', r', ', auxRes1 == r').replace('And(s',
+                                                                                                 'And(auxSub1 == s'))
+                        v.add(ForAll([auxSub1, auxRes1], If(predicate,
+                                                            REQUEST_T(auxSub1, auxRes1) == True,
+                                                            REQUEST_T(auxSub1, auxRes1) == False)))
+
+                    if formula == 'rule_modality':
+                        predicate = eval(
+                            dictOfFormulas['rule_modality'].replace(', Not(p', ', Not(auxModality == p').replace(
+                                'Not(rule', 'Not(auxRule1 == rule'))
+                        v.add(ForAll([auxRule1, auxModality], If(predicate,  # If it is this
+                                                                 rule_modality(auxRule1, auxModality) == True,
+                                                                 # Then True
+                                                                 rule_modality(auxRule1,
+                                                                               auxModality) == False)))  # Else -> False)
+
+                    if formula == 'rule_subject':
+                        predicate = eval(
+                            dictOfFormulas['rule_subject'].replace(', Not(s', ', Not(auxSub1 == s').replace(
+                                'Not(rule', 'Not(auxRule1 == rule'))
+                        v.add(ForAll([auxRule1, auxSub1], If(predicate,  # If it is this
+                                                             rule_subject(auxRule1, auxSub1) == True,  # Then True
+                                                             rule_subject(auxRule1,
+                                                                          auxSub1) == False)))  # Else -> False)
+
+                    if formula == 'rule_resource':
+                        predicate = eval(
+                            dictOfFormulas['rule_resource'].replace(', Not(r', ', Not(auxRes1 == r').replace(
+                                'Not(rule', 'Not(auxRule1 == rule'))
+                        v.add(ForAll([auxRule1, auxRes1], If(predicate,  # If it is this
+                                                             rule_resource(auxRule1, auxRes1) == True,  # Then True
+                                                             rule_resource(auxRule1,
+                                                                           auxRes1) == False)))  # Else -> False)
+
+                    if formula == 'rule_condition':
+                        predicate = eval(dictOfFormulas['rule_condition'].replace(
+                            ', Not(c', ', Not(auxCon == c').replace('Not(rule', 'Not(auxRule1 == rule'))
+                        v.add(ForAll([auxRule1, auxCon], If(predicate,  # If it is this
+                                                            rule_condition(auxRule1, auxCon) == True,  # Then True
+                                                            rule_condition(auxRule1,
+                                                                           auxCon) == False)))  # Else -> False))
+
+                    if formula == 'rule_priority':
+                        predicate = eval(
+                            dictOfFormulas['rule_priority'].replace(', Not(4', ', Not(auxInt == 4').replace(
+                                ', Not(2', ', Not(auxInt == 2').replace(
+                                ', Not(3', ', Not(auxInt == 3').replace(
+                                ', Not(0', ', Not(auxInt == 0').replace(
+                                ', Not(1', ', Not(auxInt == 1').replace('Not(rule', 'Not(auxRule1 == rule'))
+                        v.add(ForAll([auxRule1, auxInt], If(predicate,  # If it is this
+                                                            rule_priority(auxRule1, auxInt) == True,  # Then True
+                                                            rule_priority(auxRule1,
+                                                                          auxInt) == False)))  # Else -> False))
+
+                    if formula == 'lessSpecific':
+                        predicate = eval(dictOfFormulas['lessSpecific'].replace(', Not(r', ', Not(auxRule2 == r').replace(
+                            'Not(r', 'Not(auxRule1 == r'))
+                        v.add(ForAll([auxRule1, auxRule2], If(predicate,
+                                                              lessSpecific(auxRule1, auxRule2),
+                                                              Not(lessSpecific(auxRule1, auxRule2)))))
+
+                    if formula == 'conRule':
+                        predicate = eval(dictOfFormulas['conRule'].replace(', r', ', auxRule1 == r').replace(
+                            'c', 'auxCon == c'))
+                        v.add(ForAll([auxRule1, auxCon], If(predicate,
+                                                            conRule(auxCon, auxRule1),
+                                                            Not(conRule(auxCon, auxRule1)))))
+
+                    if formula == 'applicable':
+                        predicate = eval(dictOfFormulas['applicable'].replace(
+                            ', rule', ', auxRule1 == rule').replace(', r', ', auxRes1 == r').replace('And(s',
+                                                                                                     'And(auxSub1 == s'))
+                        v.add(ForAll([auxRule1, auxSub1, auxRes1], If(predicate,
+                                                                      applicable(auxSub1, auxRes1, auxRule1),
+                                                                      Not(applicable(auxSub1, auxRes1, auxRule1)))))
+
+                    if formula == 'notDomainSub':
+                        predicate = eval(dictOfFormulas['notDomainSub'].replace('(s', '(auxSub1 == s').replace(', s',
+                                                                                                               ', auxSub1 == s'))
+                        v.add(ForAll([auxSub1], If(predicate,
+                                                   notDomainSUB(auxSub1),
+                                                   Not(notDomainSUB(auxSub1)))))
+
+                    if formula == 'notDomainRes':
+                        predicate = eval(dictOfFormulas['notDomainRes'].replace('(r', '(auxRes1 == r').replace(', r',
+                                                                                                               ', auxRes1 == r'))
+                        v.add(ForAll([auxRes1], If(predicate,
+                                                   notDomainRES(auxRes1),
+                                                   Not(notDomainRES(auxRes1)))))
+
+                    if formula == 'maxElem':
+                        predicate = eval(dictOfFormulas['maxElem'].replace(
+                            ', Not(rule', ', Not(auxRule1 == rule').replace(', Not(r', ', Not(auxRes1 == r').replace('Not(s',
+                                                                                                     'Not(auxSub1 == s'))
+                        v.add(ForAll([auxRule1, auxSub1, auxRes1], If(predicate,
+                                                                      maxElem(auxSub1, auxRes1, auxRule1),
+                                                                      Not(maxElem(auxSub1, auxRes1, auxRule1)))))
+
+                    if formula == 'isPrecededBy':
+                        dictOfFormulas['isPrecededBy'] = dictOfFormulas['isPrecededBy'].replace(', rule',
+                                                                                                ', auxRule1 == rule').replace(
+                            'And(s', 'And(auxSub1 == s').replace(', r', ', auxRes1 == r')
+
+                        matches = re.finditer(r"auxRule1", dictOfFormulas['isPrecededBy'], re.MULTILINE)
+
+                        for matchNum, match in enumerate(matches, start=1):
+                            if matchNum % 2 == 0:
+                                dictOfFormulas['isPrecededBy'] = list(dictOfFormulas['isPrecededBy'])
+                                dictOfFormulas['isPrecededBy'][match.end() - 1] = '2'
+                                dictOfFormulas['isPrecededBy'] = "".join(dictOfFormulas['isPrecededBy'])
+
+                        predicate = eval(dictOfFormulas['isPrecededBy'])
+                        v.add(ForAll([auxSub1, auxRes1, auxRule1, auxRule2],
+                                     If(predicate,
+                                        isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2),
+                                        Not(isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)))))
+
+                    if formula == 'pseudoSink':
+                        predicate = eval(dictOfFormulas['pseudoSink'].replace('And(s', 'And(auxSub1 == s').replace(
+                            ', rule', ', auxRule1 == rule').replace(', r', ', auxRes1 == r').replace(', c', ', auxCon == c'))
+                        v.add(ForAll([auxSub1, auxRes1, auxCon, auxRule1],
+                                     If(predicate,
+                                        pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
+                                        Not(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1)))))
+
+                    # Declaring the four properties
+                    accessibility = Function('Accessibility', V_SUB, V_RES, CONTEXT, BoolSort())
+                    auxRes1 = Const('auxRes1', V_RES)
+                    auxSub1 = Const('auxSub1', V_SUB)
+                    auxRule1 = Const('auxRule1', rules)
+                    auxCon = Const('auxCon', CONTEXT)
+                    v.add(ForAll([auxSub1, auxRes1, auxCon],
+                                 If(And(ForAll([auxRule1], Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
+                                                                   rule_modality(auxRule1, permission)
+                                                                   )
+                                               ),
+                                        Exists(auxRule1, pseudoSink(auxSub1, auxRes1, auxCon, auxRule1))
+                                        ),
+                                    accessibility(auxSub1, auxRes1, auxCon),
+                                    Not(accessibility(auxSub1, auxRes1, auxCon))
+                                    )
+                                 )
+                          )
+
+                    hiddenDocument = Function('HiddenDocument', CONTEXT, BoolSort())
+                    auxRes1, auxRes2 = Consts('auxRes1 auxRes2', V_RES)
+                    auxSub1 = Const('auxSub1', V_SUB)
+                    auxCon = Const('auxCon', CONTEXT)
+                    auxRule1 = Const('auxRule1', rules)
+                    v.add(ForAll(auxCon,
+                                 If(Exists(auxRes1,
+                                           And(notDomainRES(auxRes1),
+                                               ForAll([auxSub1],
+                                                      Implies(REQUEST_T(auxSub1, auxRes1),
+                                                              Not(ForAll(auxRule1,
+                                                                         Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
+                                                                                 rule_modality(auxRule1, permission)
+                                                                                 )
+                                                                         ),
+                                                                  Exists(auxRule1,
+                                                                         pseudoSink(auxSub1, auxRes1, auxCon, auxRule1))
+                                                                  )
+                                                              )
+                                                      )
+                                               )
+                                           ),
+                                    hiddenDocument(auxCon),
+                                    Not(hiddenDocument(auxCon)
+                                        )
+                                    )
+                                 )
+                          )
+
+                    hiddenDataSet = Function('hiddenDataSet', CONTEXT, V_RES, BoolSort())
+                    auxRes1, auxRes2 = Consts('auxRes1 auxRes2', V_RES)
+                    auxSub1 = Const('auxSub1', V_SUB)
+                    auxCon = Const('auxCon', CONTEXT)
+                    auxRule1 = Const('auxRule1', rules)
+                    v.add(ForAll(auxCon,
+                                 If(Exists(auxRes1,
+                                           And(notDomainRES(auxRes1),
+                                               ForAll([auxSub1],
+                                                      Implies(REQUEST_T(auxSub1, auxRes1),
+                                                              Not(ForAll(auxRule1,
+                                                                         Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
+                                                                                 rule_modality(auxRule1, permission)
+                                                                                 )
+                                                                         ),
+                                                                  Exists(auxRule1,
+                                                                         pseudoSink(auxSub1, auxRes1, auxCon, auxRule1))
+                                                                  )
+                                                              )
+                                                      )
+                                               )
+                                           ),
+                                    hiddenDataSet(auxCon, auxRes1),
+                                    Not(hiddenDataSet(auxCon, auxRes1)
+                                        )
+                                    )
+                                 )
+                          )
+
+                    v.add(ForAll([auxRes1, auxCon],
+                                 If(And(notDomainRES(auxRes1),
+                                        Not(ForAll(auxRule1,
+                                                   Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
+                                                           rule_modality(auxRule1, permission)
+                                                           )
+                                                   ),
+                                            Exists(auxRule1,
+                                                   pseudoSink(auxSub1, auxRes1, auxCon, auxRule1))
+                                            )
+                                        ),
+                                    hiddenDataSet(auxCon, auxRes1),
+                                    Not(hiddenDataSet(auxCon, auxRes1))
+                                    )
+                                 )
+                          )
+
+                    gratingContext = Function('gratingContext', V_SUB, V_RES, CONTEXT, BoolSort())
+                    auxRes1 = Const('auxRes1', V_RES)
+                    auxSub1 = Const('auxSub1', V_SUB)
+                    auxRule1 = Const('auxRule1', rules)
+                    auxCon = Const('auxCon', CONTEXT)
+                    v.add(ForAll([auxSub1, auxRes1, auxCon],
+                                 If(And(ForAll([auxRule1], Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
+                                                                   rule_modality(auxRule1, permission)
+                                                                   )
+                                               ),
+                                        Exists(auxRule1, pseudoSink(auxSub1, auxRes1, auxCon, auxRule1))
+                                        ),
+                                    gratingContext(auxSub1, auxRes1, auxCon),
+                                    Not(gratingContext(auxSub1, auxRes1, auxCon))
+                                    )
+                                 )
+                          )
+
+                    ineffectiveSet = Function('ineffectiveSet', rules, BoolSort())
+                    auxRes1 = Const('auxRes1', V_RES)
+                    auxSub1 = Const('auxSub1', V_SUB)
+                    auxRule1, auxRule2, auxRule3 = Consts('auxRule1 auxRule2 auxRule3', rules)
+                    auxCon = Const('auxCon', CONTEXT)
+                    v.add(ForAll([auxRule1],
+                                 If(Not(Exists([auxSub1, auxRes1, auxCon],
+                                               And(REQUEST_T(auxSub1, auxRes1),
+                                                   conRule(auxCon, auxRule1),
+                                                   pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
+                                                   Or(Not(Exists(auxRule2, And(pseudoSink(auxSub1, auxRes1, auxCon, auxRule2),
+                                                                               auxRule2 != auxRule1))),
+                                                      And(rule_modality(auxRule1, prohibition),
+                                                          ForAll(auxRule3,
+                                                                 Implies(And(pseudoSink(auxSub1, auxRes1, auxCon, auxRule3),
+                                                                             auxRule3 != auxRule1),
+                                                                         rule_modality(auxRule3, permission)
+                                                                         )
+                                                                 )
+                                                          )
+                                                      )
+                                                   )
+                                               )
+                                        ),
+                                    ineffectiveSet(auxRule1),
+                                    Not(ineffectiveSet(auxRule1))
+                                    )
+                                 )
+                          )
+
+                print(v.check())
+                if v.check() == sat:
+                    f = open("model5.txt", "w+")
+                    for variable in v.model():
+                        f.write(str(variable)), f.write("="), f.write(str(v.model()[variable])), f.write("\n")
+                    f.close()
+
+                    dictOfSubstitutions = dict()
+                    chosenVariables = [s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17,
+                                       s18,
+                                       s19,
+                                       r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17,
+                                       r18,
+                                       r19,
+                                       rule30, rule31, rule32, rule33, rule34, rule35, rule36, rule37, rule38, rule39,
+                                       c0,
+                                       c1, c2,
+                                       permission, prohibition]
+
+                    # Rewriting the variables
+                    for variable in chosenVariables:
+                        with open("model5.txt") as f:
+                            for line in f:
+                                matches = re.finditer(r"" + str(variable) + "=", line)
+                                for matchNum, match in enumerate(matches):
+                                    dictOfSubstitutions[variable] = line[match.end():len(line) - 1:]
+                        f.close()
+
+                    with open("model5.txt", 'r') as f:
+                        modelContent = f.read()
+                    f.close()
+                    for key in dictOfSubstitutions.keys():
+                        modelContent = re.sub(r"\b%s\b" % dictOfSubstitutions[key], str(key), modelContent, 0,
+                                              re.MULTILINE)
+                    # Erasing the k!#### and replacing for the variables
+                    modelContent = re.sub(r"(k![0-9]+\(Var\([0-9]\)\)) == ", "", modelContent)
+                    # Erasing k!#### variables
+                    modelContent = re.sub(r"k![0-9]+=(.*?)\n", "", modelContent)
+                    # Erasing weird syntax from the solver (If(Var(0) == ...)
+                    modelContent = re.sub(r"If\(Var\([0-9]\) == [0-9a-zA-Z!]+, [0-9a-zA-Z!]+, [0-9a-zA-Z!]+\)+ == ", "",
+                                          modelContent)
+                    modelContent = re.sub(r"If\(Var\([0-9]\) == [0-9a-zA-Z!]+, [0-9a-zA-Z!]+, ", "", modelContent)
+                    modelContent = re.sub(r"Var\([0-9]\) == ", "", modelContent)
+                    # modelContent = re.sub(r"\[(.*?)else ->[ \n]", "[", modelContent)
+                    modelContent = re.sub(r"\[else ->[ \n]", "[", modelContent)
+                    modelContent = re.sub(r"\[.*?else ->", "[", modelContent)
+                    modelContent = re.sub(r"\[ Or", "[Or", modelContent)
+                    f = open("model5.txt", "w+")
+                    f.write(modelContent)
+                    f.close()
