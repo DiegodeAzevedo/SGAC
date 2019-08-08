@@ -476,6 +476,10 @@ if s.check() == sat:
     r.add(Distinct(s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19))
     r.add(Distinct(r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19))
     r.add(Distinct(rule30, rule31, rule32, rule33, rule34, rule35, rule36, rule37, rule38, rule39))
+    r.add(Or(auxRule1 == rule30, auxRule1 == rule31, auxRule1 == rule32, auxRule1 == rule33, auxRule1 == rule34,
+             auxRule1 == rule35, auxRule1 == rule36, auxRule1 == rule37, auxRule1 == rule38, auxRule1 == rule39))
+    r.add(Or(auxRule2 == rule30, auxRule2 == rule31, auxRule2 == rule32, auxRule2 == rule33, auxRule2 == rule34,
+             auxRule2 == rule35, auxRule2 == rule36, auxRule2 == rule37, auxRule2 == rule38, auxRule2 == rule39))
     for formula in dictOfFormulas.keys():
         if formula == 'Subject_Graph':
             predicate = eval(
@@ -592,6 +596,131 @@ if s.check() == sat:
             r.add(ForAll([auxRes1], If(predicate,
                                        notDomainRES(auxRes1),
                                        Not(notDomainRES(auxRes1)))))
+
+        maxElem = Function('maxElem', V_SUB, V_RES, rules, BoolSort())
+        auxRes1 = Const('auxRes1', V_RES)
+        auxSub1 = Const('auxSub1', V_SUB)
+        auxRule1, auxRule2 = Consts('auxRule1 auxRule2', rules)
+        r.add(ForAll([auxSub1, auxRes1, auxRule1],
+                     Implies(And(applicable(auxSub1, auxRes1, auxRule1),
+                                 Not(Exists(auxRule2, And(applicable(auxSub1, auxRes1, auxRule2),
+                                                          lessSpecific(auxRule1, auxRule2)
+                                                          )
+                                            )
+                                     ),
+                                 REQUEST_T(auxSub1, auxRes1)
+                                 ),
+                             maxElem(auxSub1, auxRes1, auxRule1))
+                     )
+              )
+
+        isPrecededBy = Function('isPrecededBy', V_SUB, V_RES, rules, rules, BoolSort())
+        auxRule1, auxRule2, auxRule3 = Consts('auxRule1 auxRule2 auxRule3', rules)
+        auxRes1 = Const('auxRes1', V_RES)
+        auxSub1 = Const('auxSub1', V_SUB)
+        r.add(Implies(isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2),
+                      And(REQUEST_T(auxSub1, auxRes1),  # xx == (auxSub1, auxRes1) == REQUEST_T
+                          applicable(auxSub1, auxRes1, auxRule1),  # auxRule1 == yy, yy : applicable(xx)
+                          applicable(auxSub1, auxRes1, auxRule2),  # auxRule2 == zz, zz : applicable(xx)
+                          auxRule1 != auxRule2,  # yy != zz
+                          Or(lessSpecific(auxRule1, auxRule2),  # yy|->zz : lessSpecific OR
+                             And(maxElem(auxSub1, auxRes1, auxRule1),
+                                 maxElem(auxSub1, auxRes1, auxRule2),
+                                 rule_modality(auxRule1, permission),  # rules(yy))'mo = per
+                                 rule_modality(auxRule2, prohibition)  # rules(zz))'mo = pro
+                                 )
+                             )
+                          )
+                      )
+              )
+        r.add(ForAll([auxSub1, auxRes1, auxRule1, auxRule2],
+                     Implies(And(REQUEST_T(auxSub1, auxRes1),  # xx == (auxSub1, auxRes1) == REQUEST_T
+                                 applicable(auxSub1, auxRes1, auxRule1),  # auxRule1 == yy, yy : applicable(xx)
+                                 applicable(auxSub1, auxRes1, auxRule2),  # auxRule2 == zz, zz : applicable(xx)
+                                 auxRule1 != auxRule2,  # yy != zz
+                                 Or(lessSpecific(auxRule1, auxRule2),  # yy|->zz : lessSpecific OR
+                                    And(maxElem(auxSub1, auxRes1, auxRule1),
+                                        maxElem(auxSub1, auxRes1, auxRule2),
+                                        rule_modality(auxRule1, permission),  # rules(yy))'mo = per
+                                        rule_modality(auxRule2, prohibition)  # rules(zz))'mo = pro
+                                        )
+                                    )
+                                 ), isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)
+                             )
+                     )
+              )
+
+        pseudoSink = Function('pseudoSink', V_SUB, V_RES, CONTEXT, rules, BoolSort())
+        auxRes1 = Const('auxRes1', V_RES)
+        auxSub1 = Const('auxSub1', V_SUB)
+        auxRule1, auxRule2 = Consts('auxRule1 auxRule2', rules)
+        auxCon = Const('auxCon', CONTEXT)
+        r.add(ForAll([auxSub1, auxRes1, auxCon, auxRule1],
+                     If(And(REQUEST_T(auxSub1, auxRes1),
+                            applicable(auxSub1, auxRes1, auxRule1),
+                            conRule(auxCon, auxRule1),
+                            Not(Exists(auxRule2,
+                                       And(applicable(auxSub1, auxRes1, auxRule2),
+                                           conRule(auxCon, auxRule2),
+                                           isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2))))),
+                        pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
+                        Not(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1))
+                        )
+                     )
+              )
+        r.add(Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
+                      And(REQUEST_T(auxSub1, auxRes1),
+                          applicable(auxSub1, auxRes1, auxRule1),
+                          conRule(auxCon, auxRule1),
+                          Not(Exists(auxRule2,
+                                     And(applicable(auxSub1, auxRes1, auxRule2),
+                                         conRule(auxCon, auxRule2),
+                                         isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)))))
+                      )
+              )
+
     print(r.check())
     if r.check() == sat:
-        print(r.model())
+        # print(r.model()[isPrecededBy])
+        f = open("model2.txt", "w+")
+        for variable in r.model():
+            f.write(str(variable)), f.write("="), f.write(str(r.model()[variable])), f.write("\n")
+        f.close()
+
+        dictOfSubstitutions = dict()
+        chosenVariables = [s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19,
+                           r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19,
+                           rule30, rule31, rule32, rule33, rule34, rule35, rule36, rule37, rule38, rule39, c0, c1, c2,
+                           permission, prohibition]
+
+        # Rewriting the variables
+        for variable in chosenVariables:
+            with open("model2.txt") as f:
+                for line in f:
+                    matches = re.finditer(r"" + str(variable) + "=", line)
+                    for matchNum, match in enumerate(matches):
+                        dictOfSubstitutions[variable] = line[match.end():len(line) - 1:]
+            f.close()
+
+        with open("model2.txt", 'r') as f:
+            modelContent = f.read()
+        f.close()
+        for key in dictOfSubstitutions.keys():
+            print(key, dictOfSubstitutions[key])
+            modelContent = re.sub(r"\b%s\b" % dictOfSubstitutions[key], str(key), modelContent, 0, re.MULTILINE)
+        # Erasing the k!#### and replacing for the variables
+        modelContent = re.sub(r"(k![0-9]+\(Var\([0-9]\)\)) == ", "", modelContent)
+        # Erasing k!#### variables
+        modelContent = re.sub(r"k![0-9]+=(.*?)\n", "", modelContent)
+        # Erasing weird syntax from the solver (If(Var(0) == ...)
+        modelContent = re.sub(r"If\(Var\([0-9]\) == [0-9a-zA-Z!]+, [0-9a-zA-Z!]+, [0-9a-zA-Z!]+\)+ == ", "",
+                              modelContent)
+        modelContent = re.sub(r"If\(Var\([0-9]\) == [0-9a-zA-Z!]+, [0-9a-zA-Z!]+, ", "", modelContent)
+        modelContent = re.sub(r"Var\([0-9]\) == ", "", modelContent)
+        # modelContent = re.sub(r"\[(.*?)else ->[ \n]", "[", modelContent)
+        modelContent = re.sub(r"\[else ->[ \n]", "[", modelContent)
+        modelContent = re.sub(r"\[.*?else ->", "[", modelContent)
+        modelContent = re.sub(r"\[ Or", "[Or", modelContent)
+        f = open("model2.txt", "w+")
+        f.write(modelContent)
+        f.close()

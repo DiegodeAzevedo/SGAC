@@ -1,7 +1,7 @@
 rule36=rule36
 r12=r12
 rule37=rule37
-auxRule1=rule37
+auxRule1=rule31
 rule35=rule35
 s8=s8
 rule31=rule31
@@ -16,8 +16,8 @@ prohibition=prohibition
 c0=c0
 c1=c1
 r8=r8
-auxSub1=s1
-auxRes1=r14
+auxSub1=s8
+auxRes1=r13
 s9=s9
 permission=permission
 rule33=rule33
@@ -58,68 +58,68 @@ r5=r5
 rule34=rule34
 s4=s4
 r13=r13
-applicable=[Or(And(s1, r5, rule36),
-    And(s1, r3, rule32),
-    And(s1, r3, rule38),
-    And(s1, r1, rule36),
-    And(s1, r1, rule32),
-    And(s1, r3, rule34),
-    And(s1, r5, rule32),
-    And(s0, r3, rule34),
-    And(s0, r1, rule33),
-    And(s0, r3, rule32),
-    And(s0, r1, rule36),
-    And(s0, r1, rule34),
-    And(s0, r5, rule32),
-    And(s4, r5, rule32),
-    And(s0, r5, rule38),
-    And(s0, r1, rule38),
-    And(s1, r1, rule38),
-    And(s1, r1, rule33),
-    And(s1, r5, rule33),
-    And(s0, r5, rule33),
-    And(s0, r3, rule38),
-    And(s1, r3, rule30),
-    And(s1, r1, rule30),
-    And(s0, r5, rule34),
-    And(s1, r5, rule38),
-    And(s0, r3, rule30),
-    And(s0, r0, rule38),
-    And(s4, r3, rule32),
-    And(s0, r1, rule30),
-    And(s4, r5, rule33),
-    And(s0, r1, rule32),
-    And(s4, r1, rule30),
-    And(s0, r5, rule36),
-    And(s4, r1, rule33),
-    And(s4, r1, rule32),
+applicable=[Or(And(s1, r1, rule33),
     And(s1, r0, rule38),
-    And(s1, r1, rule34),
-    And(s1, r5, rule34),
+    And(s1, r5, rule38),
+    And(s0, r5, rule33),
+    And(s4, r5, rule33),
     And(s1, r5, rule30),
-    And(s1, r0, rule30),
-    And(s1, r3, rule37),
-    And(s4, r3, rule30),
-    And(s0, r5, rule30),
-    And(s0, r0, rule32),
-    And(s0, r0, rule30),
-    And(s0, r3, rule35),
-    And(s0, r5, rule35),
-    And(s4, r5, rule30),
-    And(s0, r0, rule35),
-    And(s0, r1, rule35),
-    And(s0, r0, rule39),
-    And(s0, r3, rule37),
+    And(s1, r3, rule38),
+    And(s0, r0, rule38),
+    And(s1, r5, rule33),
+    And(s0, r3, rule38),
     And(s4, r5, rule36),
+    And(s4, r5, rule30),
+    And(s4, r1, rule30),
+    And(s4, r3, rule32),
+    And(s0, r5, rule36),
+    And(s0, r5, rule32),
+    And(s0, r1, rule30),
+    And(s1, r1, rule36),
+    And(s0, r3, rule30),
+    And(s1, r5, rule32),
+    And(s1, r3, rule30),
+    And(s4, r5, rule32),
+    And(s1, r1, rule30),
+    And(s1, r3, rule34),
+    And(s1, r1, rule32),
+    And(s1, r5, rule34),
+    And(s0, r1, rule33),
+    And(s0, r1, rule34),
+    And(s1, r1, rule34),
+    And(s0, r5, rule34),
+    And(s0, r5, rule30),
     And(s0, r3, rule39),
-    And(s4, r3, rule37),
-    And(s0, r5, rule39),
+    And(s0, r3, rule37),
     And(s0, r1, rule39),
-    And(s0, r0, rule31),
-    And(s4, r1, rule36),
+    And(s1, r0, rule30),
+    And(s1, r1, rule38),
+    And(s4, r0, rule32),
+    And(s0, r3, rule34),
+    And(s0, r5, rule39),
+    And(s4, r1, rule33),
     And(s1, r0, rule32),
+    And(s0, r1, rule32),
+    And(s0, r1, rule38),
+    And(s0, r5, rule35),
+    And(s0, r3, rule32),
+    And(s0, r1, rule35),
+    And(s0, r3, rule35),
+    And(s0, r1, rule36),
+    And(s1, r5, rule36),
+    And(s4, r3, rule30),
+    And(s1, r3, rule37),
+    And(s1, r3, rule32),
+    And(s4, r3, rule37),
+    And(s4, r1, rule32),
+    And(s4, r1, rule36),
+    And(s0, r0, rule32),
+    And(s0, r0, rule35),
     And(s4, r0, rule30),
-    And(s4, r0, rule32))]
+    And(s0, r0, rule31),
+    And(s0, r5, rule38),
+    And(s0, r0, rule30),
+    And(s0, r0, rule39))]
 rule_modality=[Or(Not(Or(Not(rule30), Not(prohibition))), Not(Or(Not(rule31), Not(permission))), Not(Or(Not(rule32), Not(permission))), Not(Or(Not(rule33), Not(permission))), Not(Or(Not(rule34), Not(prohibition))), Not(Or(Not(rule35), Not(prohibition))), Not(Or(Not(rule36), Not(permission))), Not(Or(Not(rule37), Not(prohibition))), Not(Or(Not(rule38), Not(prohibition))), Not(Or(Not(rule39), Not(permission))))]
 rule_subject=[Or(And(rule39, s0), And(rule38, s8), And(rule37, s14), And(rule36, s13), And(rule35, s7), And(rule34, s3), And(rule33, s13), And(rule32, s11), And(rule31, s7), And(rule30, s19))]
 Resources_Graph=[Or(And(r19, r18),
@@ -470,8 +470,8 @@ Transitive_Closure_Resources_Graph=[Or(And(r19, r18),
     And(r6, r1),
     And(r4, r3),
     And(r2, r1))]
-REQUEST_T=[Or(And(s4, r3), And(s0, r3), And(s0, r0), And(s0, r1), And(s0, r5), And(s1, r3), And(s1, r1), And(s4, r1), And(s4, r5), And(s1, r0), And(s1, r5), And(s4, r0))]
-notDomainSub=[Or(s0, s1, s4)]
+REQUEST_T=[Or(And(s1, r3), And(s1, r1), And(s1, r5), And(s1, r0), And(s4, r3), And(s4, r5), And(s0, r3), And(s4, r1), And(s4, r0), And(s0, r5), And(s0, r1), And(s0, r0))]
+notDomainSub=[Or(s1, s4, s0)]
 rule_resource=[Or(And(rule39, r14), And(rule38, r15), And(rule37, r4), And(rule36, r6), And(rule35, r11), And(rule34, r8), And(rule33, r6), And(rule32, r14), And(rule31, r0), And(rule30, r17))]
 Subject_Graph=[Or(And(s19, s18),
     And(s19, s16),
@@ -545,7 +545,6 @@ rule_condition=[Or(And(rule39, c1),
     And(rule31, c0),
     And(rule30, c0),
     And(rule30, c2))]
-notDomainRES=[Or(r3, r1, r5, r0)]
 conRule=[Or(And(c1, rule39),
     And(c0, rule39),
     And(c0, rule38),
@@ -562,3 +561,4 @@ conRule=[Or(And(c1, rule39),
     And(c0, rule31),
     And(c0, rule30),
     And(c2, rule30))]
+notDomainRes=[Or(r3, r5, r1, r0)]

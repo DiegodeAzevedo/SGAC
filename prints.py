@@ -4,6 +4,6 @@ for x in range(30, 40):
 print(message)
 
 message = ''
-for x in range(0, 20):
-    message += "auxSub1 == s"+str(x)+", "
+for x in range(30, 40):
+    message += "auxRule2 == rule"+str(x)+", "
 print(message)

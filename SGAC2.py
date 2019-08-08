@@ -1046,7 +1046,7 @@ if s.check() == sat:
         modelContent = f.read()
     f.close()
     for key in dictOfSubstitutions.keys():
-        modelContent = re.sub(r"" + str(dictOfSubstitutions[key]) + "", str(key), modelContent)
+        modelContent = re.sub(r"\b%s\b" % dictOfSubstitutions[key], str(key), modelContent, 0, re.MULTILINE)
     # Erasing the k!#### and replacing for the variables
     modelContent = re.sub(r"(k![0-9]+\(Var\([0-9]\)\)) == ", "", modelContent)
     # Erasing k!#### variables
