@@ -610,18 +610,12 @@ maxElem = Function('maxElem', V_SUB, V_RES, rules, BoolSort())
 auxRes1 = Const('auxRes1', V_RES)
 auxSub1 = Const('auxSub1', V_SUB)
 auxRule1, auxRule2 = Consts('auxRule1 auxRule2', rules)
-s.add(ForAll([auxSub1, auxRes1, auxRule1],
-             Implies(And(applicable(auxSub1, auxRes1, auxRule1),
-                         Not(Exists(auxRule2, And(applicable(auxSub1, auxRes1, auxRule2),
-                                                  lessSpecific(auxRule1, auxRule2)
-                                                  )
-                                    )
-                             ),
-                         REQUEST_T(auxSub1, auxRes1)
-                         ),
-                     maxElem(auxSub1, auxRes1, auxRule1))
-             )
-      )
+s.add(ForAll([auxSub1, auxRes1, auxRule1], If(And(applicable(auxSub1, auxRes1, auxRule1),
+                                                  Not(Exists(auxRule2,
+                                                             And(applicable(auxSub1, auxRes1, auxRule2),
+                                                                 lessSpecific(auxRule1, auxRule2))))),
+                                              maxElem(auxSub1, auxRes1, auxRule1),
+                                              Not(maxElem(auxSub1, auxRes1, auxRule1)))))
 # s.add(maxElem(s0, r0, rule35), maxElem(s0, r0, rule38),
 #       maxElem(s0, r1, rule35), maxElem(s0, r1, rule38),
 #       maxElem(s0, r3, rule35), maxElem(s0, r3, rule38),
@@ -1023,7 +1017,7 @@ if s.check() == sat:
     # print(s.model()[checkAccess_s1r1C1])
 
 
-    f = open("model.txt", "w+")
+    f = open("modelCorrect.txt", "w+")
     for variable in s.model():
         f.write(str(variable)), f.write("="), f.write(str(s.model()[variable])), f.write("\n")
     f.close()
@@ -1036,13 +1030,13 @@ if s.check() == sat:
 
     # Rewriting the variables
     for variable in chosenVariables:
-        with open("model.txt") as f:
+        with open("modelCorrect.txt") as f:
             for line in f:
                 matches = re.finditer(r"" + str(variable) + "=", line)
                 for matchNum, match in enumerate(matches):
                     dictOfSubstitutions[variable] = line[match.end():len(line) - 1:]
         f.close()
-    with open("model.txt", 'r') as f:
+    with open("modelCorrect.txt", 'r') as f:
         modelContent = f.read()
     f.close()
     for key in dictOfSubstitutions.keys():
@@ -1054,6 +1048,6 @@ if s.check() == sat:
     # Erasing weird syntax from the solver (If(Var(0) == ...)
     modelContent = re.sub(r"If\(Var\([0-9]\) == [0-9a-zA-Z!]+, [0-9a-zA-Z!]+, [0-9a-zA-Z!]+\)+ == ", "", modelContent)
     modelContent = re.sub(r"If\(Var\([0-9]\) == [0-9a-zA-Z!]+, [0-9a-zA-Z!]+, ", "", modelContent)
-    f = open("model.txt", "w+")
+    f = open("modelCorrect.txt", "w+")
     f.write(modelContent)
     f.close()

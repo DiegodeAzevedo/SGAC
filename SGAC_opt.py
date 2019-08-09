@@ -602,83 +602,12 @@ if s.check() == sat:
         auxRes1 = Const('auxRes1', V_RES)
         auxSub1 = Const('auxSub1', V_SUB)
         auxRule1, auxRule2 = Consts('auxRule1 auxRule2', rules)
-        r.add(ForAll([auxSub1, auxRes1, auxRule1],
-                     Implies(And(applicable(auxSub1, auxRes1, auxRule1),
-                                 Not(Exists(auxRule2, And(applicable(auxSub1, auxRes1, auxRule2),
-                                                          lessSpecific(auxRule1, auxRule2)
-                                                          )
-                                            )
-                                     ),
-                                 REQUEST_T(auxSub1, auxRes1)
-                                 ),
-                             maxElem(auxSub1, auxRes1, auxRule1))
-                     )
-              )
-
-        # isPrecededBy = Function('isPrecededBy', V_SUB, V_RES, rules, rules, BoolSort())
-        # auxRule1, auxRule2, auxRule3 = Consts('auxRule1 auxRule2 auxRule3', rules)
-        # auxRes1 = Const('auxRes1', V_RES)
-        # auxSub1 = Const('auxSub1', V_SUB)
-        # r.add(Implies(isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2),
-        #               And(REQUEST_T(auxSub1, auxRes1),  # xx == (auxSub1, auxRes1) == REQUEST_T
-        #                   applicable(auxSub1, auxRes1, auxRule1),  # auxRule1 == yy, yy : applicable(xx)
-        #                   applicable(auxSub1, auxRes1, auxRule2),  # auxRule2 == zz, zz : applicable(xx)
-        #                   auxRule1 != auxRule2,  # yy != zz
-        #                   Or(lessSpecific(auxRule1, auxRule2),  # yy|->zz : lessSpecific OR
-        #                      And(maxElem(auxSub1, auxRes1, auxRule1),
-        #                          maxElem(auxSub1, auxRes1, auxRule2),
-        #                          rule_modality(auxRule1, permission),  # rules(yy))'mo = per
-        #                          rule_modality(auxRule2, prohibition)  # rules(zz))'mo = pro
-        #                          )
-        #                      )
-        #                   )
-        #               )
-        #       )
-        # r.add(ForAll([auxSub1, auxRes1, auxRule1, auxRule2],
-        #              Implies(And(REQUEST_T(auxSub1, auxRes1),  # xx == (auxSub1, auxRes1) == REQUEST_T
-        #                          applicable(auxSub1, auxRes1, auxRule1),  # auxRule1 == yy, yy : applicable(xx)
-        #                          applicable(auxSub1, auxRes1, auxRule2),  # auxRule2 == zz, zz : applicable(xx)
-        #                          auxRule1 != auxRule2,  # yy != zz
-        #                          Or(lessSpecific(auxRule1, auxRule2),  # yy|->zz : lessSpecific OR
-        #                             And(maxElem(auxSub1, auxRes1, auxRule1),
-        #                                 maxElem(auxSub1, auxRes1, auxRule2),
-        #                                 rule_modality(auxRule1, permission),  # rules(yy))'mo = per
-        #                                 rule_modality(auxRule2, prohibition)  # rules(zz))'mo = pro
-        #                                 )
-        #                             )
-        #                          ), isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)
-        #                      )
-        #              )
-        #       )
-
-        # pseudoSink = Function('pseudoSink', V_SUB, V_RES, CONTEXT, rules, BoolSort())
-        # auxRes1 = Const('auxRes1', V_RES)
-        # auxSub1 = Const('auxSub1', V_SUB)
-        # auxRule1, auxRule2 = Consts('auxRule1 auxRule2', rules)
-        # auxCon = Const('auxCon', CONTEXT)
-        # r.add(ForAll([auxSub1, auxRes1, auxCon, auxRule1],
-        #              If(And(REQUEST_T(auxSub1, auxRes1),
-        #                     applicable(auxSub1, auxRes1, auxRule1),
-        #                     conRule(auxCon, auxRule1),
-        #                     Not(Exists(auxRule2,
-        #                                And(applicable(auxSub1, auxRes1, auxRule2),
-        #                                    conRule(auxCon, auxRule2),
-        #                                    isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2))))),
-        #                 pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
-        #                 Not(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1))
-        #                 )
-        #              )
-        #       )
-        # r.add(Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
-        #               And(REQUEST_T(auxSub1, auxRes1),
-        #                   applicable(auxSub1, auxRes1, auxRule1),
-        #                   conRule(auxCon, auxRule1),
-        #                   Not(Exists(auxRule2,
-        #                              And(applicable(auxSub1, auxRes1, auxRule2),
-        #                                  conRule(auxCon, auxRule2),
-        #                                  isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)))))
-        #               )
-        #       )
+        r.add(ForAll([auxSub1, auxRes1, auxRule1], If(And(applicable(auxSub1, auxRes1, auxRule1),
+                                                          Not(Exists(auxRule2,
+                                                                     And(applicable(auxSub1, auxRes1, auxRule2),
+                                                                         lessSpecific(auxRule1, auxRule2))))),
+                                                      maxElem(auxSub1, auxRes1, auxRule1),
+                                                      Not(maxElem(auxSub1, auxRes1, auxRule1)))))
 
     print(r.check())
     if r.check() == sat:
@@ -800,7 +729,7 @@ if s.check() == sat:
                       )
             if formula == 'REQUEST_T':
                 predicate = eval(
-                    dictOfFormulas['REQUEST_T'].replace(', r', ', auxRes1 == r').replace('And(s', 'And(auxSub1 == s'))
+                    dictOfFormulas['REQUEST_T'].replace(', Not(r', ', Not(auxRes1 == r').replace('Not(s', 'Not(auxSub1 == s'))
                 q.add(ForAll([auxSub1, auxRes1], If(predicate,
                                                     REQUEST_T(auxSub1, auxRes1) == True,
                                                     REQUEST_T(auxSub1, auxRes1) == False)))
@@ -895,40 +824,41 @@ if s.check() == sat:
             auxRule1, auxRule2, auxRule3 = Consts('auxRule1 auxRule2 auxRule3', rules)
             auxRes1 = Const('auxRes1', V_RES)
             auxSub1 = Const('auxSub1', V_SUB)
-            q.add(Implies(isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2),
-                          And(REQUEST_T(auxSub1, auxRes1),  # xx == (auxSub1, auxRes1) == REQUEST_T
-                              applicable(auxSub1, auxRes1, auxRule1),  # auxRule1 == yy, yy : applicable(xx)
-                              applicable(auxSub1, auxRes1, auxRule2),  # auxRule2 == zz, zz : applicable(xx)
-                              auxRule1 != auxRule2,  # yy != zz
-                              Or(lessSpecific(auxRule1, auxRule2),  # yy|->zz : lessSpecific OR
-                                 And(maxElem(auxSub1, auxRes1, auxRule1),
-                                     maxElem(auxSub1, auxRes1, auxRule2),
-                                     rule_modality(auxRule1, permission),  # rules(yy))'mo = per
-                                     rule_modality(auxRule2, prohibition)  # rules(zz))'mo = pro
-                                     )
-                                 )
-                              )
-                          )
-                  )
             q.add(ForAll([auxSub1, auxRes1, auxRule1, auxRule2],
-                         Implies(And(REQUEST_T(auxSub1, auxRes1),  # xx == (auxSub1, auxRes1) == REQUEST_T
-                                     applicable(auxSub1, auxRes1, auxRule1),  # auxRule1 == yy, yy : applicable(xx)
-                                     applicable(auxSub1, auxRes1, auxRule2),  # auxRule2 == zz, zz : applicable(xx)
-                                     auxRule1 != auxRule2,  # yy != zz
-                                     Or(lessSpecific(auxRule1, auxRule2),  # yy|->zz : lessSpecific OR
-                                        And(maxElem(auxSub1, auxRes1, auxRule1),
-                                            maxElem(auxSub1, auxRes1, auxRule2),
-                                            rule_modality(auxRule1, permission),  # rules(yy))'mo = per
-                                            rule_modality(auxRule2, prohibition)  # rules(zz))'mo = pro
-                                            )
-                                        )
-                                     ), isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)
-                                 )
+                         Implies(And(applicable(auxSub1, auxRes1, auxRule1),
+                                applicable(auxSub1, auxRes1, auxRule2),
+                                auxRule1 != auxRule2,
+                                Or(lessSpecific(auxRule1, auxRule2),
+                                   And(maxElem(auxSub1, auxRes1, auxRule1),
+                                       maxElem(auxSub1, auxRes1, auxRule2),
+                                       rule_modality(auxRule1, permission),
+                                       rule_modality(auxRule2, prohibition)
+                                       )
+                                   )
+                                ),
+                            isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)
+                            )
                          )
                   )
+            # q.add(Implies(isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2),
+            #               And(REQUEST_T(auxSub1, auxRes1),
+            #                   applicable(auxSub1, auxRes1, auxRule1),
+            #                   applicable(auxSub1, auxRes1, auxRule2),
+            #                   auxRule1 != auxRule2,
+            #                   Or(lessSpecific(auxRule1, auxRule2),
+            #                      And(maxElem(auxSub1, auxRes1, auxRule1),
+            #                          maxElem(auxSub1, auxRes1, auxRule2),
+            #                          rule_modality(auxRule1, permission),
+            #                          rule_modality(auxRule2, prohibition)
+            #                          )
+            #                      )
+            #                   )
+            #               )
+            #       )
 
         print(q.check())
         if q.check() == sat:
+            print(q.model()[isPrecededBy])
             f = open("model3.txt", "w+")
             for variable in q.model():
                 f.write(str(variable)), f.write("="), f.write(str(q.model()[variable])), f.write("\n")
@@ -1161,7 +1091,6 @@ if s.check() == sat:
                 if formula == 'isPrecededBy':
                     dictOfFormulas['isPrecededBy'] = dictOfFormulas['isPrecededBy'].replace(', rule', ', auxRule1 == rule').replace(
                         'And(s', 'And(auxSub1 == s').replace(', r', ', auxRes1 == r')
-
                     matches = re.finditer(r"auxRule1", dictOfFormulas['isPrecededBy'], re.MULTILINE)
 
                     for matchNum, match in enumerate(matches, start=1):
@@ -1182,28 +1111,26 @@ if s.check() == sat:
                 auxRule1, auxRule2 = Consts('auxRule1 auxRule2', rules)
                 auxCon = Const('auxCon', CONTEXT)
                 u.add(ForAll([auxSub1, auxRes1, auxCon, auxRule1],
-                             If(And(REQUEST_T(auxSub1, auxRes1),
-                                    applicable(auxSub1, auxRes1, auxRule1),
+                             If(And(applicable(auxSub1, auxRes1, auxRule1),
                                     conRule(auxCon, auxRule1),
-                                    Not(Exists(auxRule2,
-                                               And(applicable(auxSub1, auxRes1, auxRule2),
-                                                   conRule(auxCon, auxRule2),
-                                                   isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2))))),
+                                    ForAll([auxRule2],
+                                           Implies(isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2),
+                                                   Not(conRule(auxCon, auxRule2))))),
                                 pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
                                 Not(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1))
                                 )
                              )
                       )
-                u.add(Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
-                              And(REQUEST_T(auxSub1, auxRes1),
-                                  applicable(auxSub1, auxRes1, auxRule1),
-                                  conRule(auxCon, auxRule1),
-                                  Not(Exists(auxRule2,
-                                             And(applicable(auxSub1, auxRes1, auxRule2),
-                                                 conRule(auxCon, auxRule2),
-                                                 isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)))))
-                              )
-                      )
+                # u.add(Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
+                #               And(REQUEST_T(auxSub1, auxRes1),
+                #                   applicable(auxSub1, auxRes1, auxRule1),
+                #                   conRule(auxCon, auxRule1),
+                #                   Not(Exists(auxRule2,
+                #                              And(applicable(auxSub1, auxRes1, auxRule2),
+                #                                  conRule(auxCon, auxRule2),
+                #                                  isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)))))
+                #               )
+                #       )
 
             print(u.check())
             if u.check() == sat:

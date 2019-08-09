@@ -923,10 +923,10 @@ s.add(ForAll([auxSub1, auxRes1, auxCon],
       )
 
 xx, yy = Ints("xx yy")
-# condition0, condition1, condition2 = Bools("c0 c1 c2")
-condition0 = True
-condition1 = False
-condition2 = False
+condition0, condition1, condition2 = Bools("c0 c1 c2")
+condition0 = xx > 0
+condition1 = xx > yy
+condition2 = yy == 10
 
 linkingContextAndConditions = Function('LinkingContextAndConditions', CONTEXT, BoolSort(), BoolSort())
 auxCondition = Const('auxCondition', BoolSort())

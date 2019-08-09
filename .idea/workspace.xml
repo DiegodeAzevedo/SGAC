@@ -15,6 +15,25 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-1149051062">
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="686" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="686" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
@@ -38,7 +57,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SGAC.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4620">
+            <state relative-caret-position="-4315">
               <caret line="220" column="39" selection-start-line="220" selection-start-column="39" selection-end-line="220" selection-end-column="39" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
@@ -50,8 +69,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SGAC2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="875" column="36" selection-start-line="875" selection-start-column="36" selection-end-line="875" selection-end-column="36" />
+            <state relative-caret-position="-3031">
+              <caret line="616" column="17" lean-forward="true" selection-start-line="616" selection-start-column="17" selection-end-line="617" selection-end-column="16" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -62,7 +81,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SGAC3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
+            <state relative-caret-position="4599">
               <caret line="221" column="39" selection-start-line="221" selection-start-column="39" selection-end-line="221" selection-end-column="39" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
@@ -71,11 +90,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SGAC4.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17997">
-              <caret line="857" column="7" selection-start-line="857" selection-start-column="7" selection-end-line="857" selection-end-column="7" />
+            <state relative-caret-position="-1889">
+              <caret line="928" column="17" selection-start-line="928" selection-start-column="17" selection-end-line="928" selection-end-column="17" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -83,11 +102,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SGAC_opt.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="478" column="29" selection-start-line="478" selection-start-column="29" selection-end-line="478" selection-end-column="29" />
+            <state relative-caret-position="-1039">
+              <caret line="838" column="78" selection-start-line="838" selection-start-column="78" selection-end-line="838" selection-end-column="78" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -133,6 +152,8 @@
       <find>conRule'</find>
       <find>model</find>
       <find>ispre</find>
+      <find>isPre</find>
+      <find>maxElem</find>
     </findStrings>
     <replaceStrings>
       <replace>lessSpecific</replace>
@@ -155,12 +176,12 @@
         <option value="$PROJECT_DIR$/functions.py" />
         <option value="$PROJECT_DIR$/set_functions.py" />
         <option value="$PROJECT_DIR$/tutorial.py" />
-        <option value="$PROJECT_DIR$/SGAC4.py" />
         <option value="$PROJECT_DIR$/SGAC3.py" />
         <option value="$PROJECT_DIR$/SGAC.py" />
-        <option value="$PROJECT_DIR$/SGAC2.py" />
         <option value="$PROJECT_DIR$/prints.py" />
+        <option value="$PROJECT_DIR$/SGAC2.py" />
         <option value="$PROJECT_DIR$/SGAC_opt.py" />
+        <option value="$PROJECT_DIR$/SGAC4.py" />
       </list>
     </option>
   </component>
@@ -211,7 +232,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.SGAC_opt">
+  <component name="RunManager" selected="Python.SGAC4">
     <configuration name="SGAC2" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="SGAC" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -282,7 +303,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\dead1401\PycharmProjects\SGAC\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\diego\PycharmProjects\ExemploThreads\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -326,10 +347,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.SGAC_opt" />
-        <item itemvalue="Python.prints" />
-        <item itemvalue="Python.SGAC2" />
         <item itemvalue="Python.SGAC4" />
+        <item itemvalue="Python.SGAC_opt" />
+        <item itemvalue="Python.SGAC2" />
+        <item itemvalue="Python.prints" />
         <item itemvalue="Python.SGAC3" />
       </list>
     </recent_temporary>
@@ -348,15 +369,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.29340938" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32827735" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32614556" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -413,29 +433,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SGAC.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4620">
-          <caret line="220" column="39" selection-start-line="220" selection-start-column="39" selection-end-line="220" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SGAC4.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17997">
-          <caret line="857" column="7" selection-start-line="857" selection-start-column="7" selection-end-line="857" selection-end-column="7" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SGAC3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
+        <state relative-caret-position="4599">
           <caret line="221" column="39" selection-start-line="221" selection-start-column="39" selection-end-line="221" selection-end-column="39" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
@@ -443,10 +443,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SGAC2.py">
+    <entry file="file://$PROJECT_DIR$/SGAC.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="875" column="36" selection-start-line="875" selection-start-column="36" selection-end-line="875" selection-end-column="36" />
+        <state relative-caret-position="-4315">
+          <caret line="220" column="39" selection-start-line="220" selection-start-column="39" selection-end-line="220" selection-end-column="39" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
@@ -455,8 +455,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SGAC_opt.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="478" column="29" selection-start-line="478" selection-start-column="29" selection-end-line="478" selection-end-column="29" />
+        <state relative-caret-position="-1039">
+          <caret line="838" column="78" selection-start-line="838" selection-start-column="78" selection-end-line="838" selection-end-column="78" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGAC2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3031">
+          <caret line="616" column="17" lean-forward="true" selection-start-line="616" selection-start-column="17" selection-end-line="617" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGAC4.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1889">
+          <caret line="928" column="17" selection-start-line="928" selection-start-column="17" selection-end-line="928" selection-end-column="17" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
