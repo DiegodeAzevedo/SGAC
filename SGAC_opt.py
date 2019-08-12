@@ -477,6 +477,7 @@ if s.check() == sat:
     r.add(Distinct(r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19))
     r.add(Distinct(rule30, rule31, rule32, rule33, rule34, rule35, rule36, rule37, rule38, rule39))
     r.add(Distinct(c0, c1, c2))
+    r.add(Distinct(permission, prohibition))
     r.add(Or(auxRule1 == rule30, auxRule1 == rule31, auxRule1 == rule32, auxRule1 == rule33, auxRule1 == rule34,
              auxRule1 == rule35, auxRule1 == rule36, auxRule1 == rule37, auxRule1 == rule38, auxRule1 == rule39))
     r.add(Or(auxRule2 == rule30, auxRule2 == rule31, auxRule2 == rule32, auxRule2 == rule33, auxRule2 == rule34,
@@ -681,6 +682,7 @@ if s.check() == sat:
         q.add(Distinct(r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19))
         q.add(Distinct(rule30, rule31, rule32, rule33, rule34, rule35, rule36, rule37, rule38, rule39))
         q.add(Distinct(c0, c1, c2))
+        q.add(Distinct(permission, prohibition))
         q.add(Or(auxRule1 == rule30, auxRule1 == rule31, auxRule1 == rule32, auxRule1 == rule33, auxRule1 == rule34,
                  auxRule1 == rule35, auxRule1 == rule36, auxRule1 == rule37, auxRule1 == rule38, auxRule1 == rule39))
         q.add(Or(auxRule2 == rule30, auxRule2 == rule31, auxRule2 == rule32, auxRule2 == rule33, auxRule2 == rule34,
@@ -825,40 +827,41 @@ if s.check() == sat:
             auxRes1 = Const('auxRes1', V_RES)
             auxSub1 = Const('auxSub1', V_SUB)
             q.add(ForAll([auxSub1, auxRes1, auxRule1, auxRule2],
-                         Implies(And(applicable(auxSub1, auxRes1, auxRule1),
-                                applicable(auxSub1, auxRes1, auxRule2),
-                                auxRule1 != auxRule2,
-                                Or(lessSpecific(auxRule1, auxRule2),
-                                   And(maxElem(auxSub1, auxRes1, auxRule1),
-                                       maxElem(auxSub1, auxRes1, auxRule2),
-                                       rule_modality(auxRule1, permission),
-                                       rule_modality(auxRule2, prohibition)
-                                       )
-                                   )
-                                ),
-                            isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)
-                            )
+                         Implies(And(REQUEST_T(auxSub1, auxRes1),
+                                     applicable(auxSub1, auxRes1, auxRule1),
+                                     applicable(auxSub1, auxRes1, auxRule2),
+                                     auxRule1 != auxRule2,
+                                     Or(lessSpecific(auxRule1, auxRule2),
+                                        And(maxElem(auxSub1, auxRes1, auxRule1),
+                                            maxElem(auxSub1, auxRes1, auxRule2),
+                                            rule_modality(auxRule1, permission),
+                                            rule_modality(auxRule2, prohibition)
+                                            )
+                                        )
+                                     ),
+                                 isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)
+                                 )
                          )
                   )
-            # q.add(Implies(isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2),
-            #               And(REQUEST_T(auxSub1, auxRes1),
-            #                   applicable(auxSub1, auxRes1, auxRule1),
-            #                   applicable(auxSub1, auxRes1, auxRule2),
-            #                   auxRule1 != auxRule2,
-            #                   Or(lessSpecific(auxRule1, auxRule2),
-            #                      And(maxElem(auxSub1, auxRes1, auxRule1),
-            #                          maxElem(auxSub1, auxRes1, auxRule2),
-            #                          rule_modality(auxRule1, permission),
-            #                          rule_modality(auxRule2, prohibition)
-            #                          )
-            #                      )
-            #                   )
-            #               )
-            #       )
+            q.add(Implies(isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2),
+                          And(REQUEST_T(auxSub1, auxRes1),
+                              applicable(auxSub1, auxRes1, auxRule1),
+                              applicable(auxSub1, auxRes1, auxRule2),
+                              auxRule1 != auxRule2,
+                              Or(lessSpecific(auxRule1, auxRule2),
+                                 And(maxElem(auxSub1, auxRes1, auxRule1),
+                                     maxElem(auxSub1, auxRes1, auxRule2),
+                                     rule_modality(auxRule1, permission),
+                                     rule_modality(auxRule2, prohibition)
+                                     )
+                                 )
+                              )
+                          )
+                  )
+
 
         print(q.check())
         if q.check() == sat:
-            print(q.model()[isPrecededBy])
             f = open("model3.txt", "w+")
             for variable in q.model():
                 f.write(str(variable)), f.write("="), f.write(str(q.model()[variable])), f.write("\n")
@@ -936,6 +939,7 @@ if s.check() == sat:
                 Distinct(r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19))
             u.add(Distinct(rule30, rule31, rule32, rule33, rule34, rule35, rule36, rule37, rule38, rule39))
             u.add(Distinct(c0, c1, c2))
+            u.add(Distinct(permission, prohibition))
             u.add(Or(auxRule1 == rule30, auxRule1 == rule31, auxRule1 == rule32, auxRule1 == rule33,
                      auxRule1 == rule34,
                      auxRule1 == rule35, auxRule1 == rule36, auxRule1 == rule37, auxRule1 == rule38,
@@ -1211,6 +1215,7 @@ if s.check() == sat:
                     Distinct(r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19))
                 v.add(Distinct(rule30, rule31, rule32, rule33, rule34, rule35, rule36, rule37, rule38, rule39))
                 v.add(Distinct(c0, c1, c2))
+                v.add(Distinct(permission, prohibition))
                 v.add(Or(auxRule1 == rule30, auxRule1 == rule31, auxRule1 == rule32, auxRule1 == rule33,
                          auxRule1 == rule34,
                          auxRule1 == rule35, auxRule1 == rule36, auxRule1 == rule37, auxRule1 == rule38,
@@ -1219,6 +1224,10 @@ if s.check() == sat:
                          auxRule2 == rule34,
                          auxRule2 == rule35, auxRule2 == rule36, auxRule2 == rule37, auxRule2 == rule38,
                          auxRule2 == rule39))
+                auxRule3 = Const('auxRule3', rules)
+                v.add(Or(auxRule3 == rule30, auxRule3 == rule31, auxRule3 == rule32, auxRule3 == rule33,
+                         auxRule3 == rule34, auxRule3 == rule35, auxRule3 == rule36, auxRule3 == rule37,
+                         auxRule3 == rule38, auxRule3 == rule39))
                 for formula in dictOfFormulas.keys():
                     if formula == 'Subject_Graph':
                         predicate = eval(
@@ -1265,8 +1274,8 @@ if s.check() == sat:
                               )
                     if formula == 'REQUEST_T':
                         predicate = eval(
-                            dictOfFormulas['REQUEST_T'].replace(', r', ', auxRes1 == r').replace('And(s',
-                                                                                                 'And(auxSub1 == s'))
+                            dictOfFormulas['REQUEST_T'].replace(', Not(r', ', Not(auxRes1 == r').replace('Not(s',
+                                                                                                 'Not(auxSub1 == s'))
                         v.add(ForAll([auxSub1, auxRes1], If(predicate,
                                                             REQUEST_T(auxSub1, auxRes1) == True,
                                                             REQUEST_T(auxSub1, auxRes1) == False)))
@@ -1484,6 +1493,12 @@ if s.check() == sat:
                                  )
                           )
 
+                    UnavailableDocument = Bool('UnavailableDocument')
+                    v.add(Implies(Exists(auxRes1, ForAll([auxCon], hiddenDataSet(auxCon, auxRes1))),
+                                  UnavailableDocument))
+                    v.add(Implies(UnavailableDocument,
+                                  Exists(auxRes1, ForAll([auxCon], hiddenDataSet(auxCon, auxRes1)))))
+
                     gratingContext = Function('gratingContext', V_SUB, V_RES, CONTEXT, BoolSort())
                     auxRes1 = Const('auxRes1', V_RES)
                     auxSub1 = Const('auxSub1', V_SUB)
@@ -1515,10 +1530,10 @@ if s.check() == sat:
                                                    Or(Not(Exists(auxRule2, And(pseudoSink(auxSub1, auxRes1, auxCon, auxRule2),
                                                                                auxRule2 != auxRule1))),
                                                       And(rule_modality(auxRule1, prohibition),
-                                                          ForAll(auxRule3,
-                                                                 Implies(And(pseudoSink(auxSub1, auxRes1, auxCon, auxRule3),
-                                                                             auxRule3 != auxRule1),
-                                                                         rule_modality(auxRule3, permission)
+                                                          ForAll(auxRule2,
+                                                                 Implies(And(pseudoSink(auxSub1, auxRes1, auxCon, auxRule2),
+                                                                             auxRule2 != auxRule1),
+                                                                         rule_modality(auxRule2, permission)
                                                                          )
                                                                  )
                                                           )
@@ -1529,6 +1544,32 @@ if s.check() == sat:
                                     ineffectiveSet(auxRule1),
                                     Not(ineffectiveSet(auxRule1))
                                     )
+                                 )
+                          )
+                    v.add(ForAll([auxRule1], Implies(ineffectiveSet(auxRule1),
+                                                     Not(Exists([auxSub1, auxRes1, auxCon],
+                                                                And(REQUEST_T(auxSub1, auxRes1),
+                                                                    conRule(auxCon, auxRule1),
+                                                                    pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
+                                                                    Or(Not(Exists(auxRule2, And(
+                                                                        pseudoSink(auxSub1, auxRes1, auxCon, auxRule2),
+                                                                        auxRule2 != auxRule1))),
+                                                                       And(rule_modality(auxRule1, prohibition),
+                                                                           ForAll(auxRule2,
+                                                                                  Implies(And(
+                                                                                      pseudoSink(auxSub1, auxRes1,
+                                                                                                 auxCon, auxRule2),
+                                                                                      auxRule2 != auxRule1),
+                                                                                          rule_modality(auxRule2,
+                                                                                                        permission)
+                                                                                          )
+                                                                                  )
+                                                                           )
+                                                                       )
+                                                                    )
+                                                                )
+                                                         )
+                                                     )
                                  )
                           )
 

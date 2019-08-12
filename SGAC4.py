@@ -867,43 +867,6 @@ s.add(Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
               )
       )
 
-# Declaring the four properties
-# checkAccess_s1r0C0 = Bool('checkAccess_s1r0c0')
-# s.add(If(And(ForAll([auxRule1], Implies(pseudoSink(s1, r0, c0, auxRule1),
-#                                         rule_modality(auxRule1, permission)
-#                                         )
-#                     ),
-#              Exists(auxRule1, pseudoSink(s1, r0, c0, auxRule1))
-#              ),
-#          checkAccess_s1r0C0,
-#          Not(checkAccess_s1r0C0)
-#          )
-#       )
-#
-# checkAccess_s1r1C1 = Bool('checkAccess_s1r1c1')
-# s.add(If(And(ForAll([auxRule1], Implies(pseudoSink(s1, r1, c1, auxRule1),
-#                                         rule_modality(auxRule1, permission)
-#                                         )
-#                     ),
-#              Exists(auxRule1, pseudoSink(s1, r1, c1, auxRule1))
-#              ),
-#          checkAccess_s1r1C1,
-#          Not(checkAccess_s1r1C1)
-#          )
-#       )
-#
-# checkAccess_s1r0C1 = Bool('checkAccess_s1r0c1')
-# s.add(If(And(ForAll([auxRule1], Implies(pseudoSink(s1, r0, c1, auxRule1),
-#                                         rule_modality(auxRule1, permission)
-#                                         )
-#                     ),
-#              Exists(auxRule1, pseudoSink(s1, r0, c1, auxRule1))
-#              ),
-#          checkAccess_s1r0C1,
-#          Not(checkAccess_s1r0C1)
-#          )
-#       )
-
 accessibilityWithContext = Function('Accessibility', V_SUB, V_RES, CONTEXT, BoolSort())
 auxRes1 = Const('auxRes1', V_RES)
 auxSub1 = Const('auxSub1', V_SUB)
