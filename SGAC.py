@@ -386,29 +386,20 @@ auxSub1, auxSub2 = Consts('auxSub1 auxSub2', V_SUB)
 s.add(Implies(applicable(auxSub1, auxRes1, auxRule1),
               And(Or(rule_subject(auxRule1, auxSub1),
                      And(Subject_Closure_Graph(auxSub2, auxSub1),
-                         rule_subject(auxRule1, auxSub2))
-                     ),
+                         rule_subject(auxRule1, auxSub2))),
                   Or(rule_resource(auxRule1, auxRes1),
                      And(rule_resource(auxRule1, auxRes2),
-                         Resource_Closure_Graph(auxRes2, auxRes1))
-                     ),
-                  REQUEST_T(auxSub1, auxRes1)
-                  )
-              )
-      )
+                         Resource_Closure_Graph(auxRes2, auxRes1))),
+                  REQUEST_T(auxSub1, auxRes1))))
 s.add(ForAll([auxRes1, auxSub2, auxRule1, auxRes2, auxSub1], Implies(And(Or(rule_subject(auxRule1, auxSub1),
                                                                            And(rule_subject(auxRule1, auxSub2),
                                                                                Subject_Closure_Graph(auxSub2,
                                                                                                      auxSub1))),
                                                                         Or(rule_resource(auxRule1, auxRes1),
                                                                            And(rule_resource(auxRule1, auxRes2),
-                                                                               Resource_Closure_Graph(auxRes2, auxRes1))
-                                                                           ),
-                                                                        REQUEST_T(auxSub1, auxRes1)
-                                                                        ),
-                                                                    applicable(auxSub1, auxRes1, auxRule1))
-             )
-      )
+                                                                               Resource_Closure_Graph(auxRes2, auxRes1))),
+                                                                        REQUEST_T(auxSub1, auxRes1)),
+                                                                    applicable(auxSub1, auxRes1, auxRule1))))
 
 
 maxElem = Function('maxElem', V_SUB, V_RES, rules, BoolSort())

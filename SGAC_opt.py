@@ -186,8 +186,6 @@ notDomainSUB = Function('notDomainSub', V_SUB, BoolSort())
 notDomainRES = Function('notDomainRes', V_RES, BoolSort())
 # Auxiliary variables to the declaration of the predicate of REQUEST_T.
 auxSub1, auxSub2 = Consts('auxSub1 auxSub2', V_SUB)
-# Auxiliary variables to the declaration of the predicate of REQUEST_T.
-auxRes1, auxRes2 = Consts('auxRes1 auxRes2', V_RES)
 # Formulas to describe REQUEST_T
 s.add(ForAll(auxSub1, If(Not(Exists(auxSub2, Sub_Graph(auxSub1, auxSub2))),
                          notDomainSUB(auxSub1), notDomainSUB(auxSub1) == False)))
@@ -1125,16 +1123,14 @@ if s.check() == sat:
                                 )
                              )
                       )
-                # u.add(Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
-                #               And(REQUEST_T(auxSub1, auxRes1),
-                #                   applicable(auxSub1, auxRes1, auxRule1),
-                #                   conRule(auxCon, auxRule1),
-                #                   Not(Exists(auxRule2,
-                #                              And(applicable(auxSub1, auxRes1, auxRule2),
-                #                                  conRule(auxCon, auxRule2),
-                #                                  isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2)))))
-                #               )
-                #       )
+                u.add(Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
+                              And(applicable(auxSub1, auxRes1, auxRule1),
+                                  conRule(auxCon, auxRule1),
+                                  ForAll([auxRule2],
+                                         Implies(isPrecededBy(auxSub1, auxRes1, auxRule1, auxRule2),
+                                                 Not(conRule(auxCon, auxRule2)))))
+                              )
+                      )
 
             print(u.check())
             if u.check() == sat:
@@ -1414,6 +1410,50 @@ if s.check() == sat:
                                         ),
                                     accessibility(auxSub1, auxRes1, auxCon),
                                     Not(accessibility(auxSub1, auxRes1, auxCon))
+                                    )
+                                 )
+                          )
+
+                    xx, yy = Ints("xx yy")
+                    condition0, condition1, condition2 = Bools("c0 c1 c2")
+                    condition0 = xx > 0
+                    condition1 = xx > yy
+                    condition2 = yy == 10
+
+                    linkingContextAndConditions = Function('LinkingContextAndConditions', CONTEXT, BoolSort(),
+                                                           BoolSort())
+                    auxCondition = Const('auxCondition', BoolSort())
+
+                    # linkingContextAndConditions(c0, condition0), linkingContextAndConditions(c1, condition1),
+                    # linkingContextAndConditions(c2, condition2))
+                    s.add(ForAll([auxCon, auxCondition], If(Or(And(auxCon == c0, auxCondition == condition0),
+                                                               And(auxCon == c1, auxCondition == condition1),
+                                                               And(auxCon == c2, auxCondition == condition2)),
+                                                            linkingContextAndConditions(auxCon, auxCondition),
+                                                            Not(linkingContextAndConditions(auxCon, auxCondition)
+                                                                )
+                                                            )
+                                 )
+                          )
+
+                    accessibilityWithConditions = Function('AccessibilityWithConditions', V_SUB, V_RES, CONTEXT,
+                                                           BoolSort())
+                    auxRes1 = Const('auxRes1', V_RES)
+                    auxSub1 = Const('auxSub1', V_SUB)
+                    auxRule1 = Const('auxRule1', rules)
+                    auxCon = Const('auxCon', CONTEXT)
+                    auxCondition = Const('auxCondition', BoolSort())
+                    s.add(ForAll([auxSub1, auxRes1, auxCon],
+                                 If(And(ForAll([auxRule1], Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
+                                                                   rule_modality(auxRule1, permission)
+                                                                   )
+                                               ),
+                                        Exists(auxRule1, pseudoSink(auxSub1, auxRes1, auxCon, auxRule1)),
+                                        ForAll(auxCondition, Implies(linkingContextAndConditions(auxCon, auxCondition),
+                                                                     auxCondition))
+                                        ),
+                                    accessibilityWithConditions(auxSub1, auxRes1, auxCon),
+                                    Not(accessibilityWithConditions(auxSub1, auxRes1, auxCon))
                                     )
                                  )
                           )
