@@ -1,12 +1,15 @@
 from z3 import *
 import set_functions
 import re
+import time
 
 set_param(max_width=3000)
 set_param(max_depth=5000000000000000000000000)
 set_param(max_args=100000000000000)
 set_param(max_lines=10000000000000)
 set_param(max_indent=1000000000000)
+
+ts = time.time()
 
 s = Solver()  # Declaring the Z3 solver and storing it to the variable s.
 
@@ -81,6 +84,7 @@ Python_Sub_Graph = {s0: [], s1: [], s2: [s1], s3: [s0, s1], s4: [], s5: [s0], s6
                     s9: [s1, s2], s10: [s2, s6, s8], s11: [s4, s10], s12: [s0, s6, s7, s9], s13: [s0, s2, s4, s7],
                     s14: [s0, s4, s11, s13], s15: [s1, s6, s12, s14], s16: [s7, s9, s11, s14, s15],
                     s17: [s1, s7, s11, s16], s18: [s2, s3, s5, s6, s7, s17], s19: [s0, s1, s6, s13, s15, s16, s18]}
+
 # Auxiliary graph, used to storage the Subject_Closure_Graph as a python dictionary.
 Python_Subject_Closure_Graph = dict()
 # Creating the Transitive Closure Graph
@@ -159,6 +163,7 @@ Python_Res_Graph = {r0: [], r1: [], r2: [r1], r3: [], r4: [r3], r5: [], r6: [r1,
                     r12: [r0, r1, r4, r10, r11], r13: [r1, r5, r6, r8, r11, r12], r14: [r4, r5, r6, r7, r10],
                     r15: [r5, r9, r10, r12, r14], r16: [r8, r11, r14], r17: [r3, r12, r13, r16],
                     r18: [r1, r4, r5, r10, r15, r17], r19: [r1, r6, r8, r14, r15, r16, r17, r18]}
+
 # Auxiliary graph, used to storage the Subject_Closure_Graph as a python dictionary.
 Python_Resource_Closure_Graph = dict()
 # Creating the Transitive Closure Graph
@@ -179,6 +184,12 @@ if expressionList1:  # If the expression list is not empty. The graph is not emp
     s.add(ForAll([auxRes1, auxRes2], If(Or(expressionList2),
                             Resource_Closure_Graph(auxRes1, auxRes2) == True,
                             Resource_Closure_Graph(auxRes1, auxRes2) == False)))  # Making the remaining false.
+
+predicate = "ForAll([auxSub1, auxSub2], If(Or("
+for expression in expressionList2:
+    predicate += str(expression)+", "
+predicate = predicate[:len(predicate)-2:] + "), Subject_Closure_Graph(auxSub1, auxSub2) == True," \
+                                             " Subject_Closure_Graph(auxSub1, auxSub2) == False))"
 
 # Adding the REQUEST_T constant as a z3 relation between (V_SUB-dom(e_sub)) * (V_RES-dom(e_res))
 REQUEST_T = Function('REQUEST_T', V_SUB, V_RES, BoolSort())
@@ -357,7 +368,6 @@ s.add(Implies(lessSpecific(auxRule1, auxRule2),
                   Or(auxInt1 > auxInt2, And(auxInt1 == auxInt2, Subject_Closure_Graph(auxSub1, auxSub2)))
                   )
               )
-
       )
 s.add(ForAll([auxRule1, auxRule2, auxInt1, auxInt2, auxSub1, auxSub2],
              Implies(And(rule_priority(auxRule1, auxInt1), rule_priority(auxRule2, auxInt2),
@@ -410,6 +420,7 @@ s.add(ForAll([auxRes1, auxSub2, auxRule1, auxRes2, auxSub1], Implies(And(Or(rule
 
 print(s.check())
 if s.check() == sat:
+    print(s.model()[lessSpecific])
     f = open("model.txt", "w+")
     for variable in s.model():
         f.write(str(variable)), f.write("="), f.write(str(s.model()[variable])), f.write("\n")
@@ -1221,9 +1232,38 @@ if s.check() == sat:
                          auxRule2 == rule35, auxRule2 == rule36, auxRule2 == rule37, auxRule2 == rule38,
                          auxRule2 == rule39))
                 auxRule3 = Const('auxRule3', rules)
+                v.add(Not(Exists([auxRes1, auxRes2],
+                                 And(And(auxRes1 != r0, auxRes1 != r1, auxRes1 != r2, auxRes1 != r3, auxRes1 != r4,
+                                         auxRes1 != r5, auxRes1 != r6, auxRes1 != r7, auxRes1 != r8, auxRes1 != r9,
+                                         auxRes1 != r10, auxRes1 != r11, auxRes1 != r12, auxRes1 != r13, auxRes1 != r14,
+                                         auxRes1 != r15, auxRes1 != r16, auxRes1 != r17, auxRes1 != r18, auxRes1 != r19),
+                                     And(auxRes2 != r0, auxRes2 != r1, auxRes2 != r2, auxRes2 != r3, auxRes2 != r4,
+                                         auxRes2 != r5, auxRes2 != r6, auxRes2 != r7, auxRes2 != r8, auxRes2 != r9,
+                                         auxRes2 != r10, auxRes2 != r11, auxRes2 != r12, auxRes2 != r13, auxRes2 != r14,
+                                         auxRes2 != r15, auxRes2 != r16, auxRes2 != r17, auxRes2 != r18, auxRes2 != r19)
+                                     ))))
+                v.add(Not(Exists([auxSub1, auxSub2],
+                                 And(And(auxSub1 != s0, auxSub1 != s1, auxSub1 != s2, auxSub1 != s3, auxSub1 != s4,
+                                         auxSub1 != s5, auxSub1 != s6, auxSub1 != s7, auxSub1 != s8, auxSub1 != s9,
+                                         auxSub1 != s10, auxSub1 != s11, auxSub1 != s12, auxSub1 != s13, auxSub1 != s14,
+                                         auxSub1 != s15, auxSub1 != s16, auxSub1 != s17, auxSub1 != s18, auxSub1 != s19),
+                                     And(auxSub2 != s0, auxSub2 != s1, auxSub2 != s2, auxSub2 != s3, auxSub2 != s4,
+                                         auxSub2 != s5, auxSub2 != s6, auxSub2 != s7, auxSub2 != s8, auxSub2 != s9,
+                                         auxSub2 != s10, auxSub2 != s11, auxSub2 != s12, auxSub2 != s13, auxSub2 != s14,
+                                         auxSub2 != s15, auxSub2 != s16, auxSub2 != s17, auxSub2 != s18, auxSub2 != s19)
+                                     ))))
                 v.add(Or(auxRule3 == rule30, auxRule3 == rule31, auxRule3 == rule32, auxRule3 == rule33,
                          auxRule3 == rule34, auxRule3 == rule35, auxRule3 == rule36, auxRule3 == rule37,
                          auxRule3 == rule38, auxRule3 == rule39))
+                v.add(Not(Exists([auxRule1, auxRule2],
+                                 And(And(auxRule2 != rule30, auxRule2 != rule31, auxRule2 != rule32, auxRule2 != rule33,
+                                         auxRule2 != rule34, auxRule2 != rule35, auxRule2 != rule36, auxRule2 != rule37,
+                                         auxRule2 != rule38, auxRule2 != rule39),
+                                     And(auxRule1 != rule30, auxRule1 != rule31, auxRule1 != rule32, auxRule1 != rule33,
+                                         auxRule1 != rule34, auxRule1 != rule35, auxRule1 != rule36, auxRule1 != rule37,
+                                         auxRule1 != rule38, auxRule1 != rule39)))))
+                v.add(Not(Exists(auxCon,
+                                 And(auxCon != c1, auxCon != c2, auxCon != c0))))
                 for formula in dictOfFormulas.keys():
                     if formula == 'Subject_Graph':
                         predicate = eval(
@@ -1414,49 +1454,49 @@ if s.check() == sat:
                                  )
                           )
 
-                    xx, yy = Ints("xx yy")
-                    condition0, condition1, condition2 = Bools("c0 c1 c2")
-                    condition0 = xx > 0
-                    condition1 = xx > yy
-                    condition2 = yy == 10
-
-                    linkingContextAndConditions = Function('LinkingContextAndConditions', CONTEXT, BoolSort(),
-                                                           BoolSort())
-                    auxCondition = Const('auxCondition', BoolSort())
+                    # xx, yy = Ints("xx yy")
+                    # condition0, condition1, condition2 = Bools("c0 c1 c2")
+                    # condition0 = xx > 0
+                    # condition1 = xx > yy
+                    # condition2 = yy == 10
+                    #
+                    # linkingContextAndConditions = Function('LinkingContextAndConditions', CONTEXT, BoolSort(),
+                    #                                        BoolSort())
+                    # auxCondition = Const('auxCondition', BoolSort())
 
                     # linkingContextAndConditions(c0, condition0), linkingContextAndConditions(c1, condition1),
                     # linkingContextAndConditions(c2, condition2))
-                    s.add(ForAll([auxCon, auxCondition], If(Or(And(auxCon == c0, auxCondition == condition0),
-                                                               And(auxCon == c1, auxCondition == condition1),
-                                                               And(auxCon == c2, auxCondition == condition2)),
-                                                            linkingContextAndConditions(auxCon, auxCondition),
-                                                            Not(linkingContextAndConditions(auxCon, auxCondition)
-                                                                )
-                                                            )
-                                 )
-                          )
+                    # s.add(ForAll([auxCon, auxCondition], If(Or(And(auxCon == c0, auxCondition == condition0),
+                    #                                            And(auxCon == c1, auxCondition == condition1),
+                    #                                            And(auxCon == c2, auxCondition == condition2)),
+                    #                                         linkingContextAndConditions(auxCon, auxCondition),
+                    #                                         Not(linkingContextAndConditions(auxCon, auxCondition)
+                    #                                             )
+                    #                                         )
+                    #              )
+                    #       )
 
-                    accessibilityWithConditions = Function('AccessibilityWithConditions', V_SUB, V_RES, CONTEXT,
-                                                           BoolSort())
-                    auxRes1 = Const('auxRes1', V_RES)
-                    auxSub1 = Const('auxSub1', V_SUB)
-                    auxRule1 = Const('auxRule1', rules)
-                    auxCon = Const('auxCon', CONTEXT)
-                    auxCondition = Const('auxCondition', BoolSort())
-                    s.add(ForAll([auxSub1, auxRes1, auxCon],
-                                 If(And(ForAll([auxRule1], Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
-                                                                   rule_modality(auxRule1, permission)
-                                                                   )
-                                               ),
-                                        Exists(auxRule1, pseudoSink(auxSub1, auxRes1, auxCon, auxRule1)),
-                                        ForAll(auxCondition, Implies(linkingContextAndConditions(auxCon, auxCondition),
-                                                                     auxCondition))
-                                        ),
-                                    accessibilityWithConditions(auxSub1, auxRes1, auxCon),
-                                    Not(accessibilityWithConditions(auxSub1, auxRes1, auxCon))
-                                    )
-                                 )
-                          )
+                    # accessibilityWithConditions = Function('AccessibilityWithConditions', V_SUB, V_RES, CONTEXT,
+                    #                                        BoolSort())
+                    # auxRes1 = Const('auxRes1', V_RES)
+                    # auxSub1 = Const('auxSub1', V_SUB)
+                    # auxRule1 = Const('auxRule1', rules)
+                    # auxCon = Const('auxCon', CONTEXT)
+                    # auxCondition = Const('auxCondition', BoolSort())
+                    # s.add(ForAll([auxSub1, auxRes1, auxCon],
+                    #              If(And(ForAll([auxRule1], Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
+                    #                                                rule_modality(auxRule1, permission)
+                    #                                                )
+                    #                            ),
+                    #                     Exists(auxRule1, pseudoSink(auxSub1, auxRes1, auxCon, auxRule1)),
+                    #                     ForAll(auxCondition, Implies(linkingContextAndConditions(auxCon, auxCondition),
+                    #                                                  auxCondition))
+                    #                     ),
+                    #                 accessibilityWithConditions(auxSub1, auxRes1, auxCon),
+                    #                 Not(accessibilityWithConditions(auxSub1, auxRes1, auxCon))
+                    #                 )
+                    #              )
+                    #       )
 
                     hiddenDocument = Function('HiddenDocument', CONTEXT, BoolSort())
                     auxRes1, auxRes2 = Consts('auxRes1 auxRes2', V_RES)
@@ -1468,13 +1508,15 @@ if s.check() == sat:
                                            And(notDomainRES(auxRes1),
                                                ForAll([auxSub1],
                                                       Implies(REQUEST_T(auxSub1, auxRes1),
-                                                              Not(ForAll(auxRule1,
-                                                                         Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
-                                                                                 rule_modality(auxRule1, permission)
+                                                              Not(And(ForAll(auxRule1,
+                                                                             Implies(pseudoSink(auxSub1, auxRes1,
+                                                                                                auxCon, auxRule1),
+                                                                                     rule_modality(auxRule1, permission)
                                                                                  )
-                                                                         ),
-                                                                  Exists(auxRule1,
-                                                                         pseudoSink(auxSub1, auxRes1, auxCon, auxRule1))
+                                                                             ),
+                                                                      Exists(auxRule1,
+                                                                             pseudoSink(auxSub1, auxRes1, auxCon,
+                                                                                        auxRule1)))
                                                                   )
                                                               )
                                                       )
@@ -1492,41 +1534,17 @@ if s.check() == sat:
                     auxSub1 = Const('auxSub1', V_SUB)
                     auxCon = Const('auxCon', CONTEXT)
                     auxRule1 = Const('auxRule1', rules)
-                    v.add(ForAll(auxCon,
-                                 If(Exists(auxRes1,
-                                           And(notDomainRES(auxRes1),
-                                               ForAll([auxSub1],
-                                                      Implies(REQUEST_T(auxSub1, auxRes1),
-                                                              Not(ForAll(auxRule1,
-                                                                         Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
-                                                                                 rule_modality(auxRule1, permission)
-                                                                                 )
-                                                                         ),
-                                                                  Exists(auxRule1,
-                                                                         pseudoSink(auxSub1, auxRes1, auxCon, auxRule1))
-                                                                  )
-                                                              )
-                                                      )
-                                               )
-                                           ),
-                                    hiddenDataSet(auxCon, auxRes1),
-                                    Not(hiddenDataSet(auxCon, auxRes1)
-                                        )
-                                    )
-                                 )
-                          )
-
-                    v.add(ForAll([auxRes1, auxCon],
+                    v.add(ForAll([auxCon, auxRes1],
                                  If(And(notDomainRES(auxRes1),
-                                        Not(ForAll(auxRule1,
-                                                   Implies(pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
-                                                           rule_modality(auxRule1, permission)
-                                                           )
-                                                   ),
-                                            Exists(auxRule1,
-                                                   pseudoSink(auxSub1, auxRes1, auxCon, auxRule1))
-                                            )
-                                        ),
+                                        ForAll([auxSub1, auxRes2],
+                                               Implies(And(REQUEST_T(auxSub1, auxRes2),
+                                                           auxRes2 == auxRes1),
+                                                       Not(And(ForAll(auxRule1,
+                                                                      Implies(pseudoSink(auxSub1, auxRes1, auxCon,
+                                                                                         auxRule1),
+                                                                              rule_modality(auxRule1, permission))),
+                                                               Exists(auxRule1, pseudoSink(auxSub1, auxRes1, auxCon,
+                                                                                           auxRule1))))))),
                                     hiddenDataSet(auxCon, auxRes1),
                                     Not(hiddenDataSet(auxCon, auxRes1))
                                     )
@@ -1560,58 +1578,29 @@ if s.check() == sat:
                     ineffectiveSet = Function('ineffectiveSet', rules, BoolSort())
                     auxRes1 = Const('auxRes1', V_RES)
                     auxSub1 = Const('auxSub1', V_SUB)
-                    auxRule1, auxRule2, auxRule3 = Consts('auxRule1 auxRule2 auxRule3', rules)
+                    auxRule1, auxRule2 = Consts('auxRule1 auxRule2', rules)
                     auxCon = Const('auxCon', CONTEXT)
                     v.add(ForAll([auxRule1],
                                  If(Not(Exists([auxSub1, auxRes1, auxCon],
                                                And(REQUEST_T(auxSub1, auxRes1),
                                                    conRule(auxCon, auxRule1),
                                                    pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
-                                                   Or(Not(Exists(auxRule2, And(pseudoSink(auxSub1, auxRes1, auxCon, auxRule2),
-                                                                               auxRule2 != auxRule1))),
+                                                   Or(Not(Exists(auxRule2, And(pseudoSink(auxSub1, auxRes1, auxCon,
+                                                                                          auxRule2),
+                                                                               auxRule1 != auxRule2))),
                                                       And(rule_modality(auxRule1, prohibition),
-                                                          ForAll(auxRule2,
-                                                                 Implies(And(pseudoSink(auxSub1, auxRes1, auxCon, auxRule2),
-                                                                             auxRule2 != auxRule1),
-                                                                         rule_modality(auxRule2, permission)
-                                                                         )
-                                                                 )
+                                                          ForAll(auxRule2, Implies(And(pseudoSink(auxSub1, auxRes1,
+                                                                                                  auxCon, auxRule2),
+                                                                                       auxRule1 != auxRule2),
+                                                                                   rule_modality(auxRule2, permission)))
                                                           )
-                                                      )
-                                                   )
-                                               )
-                                        ),
+                                                      )))),
                                     ineffectiveSet(auxRule1),
                                     Not(ineffectiveSet(auxRule1))
                                     )
                                  )
                           )
-                    v.add(ForAll([auxRule1], Implies(ineffectiveSet(auxRule1),
-                                                     Not(Exists([auxSub1, auxRes1, auxCon],
-                                                                And(REQUEST_T(auxSub1, auxRes1),
-                                                                    conRule(auxCon, auxRule1),
-                                                                    pseudoSink(auxSub1, auxRes1, auxCon, auxRule1),
-                                                                    Or(Not(Exists(auxRule2, And(
-                                                                        pseudoSink(auxSub1, auxRes1, auxCon, auxRule2),
-                                                                        auxRule2 != auxRule1))),
-                                                                       And(rule_modality(auxRule1, prohibition),
-                                                                           ForAll(auxRule2,
-                                                                                  Implies(And(
-                                                                                      pseudoSink(auxSub1, auxRes1,
-                                                                                                 auxCon, auxRule2),
-                                                                                      auxRule2 != auxRule1),
-                                                                                          rule_modality(auxRule2,
-                                                                                                        permission)
-                                                                                          )
-                                                                                  )
-                                                                           )
-                                                                       )
-                                                                    )
-                                                                )
-                                                         )
-                                                     )
-                                 )
-                          )
+
 
                 print(v.check())
                 if v.check() == sat:
@@ -1663,3 +1652,5 @@ if s.check() == sat:
                     f = open("model5.txt", "w+")
                     f.write(modelContent)
                     f.close()
+
+print(time.time() - ts)
