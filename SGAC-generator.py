@@ -1,5 +1,9 @@
 import random
 import set_functions
+import subprocess
+import time
+import os
+import SGAC
 
 Python_Sub_Graph = dict()
 Python_Res_Graph = dict()
@@ -8,30 +12,33 @@ Python_Res_Closure_Graph = dict()
 Python_Rules = dict()
 Python_Context = []
 
-minimum_subject_nodes = 20
+minimum_subject_nodes = 30
 maximum_subject_nodes = 30
 maximum_resource_nodes = 30
-minimum_resource_node = 25
-maximum_rules = 25
-maximum_contexts = 15
+minimum_resource_node = 30
+minimum_rules = 12
+maximum_rules = 12
+minimum_contexts = 10
+maximum_contexts = 10
 biggestCon = 0
 
-for node in range(0, random.randrange(minimum_resource_node, maximum_subject_nodes, 1)):
+#for node in range(0, random.randrange(minimum_resource_node, maximum_subject_nodes, 1)):
+for node in range(0, 30):
     Python_Sub_Graph["s"+str(node)] = []
     for childNode in range(0, node):
         if random.randint(0, 1):
             Python_Sub_Graph["s"+str(node)].append("s"+str(childNode))
 
-for node in range(0, random.randrange(minimum_resource_node, maximum_resource_nodes, 1)):
+for node in range(0, 30):
     Python_Res_Graph["r"+str(node)] = []
     for childNode in range(0, node):
         if random.randint(0, 1):
             Python_Res_Graph["r"+str(node)].append("r"+str(childNode))
 
-for context in range(0, random.randrange(1, maximum_contexts, 1)):
+for context in range(0, 10):
     Python_Context.append("c"+str(context))
 
-for rule in range(0, random.randrange(1, maximum_rules, 1)):
+for rule in range(0, 12):
     Python_Rules["rule"+str(rule)] = []
     Python_Rules["rule"+str(rule)].append("s"+str(random.randint(0, len(Python_Sub_Graph.keys())-1)))  # Subject
     Python_Rules["rule"+str(rule)].append("r"+str(random.randint(0, len(Python_Res_Graph.keys())-1)))  # Resource
@@ -71,6 +78,7 @@ graph_sub = ""
 rules = ""
 CONTEXT = ""
 MODALITY = "{per, pro}"
+rulesInAlloy = []
 
 for key in Python_Sub_Graph.keys():
     V_SUB += str(key)+", "
@@ -86,19 +94,30 @@ for i in range(0, biggestCon+1):
     CONTEXT += "c"+str(i)+", "
 
 for key in Python_Rules.keys():
+    eachAlloyRule = []
+    eachAlloyRule.append("one sig "+key+" extends Rule{}{")
     RULE_T += key+", "
     rules += key+"|->(rec("
     rules += "su:"+Python_Rules[key][0]+","
+    eachAlloyRule.append(tab + "s =" + Python_Rules[key][0])
     rules += "re:"+Python_Rules[key][1]+","
+    eachAlloyRule.append(tab + "t =" + Python_Rules[key][1])
     if Python_Rules[key][2] == "permission":
         rules += "mo:per,"
+        eachAlloyRule.append(tab + "m = permission")
     else:
         rules += "mo:pro,"
+        eachAlloyRule.append(tab + "m = prohibition")
     rules += "pr: "+str(Python_Rules[key][3])+","
+    eachAlloyRule.append(tab + "p = " + str(Python_Rules[key][3]))
     rules += "co:{"
+    conList = ""
     for con in Python_Rules[key][4]:
         rules += con+","
+        conList += con+"+"
     rules = rules[:len(rules)-1:]+"})), "
+    eachAlloyRule.append(tab + "c = " + conList[:len(conList)-1:])
+    rulesInAlloy.append(eachAlloyRule)
 
 bmachine = "/*test/SGAC.mch\nAuthor: Diego Oliveira\n*/\n\n"
 bmachine += "MACHINE\n"+tab+"SGAC\n\nDEFINITIONS\n"+tab+"SET_PREF_MAX_OPERATIONS == 1000;\n"
@@ -192,3 +211,95 @@ bmachine += "END"
 f = open("SGAC_random_B.mch", "w+")
 f.write(bmachine)
 f.close()
+
+timeB = time.time()
+p = subprocess.Popen("C:"+os.sep+"ProB"+os.sep+"probcli c:"+os.sep+"Users"+os.sep+"dead1401"+os.sep+""
+                     "PycharmProjects"+os.sep+"SGAC"+os.sep+"SGAC_random_B.mch", stdout=subprocess.PIPE,
+                     stderr=subprocess.PIPE, shell=True)
+output, errors = p.communicate()
+n = ""
+print(time.time() - timeB)
+if True:
+    if p.returncode==0:
+        print("ProB executed successfully ("+n+")")
+        print(output)
+
+    else:
+        print("ProB - error reported in "+n+" and the return code is "+str(p.returncode))
+        print(errors)
+
+alloyCore = ""
+alloyCore += "module filepath/param/graph/property/req\nopen filepath/sgac_core\n//**********************\n" \
+                "//***Graph signatures***\n//**********************\n"
+alloyCore += "one sig "+V_SUB[:len(V_SUB)-2:]+" extends Subject{}{}\n"
+alloyCore += "fact{\nsubSucc="+graph_sub[:len(graph_sub)-2:].replace(",", "+\n"+tab+tab).replace("|->", "->")+"}\n"
+alloyCore += "one sig "+V_RES[:len(V_RES)-2:]+" extends Resource{}{}\n"
+alloyCore += "fact{\nsubSucc="+graph_res[:len(graph_res)-2:].replace(",", "+\n"+tab+tab).replace("|->", "->")+"}\n"
+alloyCore += "\n//*************************\n//***Contexts signatures***\n//*************************\n"
+alloyCore += "one sig "+CONTEXT[:len(CONTEXT)-2:]+" extends Context{}{}\n\n"
+alloyCore += "//************************\n//***Request signatures***\n//************************\n"
+alloyCore += "//************************\n//***Request signatures***\n//************************\n"
+alloyCore += "//**********************\n//***      Rules     ***\n//**********************\n"
+for eachRule in rulesInAlloy:
+    for element in eachRule:\
+        alloyCore += element + "\n"
+    alloyCore += "}\n"
+alloyCore += "//**************************\n//***Auxiliary Predicates***\n//**************************\n" \
+                "pred access_condition[req:Request,con:Context]{\n" \
+                ""+tab+"(no  r:applicableRules[req] |  (evalRuleCond[r,con] and r.m=prohibition and\n" \
+                ""+tab+tab+"all rule: r.^(req.ruleSucc) | not evalRuleCond[rule,con])	)\n" \
+                ""+tab+"and some { r:applicableRules[req] |evalRuleCond[r,con]}\n}\n\n"
+alloyAccess = alloyCore+"//*********************\n//***Access property***\n//*********************\n" \
+                "run accessReq3_c0{access_condition[req3,c0]} for 4\n" \
+                "run accessReq3_c1{access_condition[req3,c1]} for 4\n" \
+                "run accessReq3_c2{access_condition[req3,c2]} for 4"
+
+alloyContexts = alloyCore+"//***************************\n//***Determination of the ***\n" \
+                          "//***conditions (contexts)***\n" \
+                "//***************************\n\none sig GrantingContext{\n" \
+                ""+tab+tab+"acc: set Context\n}{}\n\n"\
+                "pred grantingContextDet[req:Request]{\n"\
+                ""+tab+tab+"all c: Context | access_condition[req,c] <=> c in GrantingContext.acc\n}\n"\
+                "//*** determination command ***\n" \
+                "run grantingContextDetermination{grantingContextDet[req3]} for 4 but 1 GrantingContext"
+
+alloyHidden = alloyCore+"//**************************\n//***Hidden data property***\n" \
+              "//**************************\n\nfun documents[res:Resource]: set Resource{\n" \
+              ""+tab+"{ rt : Resource | rt in res.^resSucc and no rt.resSucc}\n}\n\nfun documentsG[]: set Resource{" \
+              ""+tab+"{ rt : Resource | no rt.resSucc}}\n\nfun persons[s:Subject]: set Subject{\n" \
+              ""+tab+"{ sub: Subject | sub in s.^subSucc and no sub.subSucc}\n}\n\nfun personsG[]: set Subject{\n" \
+              ""+tab+"{ sub: Subject | no sub.subSucc}\n}\n\npred HiddenDocument[reso:Resource,c:Context]{\n" \
+              ""+tab+"no req: Request | (req.res = reso and\n"+tab+"access_condition[req,c])\n}\n\n" \
+              ""+tab+"pred HiddenData[c:Context] {\n"+tab+"some reso: documentsG[] | HiddenDocument[reso,c]\n}\n" \
+              "//***Hidden Data Existence and determination***\n" \
+              "check HiddenDocument_r0_c0{ HiddenDocument[r0,c0]} for 4\n" \
+              "check HiddenDocument_r0_c1{ HiddenDocument[r0,c1]} for 4\n" \
+              "check HiddenDocument_r0_c2{ HiddenDocument[r0,c2]} for 4"
+
+alloyIneffective = "//***************************\n//***Determination of the ***\n" \
+                   "//***  ineffective rules  ***\n//***************************\n\n" \
+                   "fun pseudosinkRule[req: Request, cx:Context] : set Rule{\n" \
+                   ""+tab+"{r : applicableRules[req] |\n" \
+                   ""+tab+tab+"evalRuleCond[r,cx] and no ru : applicableRules[req] |\n" \
+                   ""+tab+tab+tab+"ru in r.^(req.ruleSucc) and evalRuleCond[ru,cx]}\n" \
+                   ""+tab+"}\n\n" \
+                   "pred ineffectiveRule[r:Rule]{\n" \
+                   ""+tab+"no rq : Request | (\n" \
+                   ""+tab+tab+"r in applicableRules[rq] and some cr : r.c | (\n" \
+                   ""+tab+tab+tab+"r in pseudosinkRule[rq,cr]\n" \
+                   ""+tab+tab+tab+"and\n" \
+                   ""+tab+tab+tab+"(no ru : pseudosinkRule[rq,cr]-r |\n" \
+                   ""+tab+tab+tab+tab+"r.m = ru.m)\n" \
+                   ""+tab+tab+tab+"and\n" \
+                   ""+tab+tab+tab+"(r.m = permission implies no (pseudosinkRule[rq,cr]-r))\n" \
+                   ""+tab+tab+")\n" \
+                   ""+tab+")\n}\n" \
+                   "//*** determination of unusable rules command ***\n\n" \
+                   "check ineffectiveRulerule38{ ineffectiveRule[rule38]}for 4\n\n" \
+                   "check ineffectiveRulerule37{ ineffectiveRule[rule37]}for 4\n\n" \
+                   "check ineffectiveRulerule34{ ineffectiveRule[rule34]}for 4\n\n" \
+                   "check ineffectiveRulerule39{ ineffectiveRule[rule39]}for 4"
+
+timeP = time.time()
+SGAC.SGAC_random()
+print(time.time() - timeP)
