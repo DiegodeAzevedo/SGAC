@@ -2,7 +2,7 @@ from z3 import *
 import re
 #import time
 
-def SGAC_random(testname = ""):
+def SGAC_random(testName, dir, testNumber):
     #ts = time.time()
 
     set_param(max_width=3000)
@@ -44,7 +44,7 @@ def SGAC_random(testname = ""):
     auxRule1, auxRule2 = Consts('auxRule1 auxRule2', rules)
     auxInt = Const('auxInt', IntSort())
 
-    with open("SGAC_random.txt", 'r') as f:
+    with open(dir + os.sep + "SGAC_random_"+str(testNumber)+".txt", 'r') as f:
         Python_Sub_Text = f.readline()
         matches = re.finditer(r"'+s[0-9]':", Python_Sub_Text, re.MULTILINE)
         for matchNum, match in enumerate(matches, start=1):
@@ -304,9 +304,6 @@ def SGAC_random(testname = ""):
                                                                         applicable(auxSub1, auxRes1, auxRule1))
                  )
           )
-
-    s.add()
-
     #t1 = time.time()
     #print("Time to start the first check:", t1 - ts)
 
@@ -314,7 +311,7 @@ def SGAC_random(testname = ""):
     #t2 = time.time()
     #print("Time to finish the check:", t2 - t1)
     if s.check() == sat:
-        f = open("model-RAN.txt", "w+")
+        f = open(dir + os.sep + testName+"_MODEL1.txt", "w+")
         for variable in s.model():
             f.write(str(variable)), f.write("="), f.write(str(s.model()[variable])), f.write("\n")
         f.close()
@@ -331,13 +328,13 @@ def SGAC_random(testname = ""):
             chosenVariables.append(eval(context))
 
         for variable in chosenVariables:
-            with open("model-RAN.txt") as f:
+            with open(dir + os.sep + testName+"_MODEL1.txt") as f:
                 for line in f:
                     matches = re.finditer(r"^" + str(variable) + "=", line)
                     for matchNum, match in enumerate(matches):
                         dictOfSubstitutions[variable] = line[match.end():len(line) - 1:]
             f.close()
-        with open("model-RAN.txt", 'r') as f:
+        with open(dir + os.sep + testName+"_MODEL1.txt", 'r') as f:
             modelContent = f.read()
         f.close()
         for key in dictOfSubstitutions.keys():
@@ -354,7 +351,7 @@ def SGAC_random(testname = ""):
         modelContent = re.sub(r"\[else ->[ \n]", "[", modelContent)
         modelContent = re.sub(r"\[.*?else ->", "[", modelContent)
         modelContent = re.sub(r"\[ Or", "[Or", modelContent)
-        f = open("model-RAN.txt", "w+")
+        f = open(dir + os.sep + testName+"_MODEL1.txt", "w+")
         f.write(modelContent)
         f.close()
 
@@ -366,7 +363,7 @@ def SGAC_random(testname = ""):
         formulas = [Sub_Graph, Subject_Closure_Graph, Res_Graph, Resource_Closure_Graph, REQUEST_T, rule_subject,
                     rule_resource, rule_modality, rule_priority, rule_condition, lessSpecific, conRule, applicable,
                     notDomainSUB, notDomainRES]
-        with open("model-RAN.txt", 'r') as f:
+        with open(dir + os.sep + testName+"_MODEL1.txt", 'r') as f:
             modelContent = f.read()
 
         for formula in formulas:
@@ -558,7 +555,7 @@ def SGAC_random(testname = ""):
         #print("Time to finish the second check", t4 - t3)
         if r.check() == sat:
             # print(r.model()[isPrecededBy])
-            f = open("model2-RAN.txt", "w+")
+            f = open(dir + os.sep + testName+"_MODEL2.txt", "w+")
             for variable in r.model():
                 f.write(str(variable)), f.write("="), f.write(str(r.model()[variable])), f.write("\n")
             f.close()
@@ -576,14 +573,14 @@ def SGAC_random(testname = ""):
 
             # Rewriting the variables
             for variable in chosenVariables:
-                with open("model2-RAN.txt") as f:
+                with open(dir + os.sep + testName+"_MODEL2.txt") as f:
                     for line in f:
                         matches = re.finditer(r"^" + str(variable) + "=", line)
                         for matchNum, match in enumerate(matches):
                             dictOfSubstitutions[variable] = line[match.end():len(line) - 1:]
                 f.close()
 
-            with open("model2-RAN.txt", 'r') as f:
+            with open(dir + os.sep + testName+"_MODEL2.txt", 'r') as f:
                 modelContent = f.read()
             f.close()
             for key in dictOfSubstitutions.keys():
@@ -601,7 +598,7 @@ def SGAC_random(testname = ""):
             modelContent = re.sub(r"\[else ->[ \n]", "[", modelContent)
             modelContent = re.sub(r"\[.*?else ->", "[", modelContent)
             modelContent = re.sub(r"\[ Or", "[Or", modelContent)
-            f = open("model2-RAN.txt", "w+")
+            f = open(dir + os.sep + testName+"_MODEL2.txt", "w+")
             f.write(modelContent)
             f.close()
 
@@ -613,7 +610,7 @@ def SGAC_random(testname = ""):
             formulas = [Sub_Graph, Subject_Closure_Graph, Res_Graph, Resource_Closure_Graph, REQUEST_T, rule_subject,
                         rule_resource, rule_modality, rule_priority, rule_condition, lessSpecific, conRule, applicable,
                         notDomainSUB, notDomainRES, maxElem]
-            with open("model2-RAN.txt", 'r') as f:
+            with open(dir + os.sep + testName+"_MODEL2.txt", 'r') as f:
                 modelContent = f.read()
 
             for formula in formulas:
@@ -822,7 +819,7 @@ def SGAC_random(testname = ""):
             #t4 = time.time()
             #print("Time to finish the third check", t4 - t3)
             if q.check() == sat:
-                f = open("model3-RAN.txt", "w+")
+                f = open(dir + os.sep + testName+"_MODEL3.txt", "w+")
                 for variable in q.model():
                     f.write(str(variable)), f.write("="), f.write(str(q.model()[variable])), f.write("\n")
                 f.close()
@@ -840,14 +837,14 @@ def SGAC_random(testname = ""):
 
                 # Rewriting the variables
                 for variable in chosenVariables:
-                    with open("model3-RAN.txt") as f:
+                    with open(dir + os.sep + testName+"_MODEL3.txt") as f:
                         for line in f:
                             matches = re.finditer(r"^" + str(variable) + "=", line)
                             for matchNum, match in enumerate(matches):
                                 dictOfSubstitutions[variable] = line[match.end():len(line) - 1:]
                     f.close()
 
-                with open("model3-RAN.txt", 'r') as f:
+                with open(dir + os.sep + testName+"_MODEL3.txt", 'r') as f:
                     modelContent = f.read()
                 f.close()
                 for key in dictOfSubstitutions.keys():
@@ -865,7 +862,7 @@ def SGAC_random(testname = ""):
                 modelContent = re.sub(r"\[else ->[ \n]", "[", modelContent)
                 modelContent = re.sub(r"\[.*?else ->", "[", modelContent)
                 modelContent = re.sub(r"\[ Or", "[Or", modelContent)
-                f = open("model3-RAN.txt", "w+")
+                f = open(dir + os.sep + testName+"_MODEL3.txt", "w+")
                 f.write(modelContent)
                 f.close()
 
@@ -879,7 +876,7 @@ def SGAC_random(testname = ""):
                             rule_resource, rule_modality, rule_priority, rule_condition, lessSpecific, conRule,
                             applicable,
                             notDomainSUB, notDomainRES, maxElem, isPrecededBy]
-                with open("model3-RAN.txt", 'r') as f:
+                with open(dir + os.sep + testName+"_MODEL3.txt", 'r') as f:
                     modelContent = f.read()
 
                 for formula in formulas:
@@ -1103,7 +1100,7 @@ def SGAC_random(testname = ""):
                 #t4 = time.time()
                 #print("Time to finish the fourth check", t4 - t3)
                 if u.check() == sat:
-                    f = open("model4-RAN.txt", "w+")
+                    f = open(dir + os.sep + testName+"_MODEL4.txt", "w+")
                     for variable in u.model():
                         f.write(str(variable)), f.write("="), f.write(str(u.model()[variable])), f.write("\n")
                     f.close()
@@ -1112,14 +1109,14 @@ def SGAC_random(testname = ""):
 
                     # Rewriting the variables
                     for variable in chosenVariables:
-                        with open("model4-RAN.txt") as f:
+                        with open(dir + os.sep + testName+"_MODEL4.txt") as f:
                             for line in f:
                                 matches = re.finditer(r"^" + str(variable) + "=", line)
                                 for matchNum, match in enumerate(matches):
                                     dictOfSubstitutions[variable] = line[match.end():len(line) - 1:]
                         f.close()
 
-                    with open("model4-RAN.txt", 'r') as f:
+                    with open(dir + os.sep + testName+"_MODEL4.txt", 'r') as f:
                         modelContent = f.read()
                     f.close()
                     for key in dictOfSubstitutions.keys():
@@ -1137,7 +1134,7 @@ def SGAC_random(testname = ""):
                     modelContent = re.sub(r"\[else ->[ \n]", "[", modelContent)
                     modelContent = re.sub(r"\[.*?else ->", "[", modelContent)
                     modelContent = re.sub(r"\[ Or", "[Or", modelContent)
-                    f = open("model4-RAN.txt", "w+")
+                    f = open(dir + os.sep + testName+"_MODEL4.txt", "w+")
                     f.write(modelContent)
                     f.close()
 
@@ -1151,7 +1148,7 @@ def SGAC_random(testname = ""):
                                 rule_resource, rule_modality, rule_priority, rule_condition, lessSpecific, conRule,
                                 applicable,
                                 notDomainSUB, notDomainRES, maxElem, isPrecededBy, pseudoSink]
-                    with open("model4-RAN.txt", 'r') as f:
+                    with open(dir + os.sep + testName+"_MODEL4.txt", 'r') as f:
                         modelContent = f.read()
 
                     for formula in formulas:
@@ -1531,7 +1528,7 @@ def SGAC_random(testname = ""):
                     #t4 = time.time()
                     #print("Time to finish the fifth check", t4 - t3)
                     if v.check() == sat:
-                        f = open("model5-RAN.txt", "w+")
+                        f = open(dir + os.sep + testName+"_MODEL5.txt", "w+")
                         for variable in v.model():
                             f.write(str(variable)), f.write("="), f.write(str(v.model()[variable])), f.write("\n")
                         f.close()
@@ -1540,14 +1537,14 @@ def SGAC_random(testname = ""):
 
                         # Rewriting the variables
                         for variable in chosenVariables:
-                            with open("model5-RAN.txt") as f:
+                            with open(dir + os.sep + testName+"_MODEL5.txt") as f:
                                 for line in f:
                                     matches = re.finditer(r"^" + str(variable) + "=", line)
                                     for matchNum, match in enumerate(matches):
                                         dictOfSubstitutions[variable] = line[match.end():len(line) - 1:]
                             f.close()
 
-                        with open("model5-RAN.txt", 'r') as f:
+                        with open(dir + os.sep + testName+"_MODEL5.txt", 'r') as f:
                             modelContent = f.read()
                         f.close()
                         for key in dictOfSubstitutions.keys():
@@ -1566,7 +1563,7 @@ def SGAC_random(testname = ""):
                         modelContent = re.sub(r"\[else ->[ \n]", "[", modelContent)
                         modelContent = re.sub(r"\[.*?else ->", "[", modelContent)
                         modelContent = re.sub(r"\[ Or", "[Or", modelContent)
-                        f = open("model5-RAN.txt", "w+")
+                        f = open(dir + os.sep + testName+"_MODEL5.txt", "w+")
                         f.write(modelContent)
                         f.close()
 

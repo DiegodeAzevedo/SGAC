@@ -60,15 +60,6 @@ for rule in range(0, 12):
 set_functions.transitive_closure(Python_Sub_Graph, Python_Sub_Closure_Graph)
 set_functions.transitive_closure(Python_Res_Graph, Python_Res_Closure_Graph)
 
-f = open("SGAC_random.txt", "w+")
-f.write(str(Python_Sub_Graph)), f.write("\n")
-f.write(str(Python_Res_Graph)), f.write("\n")
-f.write(str(Python_Context)), f.write("\n")
-f.write(str(Python_Rules)), f.write("\n")
-f.write(str(Python_Sub_Closure_Graph)), f.write("\n")
-f.write(str(Python_Res_Closure_Graph))
-f.close()
-
 tab = "    "
 V_SUB = ""
 V_RES = ""
@@ -208,17 +199,24 @@ bmachine += tab+tab+"ineffectiveSet := {ru | ru : RULE_T & not(#(req,con).(req:R
                     "!ru2.(ru2:(pseudoSink(req,con)-{ru}) => (rules(ru2))'mo = per)))))}\n"+tab+"END\n"
 bmachine += "END"
 
-f = open("SGAC_random_B.mch", "w+")
+directory = "C:"+os.sep+"Users"+os.sep+"dead1401"+os.sep+"PycharmProjects"+os.sep+"SGAC"+os.sep+"Tests"+os.sep+"" \
+            "Varying_the_number_of_contexts"+os.sep+"10contexts"
+
+onlyfiles = next(os.walk(directory))[2]
+bMachineName = "SGAC_B_"+str((len(onlyfiles)) // 8 +1)+".mch"
+f = open(directory + os.sep + bMachineName, "w+")
 f.write(bmachine)
 f.close()
 
 timeB = time.time()
-p = subprocess.Popen("C:"+os.sep+"ProB"+os.sep+"probcli c:"+os.sep+"Users"+os.sep+"dead1401"+os.sep+""
-                     "PycharmProjects"+os.sep+"SGAC"+os.sep+"SGAC_random_B.mch", stdout=subprocess.PIPE,
-                     stderr=subprocess.PIPE, shell=True)
+p = subprocess.Popen("C:"+os.sep+"ProB"+os.sep+"probcli.exe " + directory + os.sep + bMachineName,
+                     stdout=subprocess.PIPE,
+                     stderr=subprocess.PIPE,
+                     shell=True)
 output, errors = p.communicate()
 n = ""
-print(time.time() - timeB)
+timeB = time.time() - timeB
+print(timeB)
 if True:
     if p.returncode==0:
         print("ProB executed successfully ("+n+")")
@@ -228,78 +226,181 @@ if True:
         print("ProB - error reported in "+n+" and the return code is "+str(p.returncode))
         print(errors)
 
-alloyCore = ""
-alloyCore += "module filepath/param/graph/property/req\nopen filepath/sgac_core\n//**********************\n" \
-                "//***Graph signatures***\n//**********************\n"
-alloyCore += "one sig "+V_SUB[:len(V_SUB)-2:]+" extends Subject{}{}\n"
-alloyCore += "fact{\nsubSucc="+graph_sub[:len(graph_sub)-2:].replace(",", "+\n"+tab+tab).replace("|->", "->")+"}\n"
-alloyCore += "one sig "+V_RES[:len(V_RES)-2:]+" extends Resource{}{}\n"
-alloyCore += "fact{\nsubSucc="+graph_res[:len(graph_res)-2:].replace(",", "+\n"+tab+tab).replace("|->", "->")+"}\n"
-alloyCore += "\n//*************************\n//***Contexts signatures***\n//*************************\n"
-alloyCore += "one sig "+CONTEXT[:len(CONTEXT)-2:]+" extends Context{}{}\n\n"
-alloyCore += "//************************\n//***Request signatures***\n//************************\n"
-alloyCore += "//************************\n//***Request signatures***\n//************************\n"
-alloyCore += "//**********************\n//***      Rules     ***\n//**********************\n"
-for eachRule in rulesInAlloy:
-    for element in eachRule:\
-        alloyCore += element + "\n"
-    alloyCore += "}\n"
-alloyCore += "//**************************\n//***Auxiliary Predicates***\n//**************************\n" \
-                "pred access_condition[req:Request,con:Context]{\n" \
-                ""+tab+"(no  r:applicableRules[req] |  (evalRuleCond[r,con] and r.m=prohibition and\n" \
-                ""+tab+tab+"all rule: r.^(req.ruleSucc) | not evalRuleCond[rule,con])	)\n" \
-                ""+tab+"and some { r:applicableRules[req] |evalRuleCond[r,con]}\n}\n\n"
-alloyAccess = alloyCore+"//*********************\n//***Access property***\n//*********************\n" \
-                "run accessReq3_c0{access_condition[req3,c0]} for 4\n" \
-                "run accessReq3_c1{access_condition[req3,c1]} for 4\n" \
-                "run accessReq3_c2{access_condition[req3,c2]} for 4"
-
-alloyContexts = alloyCore+"//***************************\n//***Determination of the ***\n" \
-                          "//***conditions (contexts)***\n" \
-                "//***************************\n\none sig GrantingContext{\n" \
-                ""+tab+tab+"acc: set Context\n}{}\n\n"\
-                "pred grantingContextDet[req:Request]{\n"\
-                ""+tab+tab+"all c: Context | access_condition[req,c] <=> c in GrantingContext.acc\n}\n"\
-                "//*** determination command ***\n" \
-                "run grantingContextDetermination{grantingContextDet[req3]} for 4 but 1 GrantingContext"
-
-alloyHidden = alloyCore+"//**************************\n//***Hidden data property***\n" \
-              "//**************************\n\nfun documents[res:Resource]: set Resource{\n" \
-              ""+tab+"{ rt : Resource | rt in res.^resSucc and no rt.resSucc}\n}\n\nfun documentsG[]: set Resource{" \
-              ""+tab+"{ rt : Resource | no rt.resSucc}}\n\nfun persons[s:Subject]: set Subject{\n" \
-              ""+tab+"{ sub: Subject | sub in s.^subSucc and no sub.subSucc}\n}\n\nfun personsG[]: set Subject{\n" \
-              ""+tab+"{ sub: Subject | no sub.subSucc}\n}\n\npred HiddenDocument[reso:Resource,c:Context]{\n" \
-              ""+tab+"no req: Request | (req.res = reso and\n"+tab+"access_condition[req,c])\n}\n\n" \
-              ""+tab+"pred HiddenData[c:Context] {\n"+tab+"some reso: documentsG[] | HiddenDocument[reso,c]\n}\n" \
-              "//***Hidden Data Existence and determination***\n" \
-              "check HiddenDocument_r0_c0{ HiddenDocument[r0,c0]} for 4\n" \
-              "check HiddenDocument_r0_c1{ HiddenDocument[r0,c1]} for 4\n" \
-              "check HiddenDocument_r0_c2{ HiddenDocument[r0,c2]} for 4"
-
-alloyIneffective = "//***************************\n//***Determination of the ***\n" \
-                   "//***  ineffective rules  ***\n//***************************\n\n" \
-                   "fun pseudosinkRule[req: Request, cx:Context] : set Rule{\n" \
-                   ""+tab+"{r : applicableRules[req] |\n" \
-                   ""+tab+tab+"evalRuleCond[r,cx] and no ru : applicableRules[req] |\n" \
-                   ""+tab+tab+tab+"ru in r.^(req.ruleSucc) and evalRuleCond[ru,cx]}\n" \
-                   ""+tab+"}\n\n" \
-                   "pred ineffectiveRule[r:Rule]{\n" \
-                   ""+tab+"no rq : Request | (\n" \
-                   ""+tab+tab+"r in applicableRules[rq] and some cr : r.c | (\n" \
-                   ""+tab+tab+tab+"r in pseudosinkRule[rq,cr]\n" \
-                   ""+tab+tab+tab+"and\n" \
-                   ""+tab+tab+tab+"(no ru : pseudosinkRule[rq,cr]-r |\n" \
-                   ""+tab+tab+tab+tab+"r.m = ru.m)\n" \
-                   ""+tab+tab+tab+"and\n" \
-                   ""+tab+tab+tab+"(r.m = permission implies no (pseudosinkRule[rq,cr]-r))\n" \
-                   ""+tab+tab+")\n" \
-                   ""+tab+")\n}\n" \
-                   "//*** determination of unusable rules command ***\n\n" \
-                   "check ineffectiveRulerule38{ ineffectiveRule[rule38]}for 4\n\n" \
-                   "check ineffectiveRulerule37{ ineffectiveRule[rule37]}for 4\n\n" \
-                   "check ineffectiveRulerule34{ ineffectiveRule[rule34]}for 4\n\n" \
-                   "check ineffectiveRulerule39{ ineffectiveRule[rule39]}for 4"
-
 timeP = time.time()
-SGAC.SGAC_random()
-print(time.time() - timeP)
+
+f = open(directory + os.sep + "SGAC_random_"+str((len(onlyfiles)) // 8+1)+".txt", "w+")
+f.write(str(Python_Sub_Graph)), f.write("\n")
+f.write(str(Python_Res_Graph)), f.write("\n")
+f.write(str(Python_Context)), f.write("\n")
+f.write(str(Python_Rules)), f.write("\n")
+f.write(str(Python_Sub_Closure_Graph)), f.write("\n")
+f.write(str(Python_Res_Closure_Graph))
+f.close()
+
+SGAC.SGAC_random("SGAC_Z3_"+str(len(onlyfiles) // 8 + 1), directory, (len(onlyfiles)) // 8+1)
+timeP = time.time() - timeP
+print(timeP)
+
+resourceSink = []
+subjectSink = []
+requests = []
+for key in Python_Sub_Graph.keys():
+    if not Python_Sub_Graph[key]:
+        subjectSink.append(key)
+
+for key in Python_Res_Graph.keys():
+    if not Python_Res_Graph[key]:
+        resourceSink.append(key)
+
+for sub in subjectSink:
+    for res in resourceSink:
+        requests.append([sub, res])
+
+directory = "C:"+os.sep+"Users"+os.sep+"dead1401"+os.sep+"PycharmProjects"+os.sep+"SGAC"+os.sep+"Tests"+os.sep+"" \
+            "Varying_the_number_of_contexts"+os.sep+"10contexts"+os.sep+str(len(onlyfiles) // 8 + 1)
+
+os.mkdir(directory)
+
+counter = 0
+for request in requests:
+    os.mkdir(directory+os.sep+"graph"+str(counter))
+    alloyGraph = ""
+    alloyGraph += "module filepath/param/graph/property/req\nopen filepath/sgac_core\n//**********************\n" \
+                  "//***Graph signatures***\n//**********************\n"
+    alloyGraph += "one sig " + V_SUB[:len(V_SUB) - 2:] + " extends Subject{}{}\n"
+    alloyGraph += "fact{\nsubSucc=" + graph_sub[:len(graph_sub) - 2:].replace(",", "+\n" + tab + tab).replace("|->",
+                                                                                                              "->") + \
+                  "}\n"
+    alloyGraph += "one sig " + V_RES[:len(V_RES) - 2:] + " extends Resource{}{}\n"
+    alloyGraph += "fact{\nsubSucc=" + graph_res[:len(graph_res) - 2:].replace(",", "+\n" + tab + tab).replace("|->",
+                                                                                                              "->") +\
+                  "}\n"
+    alloyGraph += "\n//*************************\n//***Contexts signatures***\n//*************************\n"
+    alloyGraph += "one sig " + CONTEXT[:len(CONTEXT) - 2:] + " extends Context{}{}\n\n"
+    alloyGraph += "//************************\n//***Request signatures***\n//************************\n"
+    alloyGraph += "one sig req"+str(counter)+" extends Request{}{\n"
+    alloyGraph += "sub="+request[0]+"\nres="+request[1]+"\n}\n"
+    alloyGraph += "//**********************\n//***      Rules     ***\n//**********************\n"
+
+    for eachRule in rulesInAlloy:
+        for element in eachRule: \
+                alloyGraph += element + "\n"
+        alloyGraph += "}\n"
+    alloyGraph += "//**************************\n//***Auxiliary Predicates***\n//**************************\n" \
+                  "pred access_condition[req:Request,con:Context]{\n" \
+                  "" + tab + "(no  r:applicableRules[req] |  (evalRuleCond[r,con] and r.m=prohibition and\n" \
+                             "" + tab + tab + "all rule: r.^(req.ruleSucc) | not evalRuleCond[rule,con])	)\n" \
+                                              "" + tab + "and some { r:applicableRules[req] " \
+                                                         "|evalRuleCond[r,con]}\n}\n\n"
+
+    alloyAccess = alloyGraph + "//*********************\n//***Access property***\n//*********************\n"
+    for key in Python_Rules.keys():
+        for con in Python_Rules[key][4]:
+            alloyAccess += "run accessReq" + str(counter) + "_" + \
+                           con+"{access_access_condition[req"+str(counter)+","+con+"]} for 4\n"
+    os.mkdir(directory + os.sep + "graph" + str(counter) + os.sep + "access")
+    f = open(directory + os.sep + "graph" + str(counter) + os.sep + "access" + os.sep + "req" + str(counter) + ".als",
+             "w+")
+    f.write(alloyAccess)
+    f.close()
+
+    alloyContexts = alloyGraph+"//***************************\n//***Determination of the ***\n" \
+                              "//***conditions (contexts)***\n" \
+                    "//***************************\n\none sig GrantingContext{\n" \
+                    ""+tab+tab+"acc: set Context\n}{}\n\n"\
+                    "pred grantingContextDet[req:Request]{\n"\
+                    ""+tab+tab+"all c: Context | access_condition[req,c] <=> c in GrantingContext.acc\n}\n"\
+                    "//*** determination command ***\n" \
+                    "run grantingContextDetermination{grantingContextDet[req"+\
+                    str(counter)+"]} for 4 but 1 GrantingContext"
+    os.mkdir(directory + os.sep + "graph" + str(counter) + os.sep + "contexts")
+    f = open(directory + os.sep + "graph" + str(counter) + os.sep + "contexts" + os.sep + "req" + str(counter)+".als",
+             "w+")
+    f.write(alloyContexts)
+    f.close()
+
+    alloyHidden = alloyGraph+"//**************************\n//***Hidden data property***\n" \
+                  "//**************************\n\nfun documents[res:Resource]: set Resource{\n" \
+                  ""+tab+"{ rt : Resource | rt in res.^resSucc and no rt.resSucc}\n}\n\nfun documentsG[]: set Resource{" \
+                  ""+tab+"{ rt : Resource | no rt.resSucc}}\n\nfun persons[s:Subject]: set Subject{\n" \
+                  ""+tab+"{ sub: Subject | sub in s.^subSucc and no sub.subSucc}\n}\n\nfun personsG[]: set Subject{\n" \
+                  ""+tab+"{ sub: Subject | no sub.subSucc}\n}\n\npred HiddenDocument[reso:Resource,c:Context]{\n" \
+                  ""+tab+"no req: Request | (req.res = reso and\n"+tab+"access_condition[req,c])\n}\n\n" \
+                  ""+tab+"pred HiddenData[c:Context] {\n"+tab+"some reso: documentsG[] | HiddenDocument[reso,c]\n}\n" \
+                  "//***Hidden Data Existence and determination***\n"
+    for key in Python_Rules.keys():
+        for con in Python_Rules[key][4]:
+            alloyHidden += "check HiddenDocument_"+\
+                           request[1]+"_"+con+"{ HiddenDocument["+request[1]+","+con+"]} for 4\n"
+    os.mkdir(directory + os.sep + "graph" + str(counter) + os.sep + "hidden")
+    f = open(directory + os.sep + "graph" + str(counter) + os.sep + "hidden" + os.sep + "req" + str(counter) + ".als",
+             "w+")
+    f.write(alloyHidden)
+    f.close()
+
+    alloyIneffective = "//***************************\n//***Determination of the ***\n" \
+                       "//***  ineffective rules  ***\n//***************************\n\n" \
+                       "fun pseudosinkRule[req: Request, cx:Context] : set Rule{\n" \
+                       ""+tab+"{r : applicableRules[req] |\n" \
+                       ""+tab+tab+"evalRuleCond[r,cx] and no ru : applicableRules[req] |\n" \
+                       ""+tab+tab+tab+"ru in r.^(req.ruleSucc) and evalRuleCond[ru,cx]}\n" \
+                       ""+tab+"}\n\n" \
+                       "pred ineffectiveRule[r:Rule]{\n" \
+                       ""+tab+"no rq : Request | (\n" \
+                       ""+tab+tab+"r in applicableRules[rq] and some cr : r.c | (\n" \
+                       ""+tab+tab+tab+"r in pseudosinkRule[rq,cr]\n" \
+                       ""+tab+tab+tab+"and\n" \
+                       ""+tab+tab+tab+"(no ru : pseudosinkRule[rq,cr]-r |\n" \
+                       ""+tab+tab+tab+tab+"r.m = ru.m)\n" \
+                       ""+tab+tab+tab+"and\n" \
+                       ""+tab+tab+tab+"(r.m = permission implies no (pseudosinkRule[rq,cr]-r))\n" \
+                       ""+tab+tab+")\n" \
+                       ""+tab+")\n}\n" \
+                       "//*** determination of unusable rules command ***\n\n"
+    for key in Python_Rules.keys():
+        alloyIneffective += "check ineffectiveRule"+key+"{ ineffectiveRule["+key+"]}for 4\n\n"
+    os.mkdir(directory + os.sep + "graph" + str(counter) + os.sep + "ineffective")
+    f = open(directory + os.sep + "graph" + str(counter) + os.sep + "ineffective" + os.sep + "req" + str(counter) +
+             ".als", "w+")
+    f.write(alloyHidden)
+    f.close()
+
+    counter += + 1
+alloyCore = "open util/relation\nmodule sgac_core\n////////////////////////////////////////////////////////\n" \
+            "// 						SGAC 											 //\n" \
+            "////////////////////////////////////////////////////////\n" \
+            "sig Subject {\n" \
+            "	subSucc : set Subject                  //  subject successors; covering pair (s1,s2) in subSucc" \
+            " <=> s1 fils de s2, donc, s1 plus spécifique que s2; s2 père de s1\n}\nfact { acyclic[subSucc,Subject] }\n" \
+            "\nsig Resource {\n	resSucc : set Resource                 // resource successors; covering pair\n}\n" \
+            "fact { acyclic[resSucc,Resource] }\n\nabstract sig Modality {}\n" \
+            "one sig prohibition, permission extends  Modality {}\nsig Context {}\nsig Rule {\n" \
+            "	p : one Int,         	 // priority of the rule\n	s : one Subject,\n	t : one Resource,\n" \
+            "	m : one Modality,\n	c : set Context 			// truth table of the condition\n}{\n" \
+            "  p >= 0\n}\n\nsig Request{\nsub: one Subject,\nres: one Resource,\nruleSucc:  Rule -> set Rule\n}{\n" \
+            "no sub.subSucc\nno res.resSucc\nRule.ruleSucc in applicableRules[this]\n" \
+            "ruleSucc.Rule in applicableRules[this]\n}\n\nfact {\n// definition of ruleSucc r1 -< r2\n" \
+            "//    for Rule\n	all req: Request |\n		all r1,r2 : applicableRules[req] |\n" \
+            "			r1 in req.ruleSucc.r2 // r1 -> r2 r2 plus prioritaire donc\n			<=>\n" \
+            "           isPrecededBy[r1,r2]\n //        and\n" \
+            " //          not (some r3 : applicableRules[req] | isPrecededBy[r1,r3] and isPrecededBy[r3,r2] )\n}\n\n" \
+            "////////////////////////////////////////////////////////\n" \
+            "// 							FORMULAS									 //\n" \
+            "////////////////////////////////////////////////////////\n\n\npred evalRuleCond[r:Rule,con:Context]{\n" \
+            "con in r.c\n}\n\n////////////////////////////////////////////////////////\n" \
+            "// 						AUXILIARY FUNCTIONS					 //\n" \
+            "////////////////////////////////////////////////////////\n\n" \
+            "pred lessSpecific[r1,r2: Rule]{ // lessSpecific[r1,r2]=TRUE => " \
+            "r2 has precedence over r1 (subject wise or priority)\n" \
+            "	(r2.p < r1.p)\n	or\n	(\n		r2.p = r1.p\n			and\n		r2.s in (r1.s).^subSucc\n	)\n}\n" \
+            "/*\npred applicableRule[r:Rule]{\nRequest.sub in (r.s).*subSucc\nand Request.res in (r.t).*resSucc\n}\n" \
+            "*/\n\nfun applicableRules[req:Request]: set Rule{\n" \
+            "{r: Rule | req.sub in (r.s).*subSucc and req.res in (r.t).*resSucc}\n}\n\n\npred maximal[r:Rule]{\n" \
+            "no r1 : Rule | lessSpecific[r,r1]\n}\n\npred isPrecededBy[r1,r2:Rule]{\n	(\n 		lessSpecific[r1,r2]" \
+            "\n		or\n		(\n			not lessSpecific[r2,r1]\n			and\n			maximal[r1]\n" \
+            "			and\n			maximal[r2]\n			and\n			r2.m = prohibition\n" \
+            "			and\n			r1.m != r2.m\n		)\n	)\n}\n\npred sinkRule[r:Rule,req:Request]{\n" \
+            "no r.(req.ruleSucc)\n}\n\n\nrun{} for exactly 4 Rule, 4 Subject, 4 Resource, 4 Context, 2 Request\n\n" \
+            "assert acyclicRule{ all r: Request | acyclic[r.ruleSucc,applicableRules[r]]}\n" \
+            "check acyclicRule for  7 but exactly 5 Rule"
+
