@@ -199,8 +199,8 @@ bmachine += tab+tab+"ineffectiveSet := {ru | ru : RULE_T & not(#(req,con).(req:R
                     "!ru2.(ru2:(pseudoSink(req,con)-{ru}) => (rules(ru2))'mo = per)))))}\n"+tab+"END\n"
 bmachine += "END"
 
-directory = "C:"+os.sep+"Users"+os.sep+"dead1401"+os.sep+"PycharmProjects"+os.sep+"SGAC"+os.sep+"Tests"+os.sep+"" \
-            "Varying_the_number_of_contexts"+os.sep+"10contexts"
+directory = "C:"+os.sep+"Users"+os.sep+"diego"+os.sep+"Documents"+os.sep+"GitHub"+os.sep+"SGAC"+os.sep+"Tests"+\
+            os.sep+"Varying_the_number_of_contexts"+os.sep+"10contexts"
 
 onlyfiles = next(os.walk(directory))[2]
 bMachineName = "SGAC_B_"+str((len(onlyfiles)) // 8 +1)+".mch"
@@ -209,7 +209,7 @@ f.write(bmachine)
 f.close()
 
 timeB = time.time()
-p = subprocess.Popen("C:"+os.sep+"ProB"+os.sep+"probcli.exe " + directory + os.sep + bMachineName,
+p = subprocess.Popen("F:"+os.sep+"ProB"+os.sep+"Prob"+os.sep+"probcli.exe " + directory + os.sep + bMachineName,
                      stdout=subprocess.PIPE,
                      stderr=subprocess.PIPE,
                      shell=True)
@@ -237,7 +237,16 @@ f.write(str(Python_Sub_Closure_Graph)), f.write("\n")
 f.write(str(Python_Res_Closure_Graph))
 f.close()
 
-SGAC.SGAC_random("SGAC_Z3_"+str(len(onlyfiles) // 8 + 1), directory, (len(onlyfiles)) // 8+1)
+#SGAC.SGAC_random("SGAC_Z3_"+str(len(onlyfiles) // 8 + 1), directory, (len(onlyfiles)) // 8+1)
+
+f = open(directory + os.sep + bMachineName + "_", "w+")
+f = open(directory + os.sep + bMachineName + "__", "w+")
+f = open(directory + os.sep + bMachineName + "___", "w+")
+f = open(directory + os.sep + bMachineName + "____", "w+")
+f = open(directory + os.sep + bMachineName + "_____", "w+")
+f = open(directory + os.sep + bMachineName + "______", "w+")
+f.close()
+
 timeP = time.time() - timeP
 print(timeP)
 
@@ -256,8 +265,8 @@ for sub in subjectSink:
     for res in resourceSink:
         requests.append([sub, res])
 
-directory = "C:"+os.sep+"Users"+os.sep+"dead1401"+os.sep+"PycharmProjects"+os.sep+"SGAC"+os.sep+"Tests"+os.sep+"" \
-            "Varying_the_number_of_contexts"+os.sep+"10contexts"+os.sep+str(len(onlyfiles) // 8 + 1)
+directory = "C:"+os.sep+"Users"+os.sep+"diego"+os.sep+"Documents"+os.sep+"GitHub"+os.sep+"SGAC"+os.sep+"Tests"+\
+            os.sep+"Varying_the_number_of_contexts"+os.sep+"10contexts"+os.sep+"alloy"+str(len(onlyfiles) // 8 + 1)
 
 os.mkdir(directory)
 
@@ -265,14 +274,15 @@ counter = 0
 for request in requests:
     os.mkdir(directory+os.sep+"graph"+str(counter))
     alloyGraph = ""
-    alloyGraph += "module filepath/param/graph/property/req\nopen filepath/sgac_core\n//**********************\n" \
+    alloyGraph += "module filepath/param/graph/property/req\nopen filepath/alloy"+str(len(onlyfiles) // 8 + 1)+\
+                  "/sgac_core\n//**********************\n" \
                   "//***Graph signatures***\n//**********************\n"
     alloyGraph += "one sig " + V_SUB[:len(V_SUB) - 2:] + " extends Subject{}{}\n"
     alloyGraph += "fact{\nsubSucc=" + graph_sub[:len(graph_sub) - 2:].replace(",", "+\n" + tab + tab).replace("|->",
                                                                                                               "->") + \
                   "}\n"
     alloyGraph += "one sig " + V_RES[:len(V_RES) - 2:] + " extends Resource{}{}\n"
-    alloyGraph += "fact{\nsubSucc=" + graph_res[:len(graph_res) - 2:].replace(",", "+\n" + tab + tab).replace("|->",
+    alloyGraph += "fact{\nresSucc=" + graph_res[:len(graph_res) - 2:].replace(",", "+\n" + tab + tab).replace("|->",
                                                                                                               "->") +\
                   "}\n"
     alloyGraph += "\n//*************************\n//***Contexts signatures***\n//*************************\n"
@@ -294,10 +304,10 @@ for request in requests:
                                                          "|evalRuleCond[r,con]}\n}\n\n"
 
     alloyAccess = alloyGraph + "//*********************\n//***Access property***\n//*********************\n"
-    for key in Python_Rules.keys():
-        for con in Python_Rules[key][4]:
-            alloyAccess += "run accessReq" + str(counter) + "_" + \
-                           con+"{access_access_condition[req"+str(counter)+","+con+"]} for 4\n"
+
+    for con in Python_Context:
+        alloyAccess += "run accessReq" + str(counter) + "_" +\
+                       con+"{access_condition[req"+str(counter)+","+con+"]} for 4\n"
     os.mkdir(directory + os.sep + "graph" + str(counter) + os.sep + "access")
     f = open(directory + os.sep + "graph" + str(counter) + os.sep + "access" + os.sep + "req" + str(counter) + ".als",
              "w+")
@@ -328,10 +338,9 @@ for request in requests:
                   ""+tab+"no req: Request | (req.res = reso and\n"+tab+"access_condition[req,c])\n}\n\n" \
                   ""+tab+"pred HiddenData[c:Context] {\n"+tab+"some reso: documentsG[] | HiddenDocument[reso,c]\n}\n" \
                   "//***Hidden Data Existence and determination***\n"
-    for key in Python_Rules.keys():
-        for con in Python_Rules[key][4]:
-            alloyHidden += "check HiddenDocument_"+\
-                           request[1]+"_"+con+"{ HiddenDocument["+request[1]+","+con+"]} for 4\n"
+    for con in Python_Context:
+        alloyHidden += "check HiddenDocument_"+\
+                       request[1]+"_"+con+"{ HiddenDocument["+request[1]+","+con+"]} for 4\n"
     os.mkdir(directory + os.sep + "graph" + str(counter) + os.sep + "hidden")
     f = open(directory + os.sep + "graph" + str(counter) + os.sep + "hidden" + os.sep + "req" + str(counter) + ".als",
              "w+")
@@ -362,7 +371,7 @@ for request in requests:
     os.mkdir(directory + os.sep + "graph" + str(counter) + os.sep + "ineffective")
     f = open(directory + os.sep + "graph" + str(counter) + os.sep + "ineffective" + os.sep + "req" + str(counter) +
              ".als", "w+")
-    f.write(alloyHidden)
+    f.write(alloyIneffective)
     f.close()
 
     counter += + 1
@@ -371,7 +380,7 @@ alloyCore = "open util/relation\nmodule sgac_core\n/////////////////////////////
             "////////////////////////////////////////////////////////\n" \
             "sig Subject {\n" \
             "	subSucc : set Subject                  //  subject successors; covering pair (s1,s2) in subSucc" \
-            " <=> s1 fils de s2, donc, s1 plus spécifique que s2; s2 père de s1\n}\nfact { acyclic[subSucc,Subject] }\n" \
+            " <=> s1 son of s2, then, s1 plus specific than s2; s2 father of s1\n}\nfact { acyclic[subSucc,Subject] }\n" \
             "\nsig Resource {\n	resSucc : set Resource                 // resource successors; covering pair\n}\n" \
             "fact { acyclic[resSucc,Resource] }\n\nabstract sig Modality {}\n" \
             "one sig prohibition, permission extends  Modality {}\nsig Context {}\nsig Rule {\n" \
@@ -403,4 +412,29 @@ alloyCore = "open util/relation\nmodule sgac_core\n/////////////////////////////
             "no r.(req.ruleSucc)\n}\n\n\nrun{} for exactly 4 Rule, 4 Subject, 4 Resource, 4 Context, 2 Request\n\n" \
             "assert acyclicRule{ all r: Request | acyclic[r.ruleSucc,applicableRules[r]]}\n" \
             "check acyclicRule for  7 but exactly 5 Rule"
+
+f = open(directory + os.sep + "sgac_core.als", "w")
+f.write(alloyCore)
+f.close()
+
+timeA = time.time()
+p = subprocess.Popen("java -cp F:"+os.sep+"curso"+os.sep+"IGL501"+os.sep+"alloy4.2_2015-02-22.jar "
+                     "edu.mit.csail.sdg.alloy4whole.ExampleUsingTheCompiler "
+                     "C:"+os.sep+"Users"+os.sep+"diego"+os.sep+"Documents"+os.sep+"GitHub"+os.sep+"SGAC"+os.sep+"Tests"+os.sep+"Varying_the_number_of_contexts"+os.sep+"10contexts"+os.sep+"alloy1"+os.sep+"graph0"+os.sep+"access"+os.sep+"req0.als "
+                     "C:"+os.sep+"Users"+os.sep+"diego"+os.sep+"Documents"+os.sep+"GitHub"+os.sep+"SGAC"+os.sep+"Tests"+os.sep+"Varying_the_number_of_contexts"+os.sep+"10contexts"+os.sep+"alloy1"+os.sep+"graph0"+os.sep+"contexts"+os.sep+"req0.als ",
+                     stdout=subprocess.PIPE,
+                     stderr=subprocess.PIPE,
+                     shell=True)
+output, errors = p.communicate()
+n = ""
+timeA = time.time() - timeA
+print(timeA)
+if True:
+    if p.returncode==0:
+        print("ProB executed successfully ("+n+")")
+        print(output)
+
+    else:
+        print("ProB - error reported in "+n+" and the return code is "+str(p.returncode))
+        print(errors)
 

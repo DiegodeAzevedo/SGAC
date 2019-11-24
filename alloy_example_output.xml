@@ -1,0 +1,1032 @@
+<alloy builddate="2015-02-22 18:21 EST">
+
+<instance bitwidth="4" maxseq="4" command="Run grantingContextDetermination for 4 but 1 GrantingContext" filename="">
+
+<sig label="seq/Int" ID="0" parentID="1" builtin="yes">
+</sig>
+
+<sig label="Int" ID="1" parentID="2" builtin="yes">
+</sig>
+
+<sig label="String" ID="3" parentID="2" builtin="yes">
+</sig>
+
+<sig label="this/GrantingContext" ID="4" parentID="2" one="yes">
+   <atom label="GrantingContext$0"/>
+</sig>
+
+<field label="acc" ID="5" parentID="4">
+   <tuple> <atom label="GrantingContext$0"/> <atom label="c3$0"/> </tuple>
+   <tuple> <atom label="GrantingContext$0"/> <atom label="c4$0"/> </tuple>
+   <types> <type ID="4"/> <type ID="6"/> </types>
+</field>
+
+<sig label="this/s9" ID="7" parentID="8" one="yes">
+   <atom label="s9$0"/>
+</sig>
+
+<sig label="this/s8" ID="9" parentID="8" one="yes">
+   <atom label="s8$0"/>
+</sig>
+
+<sig label="this/s3" ID="10" parentID="8" one="yes">
+   <atom label="s3$0"/>
+</sig>
+
+<sig label="this/s2" ID="11" parentID="8" one="yes">
+   <atom label="s2$0"/>
+</sig>
+
+<sig label="this/s1" ID="12" parentID="8" one="yes">
+   <atom label="s1$0"/>
+</sig>
+
+<sig label="this/s0" ID="13" parentID="8" one="yes">
+   <atom label="s0$0"/>
+</sig>
+
+<sig label="this/s7" ID="14" parentID="8" one="yes">
+   <atom label="s7$0"/>
+</sig>
+
+<sig label="this/s6" ID="15" parentID="8" one="yes">
+   <atom label="s6$0"/>
+</sig>
+
+<sig label="this/s5" ID="16" parentID="8" one="yes">
+   <atom label="s5$0"/>
+</sig>
+
+<sig label="this/s4" ID="17" parentID="8" one="yes">
+   <atom label="s4$0"/>
+</sig>
+
+<sig label="this/s19" ID="18" parentID="8" one="yes">
+   <atom label="s19$0"/>
+</sig>
+
+<sig label="this/s18" ID="19" parentID="8" one="yes">
+   <atom label="s18$0"/>
+</sig>
+
+<sig label="this/s13" ID="20" parentID="8" one="yes">
+   <atom label="s13$0"/>
+</sig>
+
+<sig label="this/s12" ID="21" parentID="8" one="yes">
+   <atom label="s12$0"/>
+</sig>
+
+<sig label="this/s11" ID="22" parentID="8" one="yes">
+   <atom label="s11$0"/>
+</sig>
+
+<sig label="this/s10" ID="23" parentID="8" one="yes">
+   <atom label="s10$0"/>
+</sig>
+
+<sig label="this/s17" ID="24" parentID="8" one="yes">
+   <atom label="s17$0"/>
+</sig>
+
+<sig label="this/s16" ID="25" parentID="8" one="yes">
+   <atom label="s16$0"/>
+</sig>
+
+<sig label="this/s15" ID="26" parentID="8" one="yes">
+   <atom label="s15$0"/>
+</sig>
+
+<sig label="this/s14" ID="27" parentID="8" one="yes">
+   <atom label="s14$0"/>
+</sig>
+
+<sig label="this/s22" ID="28" parentID="8" one="yes">
+   <atom label="s22$0"/>
+</sig>
+
+<sig label="this/s23" ID="29" parentID="8" one="yes">
+   <atom label="s23$0"/>
+</sig>
+
+<sig label="this/s20" ID="30" parentID="8" one="yes">
+   <atom label="s20$0"/>
+</sig>
+
+<sig label="this/s21" ID="31" parentID="8" one="yes">
+   <atom label="s21$0"/>
+</sig>
+
+<sig label="this/s26" ID="32" parentID="8" one="yes">
+   <atom label="s26$0"/>
+</sig>
+
+<sig label="this/s27" ID="33" parentID="8" one="yes">
+   <atom label="s27$0"/>
+</sig>
+
+<sig label="this/s24" ID="34" parentID="8" one="yes">
+   <atom label="s24$0"/>
+</sig>
+
+<sig label="this/s25" ID="35" parentID="8" one="yes">
+   <atom label="s25$0"/>
+</sig>
+
+<sig label="this/s28" ID="36" parentID="8" one="yes">
+   <atom label="s28$0"/>
+</sig>
+
+<sig label="this/s29" ID="37" parentID="8" one="yes">
+   <atom label="s29$0"/>
+</sig>
+
+<sig label="sgac_core/Subject" ID="8" parentID="2">
+</sig>
+
+<field label="subSucc" ID="38" parentID="8">
+   <tuple> <atom label="s9$0"/> <atom label="s8$0"/> </tuple>
+   <tuple> <atom label="s9$0"/> <atom label="s0$0"/> </tuple>
+   <tuple> <atom label="s9$0"/> <atom label="s6$0"/> </tuple>
+   <tuple> <atom label="s8$0"/> <atom label="s2$0"/> </tuple>
+   <tuple> <atom label="s8$0"/> <atom label="s1$0"/> </tuple>
+   <tuple> <atom label="s8$0"/> <atom label="s7$0"/> </tuple>
+   <tuple> <atom label="s8$0"/> <atom label="s6$0"/> </tuple>
+   <tuple> <atom label="s8$0"/> <atom label="s4$0"/> </tuple>
+   <tuple> <atom label="s3$0"/> <atom label="s2$0"/> </tuple>
+   <tuple> <atom label="s2$0"/> <atom label="s0$0"/> </tuple>
+   <tuple> <atom label="s1$0"/> <atom label="s0$0"/> </tuple>
+   <tuple> <atom label="s7$0"/> <atom label="s2$0"/> </tuple>
+   <tuple> <atom label="s7$0"/> <atom label="s1$0"/> </tuple>
+   <tuple> <atom label="s7$0"/> <atom label="s0$0"/> </tuple>
+   <tuple> <atom label="s7$0"/> <atom label="s5$0"/> </tuple>
+   <tuple> <atom label="s6$0"/> <atom label="s3$0"/> </tuple>
+   <tuple> <atom label="s6$0"/> <atom label="s2$0"/> </tuple>
+   <tuple> <atom label="s6$0"/> <atom label="s0$0"/> </tuple>
+   <tuple> <atom label="s5$0"/> <atom label="s3$0"/> </tuple>
+   <tuple> <atom label="s5$0"/> <atom label="s2$0"/> </tuple>
+   <tuple> <atom label="s19$0"/> <atom label="s9$0"/> </tuple>
+   <tuple> <atom label="s19$0"/> <atom label="s2$0"/> </tuple>
+   <tuple> <atom label="s19$0"/> <atom label="s6$0"/> </tuple>
+   <tuple> <atom label="s19$0"/> <atom label="s5$0"/> </tuple>
+   <tuple> <atom label="s19$0"/> <atom label="s18$0"/> </tuple>
+   <tuple> <atom label="s19$0"/> <atom label="s11$0"/> </tuple>
+   <tuple> <atom label="s19$0"/> <atom label="s10$0"/> </tuple>
+   <tuple> <atom label="s19$0"/> <atom label="s17$0"/> </tuple>
+   <tuple> <atom label="s19$0"/> <atom label="s15$0"/> </tuple>
+   <tuple> <atom label="s19$0"/> <atom label="s14$0"/> </tuple>
+   <tuple> <atom label="s18$0"/> <atom label="s9$0"/> </tuple>
+   <tuple> <atom label="s18$0"/> <atom label="s8$0"/> </tuple>
+   <tuple> <atom label="s18$0"/> <atom label="s3$0"/> </tuple>
+   <tuple> <atom label="s18$0"/> <atom label="s2$0"/> </tuple>
+   <tuple> <atom label="s18$0"/> <atom label="s1$0"/> </tuple>
+   <tuple> <atom label="s18$0"/> <atom label="s0$0"/> </tuple>
+   <tuple> <atom label="s18$0"/> <atom label="s6$0"/> </tuple>
+   <tuple> <atom label="s18$0"/> <atom label="s5$0"/> </tuple>
+   <tuple> <atom label="s18$0"/> <atom label="s11$0"/> </tuple>
+   <tuple> <atom label="s18$0"/> <atom label="s10$0"/> </tuple>
+   <tuple> <atom label="s18$0"/> <atom label="s17$0"/> </tuple>
+   <tuple> <atom label="s18$0"/> <atom label="s14$0"/> </tuple>
+   <tuple> <atom label="s13$0"/> <atom label="s3$0"/> </tuple>
+   <tuple> <atom label="s13$0"/> <atom label="s1$0"/> </tuple>
+   <tuple> <atom label="s13$0"/> <atom label="s0$0"/> </tuple>
+   <tuple> <atom label="s13$0"/> <atom label="s4$0"/> </tuple>
+   <tuple> <atom label="s13$0"/> <atom label="s12$0"/> </tuple>
+   <tuple> <atom label="s13$0"/> <atom label="s11$0"/> </tuple>
+   <tuple> <atom label="s13$0"/> <atom label="s10$0"/> </tuple>
+   <tuple> <atom label="s12$0"/> <atom label="s9$0"/> </tuple>
+   <tuple> <atom label="s12$0"/> <atom label="s3$0"/> </tuple>
+   <tuple> <atom label="s12$0"/> <atom label="s7$0"/> </tuple>
+   <tuple> <atom label="s12$0"/> <atom label="s4$0"/> </tuple>
+   <tuple> <atom label="s11$0"/> <atom label="s8$0"/> </tuple>
+   <tuple> <atom label="s11$0"/> <atom label="s3$0"/> </tuple>
+   <tuple> <atom label="s11$0"/> <atom label="s7$0"/> </tuple>
+   <tuple> <atom label="s11$0"/> <atom label="s6$0"/> </tuple>
+   <tuple> <atom label="s11$0"/> <atom label="s5$0"/> </tuple>
+   <tuple> <atom label="s11$0"/> <atom label="s4$0"/> </tuple>
+   <tuple> <atom label="s11$0"/> <atom label="s10$0"/> </tuple>
+   <tuple> <atom label="s10$0"/> <atom label="s8$0"/> </tuple>
+   <tuple> <atom label="s10$0"/> <atom label="s0$0"/> </tuple>
+   <tuple> <atom label="s10$0"/> <atom label="s7$0"/> </tuple>
+   <tuple> <atom label="s10$0"/> <atom label="s6$0"/> </tuple>
+   <tuple> <atom label="s10$0"/> <atom label="s5$0"/> </tuple>
+   <tuple> <atom label="s10$0"/> <atom label="s4$0"/> </tuple>
+   <tuple> <atom label="s17$0"/> <atom label="s8$0"/> </tuple>
+   <tuple> <atom label="s17$0"/> <atom label="s1$0"/> </tuple>
+   <tuple> <atom label="s17$0"/> <atom label="s0$0"/> </tuple>
+   <tuple> <atom label="s17$0"/> <atom label="s7$0"/> </tuple>
+   <tuple> <atom label="s17$0"/> <atom label="s6$0"/> </tuple>
+   <tuple> <atom label="s17$0"/> <atom label="s5$0"/> </tuple>
+   <tuple> <atom label="s17$0"/> <atom label="s4$0"/> </tuple>
+   <tuple> <atom label="s17$0"/> <atom label="s13$0"/> </tuple>
+   <tuple> <atom label="s17$0"/> <atom label="s12$0"/> </tuple>
+   <tuple> <atom label="s17$0"/> <atom label="s11$0"/> </tuple>
+   <tuple> <atom label="s17$0"/> <atom label="s10$0"/> </tuple>
+   <tuple> <atom label="s17$0"/> <atom label="s15$0"/> </tuple>
+   <tuple> <atom label="s16$0"/> <atom label="s8$0"/> </tuple>
+   <tuple> <atom label="s16$0"/> <atom label="s0$0"/> </tuple>
+   <tuple> <atom label="s16$0"/> <atom label="s7$0"/> </tuple>
+   <tuple> <atom label="s16$0"/> <atom label="s13$0"/> </tuple>
+   <tuple> <atom label="s16$0"/> <atom label="s11$0"/> </tuple>
+   <tuple> <atom label="s16$0"/> <atom label="s10$0"/> </tuple>
+   <tuple> <atom label="s16$0"/> <atom label="s15$0"/> </tuple>
+   <tuple> <atom label="s15$0"/> <atom label="s9$0"/> </tuple>
+   <tuple> <atom label="s15$0"/> <atom label="s8$0"/> </tuple>
+   <tuple> <atom label="s15$0"/> <atom label="s3$0"/> </tuple>
+   <tuple> <atom label="s15$0"/> <atom label="s2$0"/> </tuple>
+   <tuple> <atom label="s15$0"/> <atom label="s1$0"/> </tuple>
+   <tuple> <atom label="s15$0"/> <atom label="s13$0"/> </tuple>
+   <tuple> <atom label="s15$0"/> <atom label="s12$0"/> </tuple>
+   <tuple> <atom label="s15$0"/> <atom label="s11$0"/> </tuple>
+   <tuple> <atom label="s15$0"/> <atom label="s14$0"/> </tuple>
+   <tuple> <atom label="s14$0"/> <atom label="s3$0"/> </tuple>
+   <tuple> <atom label="s14$0"/> <atom label="s2$0"/> </tuple>
+   <tuple> <atom label="s14$0"/> <atom label="s1$0"/> </tuple>
+   <tuple> <atom label="s14$0"/> <atom label="s0$0"/> </tuple>
+   <tuple> <atom label="s14$0"/> <atom label="s7$0"/> </tuple>
+   <tuple> <atom label="s14$0"/> <atom label="s4$0"/> </tuple>
+   <tuple> <atom label="s14$0"/> <atom label="s13$0"/> </tuple>
+   <tuple> <atom label="s14$0"/> <atom label="s12$0"/> </tuple>
+   <tuple> <atom label="s22$0"/> <atom label="s1$0"/> </tuple>
+   <tuple> <atom label="s22$0"/> <atom label="s5$0"/> </tuple>
+   <tuple> <atom label="s22$0"/> <atom label="s4$0"/> </tuple>
+   <tuple> <atom label="s22$0"/> <atom label="s10$0"/> </tuple>
+   <tuple> <atom label="s22$0"/> <atom label="s17$0"/> </tuple>
+   <tuple> <atom label="s22$0"/> <atom label="s21$0"/> </tuple>
+   <tuple> <atom label="s23$0"/> <atom label="s9$0"/> </tuple>
+   <tuple> <atom label="s23$0"/> <atom label="s8$0"/> </tuple>
+   <tuple> <atom label="s23$0"/> <atom label="s2$0"/> </tuple>
+   <tuple> <atom label="s23$0"/> <atom label="s1$0"/> </tuple>
+   <tuple> <atom label="s23$0"/> <atom label="s7$0"/> </tuple>
+   <tuple> <atom label="s23$0"/> <atom label="s5$0"/> </tuple>
+   <tuple> <atom label="s23$0"/> <atom label="s4$0"/> </tuple>
+   <tuple> <atom label="s23$0"/> <atom label="s18$0"/> </tuple>
+   <tuple> <atom label="s23$0"/> <atom label="s11$0"/> </tuple>
+   <tuple> <atom label="s23$0"/> <atom label="s16$0"/> </tuple>
+   <tuple> <atom label="s23$0"/> <atom label="s15$0"/> </tuple>
+   <tuple> <atom label="s23$0"/> <atom label="s14$0"/> </tuple>
+   <tuple> <atom label="s23$0"/> <atom label="s22$0"/> </tuple>
+   <tuple> <atom label="s23$0"/> <atom label="s20$0"/> </tuple>
+   <tuple> <atom label="s20$0"/> <atom label="s9$0"/> </tuple>
+   <tuple> <atom label="s20$0"/> <atom label="s3$0"/> </tuple>
+   <tuple> <atom label="s20$0"/> <atom label="s2$0"/> </tuple>
+   <tuple> <atom label="s20$0"/> <atom label="s5$0"/> </tuple>
+   <tuple> <atom label="s20$0"/> <atom label="s4$0"/> </tuple>
+   <tuple> <atom label="s20$0"/> <atom label="s19$0"/> </tuple>
+   <tuple> <atom label="s20$0"/> <atom label="s13$0"/> </tuple>
+   <tuple> <atom label="s20$0"/> <atom label="s10$0"/> </tuple>
+   <tuple> <atom label="s20$0"/> <atom label="s17$0"/> </tuple>
+   <tuple> <atom label="s20$0"/> <atom label="s15$0"/> </tuple>
+   <tuple> <atom label="s21$0"/> <atom label="s9$0"/> </tuple>
+   <tuple> <atom label="s21$0"/> <atom label="s3$0"/> </tuple>
+   <tuple> <atom label="s21$0"/> <atom label="s1$0"/> </tuple>
+   <tuple> <atom label="s21$0"/> <atom label="s19$0"/> </tuple>
+   <tuple> <atom label="s21$0"/> <atom label="s18$0"/> </tuple>
+   <tuple> <atom label="s21$0"/> <atom label="s13$0"/> </tuple>
+   <tuple> <atom label="s21$0"/> <atom label="s12$0"/> </tuple>
+   <tuple> <atom label="s21$0"/> <atom label="s17$0"/> </tuple>
+   <tuple> <atom label="s21$0"/> <atom label="s15$0"/> </tuple>
+   <tuple> <atom label="s21$0"/> <atom label="s14$0"/> </tuple>
+   <tuple> <atom label="s26$0"/> <atom label="s9$0"/> </tuple>
+   <tuple> <atom label="s26$0"/> <atom label="s8$0"/> </tuple>
+   <tuple> <atom label="s26$0"/> <atom label="s0$0"/> </tuple>
+   <tuple> <atom label="s26$0"/> <atom label="s7$0"/> </tuple>
+   <tuple> <atom label="s26$0"/> <atom label="s6$0"/> </tuple>
+   <tuple> <atom label="s26$0"/> <atom label="s19$0"/> </tuple>
+   <tuple> <atom label="s26$0"/> <atom label="s18$0"/> </tuple>
+   <tuple> <atom label="s26$0"/> <atom label="s13$0"/> </tuple>
+   <tuple> <atom label="s26$0"/> <atom label="s17$0"/> </tuple>
+   <tuple> <atom label="s26$0"/> <atom label="s15$0"/> </tuple>
+   <tuple> <atom label="s26$0"/> <atom label="s14$0"/> </tuple>
+   <tuple> <atom label="s26$0"/> <atom label="s22$0"/> </tuple>
+   <tuple> <atom label="s26$0"/> <atom label="s21$0"/> </tuple>
+   <tuple> <atom label="s26$0"/> <atom label="s24$0"/> </tuple>
+   <tuple> <atom label="s26$0"/> <atom label="s25$0"/> </tuple>
+   <tuple> <atom label="s27$0"/> <atom label="s9$0"/> </tuple>
+   <tuple> <atom label="s27$0"/> <atom label="s3$0"/> </tuple>
+   <tuple> <atom label="s27$0"/> <atom label="s0$0"/> </tuple>
+   <tuple> <atom label="s27$0"/> <atom label="s7$0"/> </tuple>
+   <tuple> <atom label="s27$0"/> <atom label="s5$0"/> </tuple>
+   <tuple> <atom label="s27$0"/> <atom label="s19$0"/> </tuple>
+   <tuple> <atom label="s27$0"/> <atom label="s18$0"/> </tuple>
+   <tuple> <atom label="s27$0"/> <atom label="s13$0"/> </tuple>
+   <tuple> <atom label="s27$0"/> <atom label="s12$0"/> </tuple>
+   <tuple> <atom label="s27$0"/> <atom label="s10$0"/> </tuple>
+   <tuple> <atom label="s27$0"/> <atom label="s17$0"/> </tuple>
+   <tuple> <atom label="s27$0"/> <atom label="s14$0"/> </tuple>
+   <tuple> <atom label="s27$0"/> <atom label="s23$0"/> </tuple>
+   <tuple> <atom label="s27$0"/> <atom label="s20$0"/> </tuple>
+   <tuple> <atom label="s24$0"/> <atom label="s3$0"/> </tuple>
+   <tuple> <atom label="s24$0"/> <atom label="s7$0"/> </tuple>
+   <tuple> <atom label="s24$0"/> <atom label="s14$0"/> </tuple>
+   <tuple> <atom label="s24$0"/> <atom label="s22$0"/> </tuple>
+   <tuple> <atom label="s24$0"/> <atom label="s20$0"/> </tuple>
+   <tuple> <atom label="s25$0"/> <atom label="s8$0"/> </tuple>
+   <tuple> <atom label="s25$0"/> <atom label="s3$0"/> </tuple>
+   <tuple> <atom label="s25$0"/> <atom label="s2$0"/> </tuple>
+   <tuple> <atom label="s25$0"/> <atom label="s1$0"/> </tuple>
+   <tuple> <atom label="s25$0"/> <atom label="s0$0"/> </tuple>
+   <tuple> <atom label="s25$0"/> <atom label="s4$0"/> </tuple>
+   <tuple> <atom label="s25$0"/> <atom label="s13$0"/> </tuple>
+   <tuple> <atom label="s25$0"/> <atom label="s12$0"/> </tuple>
+   <tuple> <atom label="s25$0"/> <atom label="s10$0"/> </tuple>
+   <tuple> <atom label="s25$0"/> <atom label="s14$0"/> </tuple>
+   <tuple> <atom label="s25$0"/> <atom label="s22$0"/> </tuple>
+   <tuple> <atom label="s25$0"/> <atom label="s20$0"/> </tuple>
+   <tuple> <atom label="s25$0"/> <atom label="s21$0"/> </tuple>
+   <tuple> <atom label="s25$0"/> <atom label="s24$0"/> </tuple>
+   <tuple> <atom label="s28$0"/> <atom label="s9$0"/> </tuple>
+   <tuple> <atom label="s28$0"/> <atom label="s2$0"/> </tuple>
+   <tuple> <atom label="s28$0"/> <atom label="s1$0"/> </tuple>
+   <tuple> <atom label="s28$0"/> <atom label="s5$0"/> </tuple>
+   <tuple> <atom label="s28$0"/> <atom label="s4$0"/> </tuple>
+   <tuple> <atom label="s28$0"/> <atom label="s18$0"/> </tuple>
+   <tuple> <atom label="s28$0"/> <atom label="s17$0"/> </tuple>
+   <tuple> <atom label="s28$0"/> <atom label="s16$0"/> </tuple>
+   <tuple> <atom label="s28$0"/> <atom label="s14$0"/> </tuple>
+   <tuple> <atom label="s28$0"/> <atom label="s22$0"/> </tuple>
+   <tuple> <atom label="s28$0"/> <atom label="s23$0"/> </tuple>
+   <tuple> <atom label="s28$0"/> <atom label="s21$0"/> </tuple>
+   <tuple> <atom label="s28$0"/> <atom label="s26$0"/> </tuple>
+   <tuple> <atom label="s28$0"/> <atom label="s27$0"/> </tuple>
+   <tuple> <atom label="s29$0"/> <atom label="s8$0"/> </tuple>
+   <tuple> <atom label="s29$0"/> <atom label="s2$0"/> </tuple>
+   <tuple> <atom label="s29$0"/> <atom label="s1$0"/> </tuple>
+   <tuple> <atom label="s29$0"/> <atom label="s0$0"/> </tuple>
+   <tuple> <atom label="s29$0"/> <atom label="s6$0"/> </tuple>
+   <tuple> <atom label="s29$0"/> <atom label="s19$0"/> </tuple>
+   <tuple> <atom label="s29$0"/> <atom label="s11$0"/> </tuple>
+   <tuple> <atom label="s29$0"/> <atom label="s10$0"/> </tuple>
+   <tuple> <atom label="s29$0"/> <atom label="s17$0"/> </tuple>
+   <tuple> <atom label="s29$0"/> <atom label="s14$0"/> </tuple>
+   <tuple> <atom label="s29$0"/> <atom label="s22$0"/> </tuple>
+   <tuple> <atom label="s29$0"/> <atom label="s21$0"/> </tuple>
+   <types> <type ID="8"/> <type ID="8"/> </types>
+</field>
+
+<sig label="this/r29" ID="39" parentID="40" one="yes">
+   <atom label="r29$0"/>
+</sig>
+
+<sig label="this/r28" ID="41" parentID="40" one="yes">
+   <atom label="r28$0"/>
+</sig>
+
+<sig label="this/r27" ID="42" parentID="40" one="yes">
+   <atom label="r27$0"/>
+</sig>
+
+<sig label="this/r26" ID="43" parentID="40" one="yes">
+   <atom label="r26$0"/>
+</sig>
+
+<sig label="this/r25" ID="44" parentID="40" one="yes">
+   <atom label="r25$0"/>
+</sig>
+
+<sig label="this/r24" ID="45" parentID="40" one="yes">
+   <atom label="r24$0"/>
+</sig>
+
+<sig label="this/r23" ID="46" parentID="40" one="yes">
+   <atom label="r23$0"/>
+</sig>
+
+<sig label="this/r22" ID="47" parentID="40" one="yes">
+   <atom label="r22$0"/>
+</sig>
+
+<sig label="this/r21" ID="48" parentID="40" one="yes">
+   <atom label="r21$0"/>
+</sig>
+
+<sig label="this/r20" ID="49" parentID="40" one="yes">
+   <atom label="r20$0"/>
+</sig>
+
+<sig label="this/r16" ID="50" parentID="40" one="yes">
+   <atom label="r16$0"/>
+</sig>
+
+<sig label="this/r17" ID="51" parentID="40" one="yes">
+   <atom label="r17$0"/>
+</sig>
+
+<sig label="this/r14" ID="52" parentID="40" one="yes">
+   <atom label="r14$0"/>
+</sig>
+
+<sig label="this/r15" ID="53" parentID="40" one="yes">
+   <atom label="r15$0"/>
+</sig>
+
+<sig label="this/r12" ID="54" parentID="40" one="yes">
+   <atom label="r12$0"/>
+</sig>
+
+<sig label="this/r13" ID="55" parentID="40" one="yes">
+   <atom label="r13$0"/>
+</sig>
+
+<sig label="this/r10" ID="56" parentID="40" one="yes">
+   <atom label="r10$0"/>
+</sig>
+
+<sig label="this/r11" ID="57" parentID="40" one="yes">
+   <atom label="r11$0"/>
+</sig>
+
+<sig label="this/r18" ID="58" parentID="40" one="yes">
+   <atom label="r18$0"/>
+</sig>
+
+<sig label="this/r19" ID="59" parentID="40" one="yes">
+   <atom label="r19$0"/>
+</sig>
+
+<sig label="this/r4" ID="60" parentID="40" one="yes">
+   <atom label="r4$0"/>
+</sig>
+
+<sig label="this/r5" ID="61" parentID="40" one="yes">
+   <atom label="r5$0"/>
+</sig>
+
+<sig label="this/r6" ID="62" parentID="40" one="yes">
+   <atom label="r6$0"/>
+</sig>
+
+<sig label="this/r7" ID="63" parentID="40" one="yes">
+   <atom label="r7$0"/>
+</sig>
+
+<sig label="this/r0" ID="64" parentID="40" one="yes">
+   <atom label="r0$0"/>
+</sig>
+
+<sig label="this/r1" ID="65" parentID="40" one="yes">
+   <atom label="r1$0"/>
+</sig>
+
+<sig label="this/r2" ID="66" parentID="40" one="yes">
+   <atom label="r2$0"/>
+</sig>
+
+<sig label="this/r3" ID="67" parentID="40" one="yes">
+   <atom label="r3$0"/>
+</sig>
+
+<sig label="this/r8" ID="68" parentID="40" one="yes">
+   <atom label="r8$0"/>
+</sig>
+
+<sig label="this/r9" ID="69" parentID="40" one="yes">
+   <atom label="r9$0"/>
+</sig>
+
+<sig label="sgac_core/Resource" ID="40" parentID="2">
+</sig>
+
+<field label="resSucc" ID="70" parentID="40">
+   <tuple> <atom label="r29$0"/> <atom label="r28$0"/> </tuple>
+   <tuple> <atom label="r29$0"/> <atom label="r24$0"/> </tuple>
+   <tuple> <atom label="r29$0"/> <atom label="r14$0"/> </tuple>
+   <tuple> <atom label="r29$0"/> <atom label="r15$0"/> </tuple>
+   <tuple> <atom label="r29$0"/> <atom label="r12$0"/> </tuple>
+   <tuple> <atom label="r29$0"/> <atom label="r10$0"/> </tuple>
+   <tuple> <atom label="r29$0"/> <atom label="r18$0"/> </tuple>
+   <tuple> <atom label="r29$0"/> <atom label="r6$0"/> </tuple>
+   <tuple> <atom label="r29$0"/> <atom label="r9$0"/> </tuple>
+   <tuple> <atom label="r28$0"/> <atom label="r27$0"/> </tuple>
+   <tuple> <atom label="r28$0"/> <atom label="r26$0"/> </tuple>
+   <tuple> <atom label="r28$0"/> <atom label="r24$0"/> </tuple>
+   <tuple> <atom label="r28$0"/> <atom label="r22$0"/> </tuple>
+   <tuple> <atom label="r28$0"/> <atom label="r21$0"/> </tuple>
+   <tuple> <atom label="r28$0"/> <atom label="r17$0"/> </tuple>
+   <tuple> <atom label="r28$0"/> <atom label="r14$0"/> </tuple>
+   <tuple> <atom label="r28$0"/> <atom label="r13$0"/> </tuple>
+   <tuple> <atom label="r28$0"/> <atom label="r18$0"/> </tuple>
+   <tuple> <atom label="r28$0"/> <atom label="r5$0"/> </tuple>
+   <tuple> <atom label="r28$0"/> <atom label="r6$0"/> </tuple>
+   <tuple> <atom label="r28$0"/> <atom label="r7$0"/> </tuple>
+   <tuple> <atom label="r28$0"/> <atom label="r2$0"/> </tuple>
+   <tuple> <atom label="r28$0"/> <atom label="r8$0"/> </tuple>
+   <tuple> <atom label="r27$0"/> <atom label="r26$0"/> </tuple>
+   <tuple> <atom label="r27$0"/> <atom label="r25$0"/> </tuple>
+   <tuple> <atom label="r27$0"/> <atom label="r24$0"/> </tuple>
+   <tuple> <atom label="r27$0"/> <atom label="r23$0"/> </tuple>
+   <tuple> <atom label="r27$0"/> <atom label="r22$0"/> </tuple>
+   <tuple> <atom label="r27$0"/> <atom label="r17$0"/> </tuple>
+   <tuple> <atom label="r27$0"/> <atom label="r15$0"/> </tuple>
+   <tuple> <atom label="r27$0"/> <atom label="r10$0"/> </tuple>
+   <tuple> <atom label="r27$0"/> <atom label="r11$0"/> </tuple>
+   <tuple> <atom label="r27$0"/> <atom label="r19$0"/> </tuple>
+   <tuple> <atom label="r27$0"/> <atom label="r6$0"/> </tuple>
+   <tuple> <atom label="r27$0"/> <atom label="r7$0"/> </tuple>
+   <tuple> <atom label="r27$0"/> <atom label="r1$0"/> </tuple>
+   <tuple> <atom label="r27$0"/> <atom label="r3$0"/> </tuple>
+   <tuple> <atom label="r27$0"/> <atom label="r9$0"/> </tuple>
+   <tuple> <atom label="r26$0"/> <atom label="r24$0"/> </tuple>
+   <tuple> <atom label="r26$0"/> <atom label="r22$0"/> </tuple>
+   <tuple> <atom label="r26$0"/> <atom label="r21$0"/> </tuple>
+   <tuple> <atom label="r26$0"/> <atom label="r13$0"/> </tuple>
+   <tuple> <atom label="r26$0"/> <atom label="r11$0"/> </tuple>
+   <tuple> <atom label="r26$0"/> <atom label="r4$0"/> </tuple>
+   <tuple> <atom label="r26$0"/> <atom label="r5$0"/> </tuple>
+   <tuple> <atom label="r26$0"/> <atom label="r6$0"/> </tuple>
+   <tuple> <atom label="r26$0"/> <atom label="r1$0"/> </tuple>
+   <tuple> <atom label="r26$0"/> <atom label="r2$0"/> </tuple>
+   <tuple> <atom label="r26$0"/> <atom label="r3$0"/> </tuple>
+   <tuple> <atom label="r26$0"/> <atom label="r9$0"/> </tuple>
+   <tuple> <atom label="r25$0"/> <atom label="r24$0"/> </tuple>
+   <tuple> <atom label="r25$0"/> <atom label="r23$0"/> </tuple>
+   <tuple> <atom label="r25$0"/> <atom label="r22$0"/> </tuple>
+   <tuple> <atom label="r25$0"/> <atom label="r14$0"/> </tuple>
+   <tuple> <atom label="r25$0"/> <atom label="r12$0"/> </tuple>
+   <tuple> <atom label="r25$0"/> <atom label="r11$0"/> </tuple>
+   <tuple> <atom label="r25$0"/> <atom label="r18$0"/> </tuple>
+   <tuple> <atom label="r25$0"/> <atom label="r6$0"/> </tuple>
+   <tuple> <atom label="r25$0"/> <atom label="r3$0"/> </tuple>
+   <tuple> <atom label="r25$0"/> <atom label="r8$0"/> </tuple>
+   <tuple> <atom label="r25$0"/> <atom label="r9$0"/> </tuple>
+   <tuple> <atom label="r24$0"/> <atom label="r21$0"/> </tuple>
+   <tuple> <atom label="r24$0"/> <atom label="r14$0"/> </tuple>
+   <tuple> <atom label="r24$0"/> <atom label="r12$0"/> </tuple>
+   <tuple> <atom label="r24$0"/> <atom label="r10$0"/> </tuple>
+   <tuple> <atom label="r24$0"/> <atom label="r18$0"/> </tuple>
+   <tuple> <atom label="r24$0"/> <atom label="r4$0"/> </tuple>
+   <tuple> <atom label="r24$0"/> <atom label="r6$0"/> </tuple>
+   <tuple> <atom label="r24$0"/> <atom label="r2$0"/> </tuple>
+   <tuple> <atom label="r23$0"/> <atom label="r20$0"/> </tuple>
+   <tuple> <atom label="r23$0"/> <atom label="r12$0"/> </tuple>
+   <tuple> <atom label="r23$0"/> <atom label="r11$0"/> </tuple>
+   <tuple> <atom label="r23$0"/> <atom label="r19$0"/> </tuple>
+   <tuple> <atom label="r23$0"/> <atom label="r5$0"/> </tuple>
+   <tuple> <atom label="r23$0"/> <atom label="r6$0"/> </tuple>
+   <tuple> <atom label="r23$0"/> <atom label="r7$0"/> </tuple>
+   <tuple> <atom label="r23$0"/> <atom label="r0$0"/> </tuple>
+   <tuple> <atom label="r23$0"/> <atom label="r2$0"/> </tuple>
+   <tuple> <atom label="r22$0"/> <atom label="r21$0"/> </tuple>
+   <tuple> <atom label="r22$0"/> <atom label="r20$0"/> </tuple>
+   <tuple> <atom label="r22$0"/> <atom label="r14$0"/> </tuple>
+   <tuple> <atom label="r22$0"/> <atom label="r15$0"/> </tuple>
+   <tuple> <atom label="r22$0"/> <atom label="r13$0"/> </tuple>
+   <tuple> <atom label="r22$0"/> <atom label="r11$0"/> </tuple>
+   <tuple> <atom label="r22$0"/> <atom label="r18$0"/> </tuple>
+   <tuple> <atom label="r22$0"/> <atom label="r19$0"/> </tuple>
+   <tuple> <atom label="r22$0"/> <atom label="r4$0"/> </tuple>
+   <tuple> <atom label="r22$0"/> <atom label="r6$0"/> </tuple>
+   <tuple> <atom label="r22$0"/> <atom label="r7$0"/> </tuple>
+   <tuple> <atom label="r22$0"/> <atom label="r1$0"/> </tuple>
+   <tuple> <atom label="r22$0"/> <atom label="r2$0"/> </tuple>
+   <tuple> <atom label="r22$0"/> <atom label="r8$0"/> </tuple>
+   <tuple> <atom label="r21$0"/> <atom label="r14$0"/> </tuple>
+   <tuple> <atom label="r21$0"/> <atom label="r15$0"/> </tuple>
+   <tuple> <atom label="r21$0"/> <atom label="r13$0"/> </tuple>
+   <tuple> <atom label="r21$0"/> <atom label="r11$0"/> </tuple>
+   <tuple> <atom label="r21$0"/> <atom label="r4$0"/> </tuple>
+   <tuple> <atom label="r21$0"/> <atom label="r7$0"/> </tuple>
+   <tuple> <atom label="r21$0"/> <atom label="r0$0"/> </tuple>
+   <tuple> <atom label="r21$0"/> <atom label="r1$0"/> </tuple>
+   <tuple> <atom label="r21$0"/> <atom label="r2$0"/> </tuple>
+   <tuple> <atom label="r21$0"/> <atom label="r3$0"/> </tuple>
+   <tuple> <atom label="r21$0"/> <atom label="r9$0"/> </tuple>
+   <tuple> <atom label="r20$0"/> <atom label="r14$0"/> </tuple>
+   <tuple> <atom label="r20$0"/> <atom label="r10$0"/> </tuple>
+   <tuple> <atom label="r20$0"/> <atom label="r11$0"/> </tuple>
+   <tuple> <atom label="r20$0"/> <atom label="r0$0"/> </tuple>
+   <tuple> <atom label="r20$0"/> <atom label="r3$0"/> </tuple>
+   <tuple> <atom label="r20$0"/> <atom label="r8$0"/> </tuple>
+   <tuple> <atom label="r20$0"/> <atom label="r9$0"/> </tuple>
+   <tuple> <atom label="r16$0"/> <atom label="r14$0"/> </tuple>
+   <tuple> <atom label="r16$0"/> <atom label="r12$0"/> </tuple>
+   <tuple> <atom label="r16$0"/> <atom label="r4$0"/> </tuple>
+   <tuple> <atom label="r16$0"/> <atom label="r6$0"/> </tuple>
+   <tuple> <atom label="r16$0"/> <atom label="r0$0"/> </tuple>
+   <tuple> <atom label="r16$0"/> <atom label="r8$0"/> </tuple>
+   <tuple> <atom label="r16$0"/> <atom label="r9$0"/> </tuple>
+   <tuple> <atom label="r17$0"/> <atom label="r16$0"/> </tuple>
+   <tuple> <atom label="r17$0"/> <atom label="r15$0"/> </tuple>
+   <tuple> <atom label="r17$0"/> <atom label="r12$0"/> </tuple>
+   <tuple> <atom label="r17$0"/> <atom label="r11$0"/> </tuple>
+   <tuple> <atom label="r17$0"/> <atom label="r4$0"/> </tuple>
+   <tuple> <atom label="r17$0"/> <atom label="r2$0"/> </tuple>
+   <tuple> <atom label="r17$0"/> <atom label="r3$0"/> </tuple>
+   <tuple> <atom label="r17$0"/> <atom label="r9$0"/> </tuple>
+   <tuple> <atom label="r14$0"/> <atom label="r12$0"/> </tuple>
+   <tuple> <atom label="r14$0"/> <atom label="r13$0"/> </tuple>
+   <tuple> <atom label="r14$0"/> <atom label="r10$0"/> </tuple>
+   <tuple> <atom label="r14$0"/> <atom label="r11$0"/> </tuple>
+   <tuple> <atom label="r14$0"/> <atom label="r4$0"/> </tuple>
+   <tuple> <atom label="r14$0"/> <atom label="r5$0"/> </tuple>
+   <tuple> <atom label="r14$0"/> <atom label="r0$0"/> </tuple>
+   <tuple> <atom label="r14$0"/> <atom label="r2$0"/> </tuple>
+   <tuple> <atom label="r14$0"/> <atom label="r3$0"/> </tuple>
+   <tuple> <atom label="r14$0"/> <atom label="r8$0"/> </tuple>
+   <tuple> <atom label="r15$0"/> <atom label="r12$0"/> </tuple>
+   <tuple> <atom label="r15$0"/> <atom label="r13$0"/> </tuple>
+   <tuple> <atom label="r15$0"/> <atom label="r5$0"/> </tuple>
+   <tuple> <atom label="r15$0"/> <atom label="r7$0"/> </tuple>
+   <tuple> <atom label="r15$0"/> <atom label="r1$0"/> </tuple>
+   <tuple> <atom label="r15$0"/> <atom label="r2$0"/> </tuple>
+   <tuple> <atom label="r15$0"/> <atom label="r3$0"/> </tuple>
+   <tuple> <atom label="r15$0"/> <atom label="r8$0"/> </tuple>
+   <tuple> <atom label="r12$0"/> <atom label="r4$0"/> </tuple>
+   <tuple> <atom label="r12$0"/> <atom label="r5$0"/> </tuple>
+   <tuple> <atom label="r12$0"/> <atom label="r6$0"/> </tuple>
+   <tuple> <atom label="r12$0"/> <atom label="r1$0"/> </tuple>
+   <tuple> <atom label="r12$0"/> <atom label="r8$0"/> </tuple>
+   <tuple> <atom label="r12$0"/> <atom label="r9$0"/> </tuple>
+   <tuple> <atom label="r13$0"/> <atom label="r11$0"/> </tuple>
+   <tuple> <atom label="r13$0"/> <atom label="r6$0"/> </tuple>
+   <tuple> <atom label="r13$0"/> <atom label="r1$0"/> </tuple>
+   <tuple> <atom label="r13$0"/> <atom label="r3$0"/> </tuple>
+   <tuple> <atom label="r10$0"/> <atom label="r4$0"/> </tuple>
+   <tuple> <atom label="r10$0"/> <atom label="r5$0"/> </tuple>
+   <tuple> <atom label="r10$0"/> <atom label="r7$0"/> </tuple>
+   <tuple> <atom label="r10$0"/> <atom label="r0$0"/> </tuple>
+   <tuple> <atom label="r10$0"/> <atom label="r1$0"/> </tuple>
+   <tuple> <atom label="r10$0"/> <atom label="r8$0"/> </tuple>
+   <tuple> <atom label="r11$0"/> <atom label="r5$0"/> </tuple>
+   <tuple> <atom label="r11$0"/> <atom label="r7$0"/> </tuple>
+   <tuple> <atom label="r11$0"/> <atom label="r0$0"/> </tuple>
+   <tuple> <atom label="r11$0"/> <atom label="r2$0"/> </tuple>
+   <tuple> <atom label="r11$0"/> <atom label="r3$0"/> </tuple>
+   <tuple> <atom label="r18$0"/> <atom label="r16$0"/> </tuple>
+   <tuple> <atom label="r18$0"/> <atom label="r17$0"/> </tuple>
+   <tuple> <atom label="r18$0"/> <atom label="r12$0"/> </tuple>
+   <tuple> <atom label="r18$0"/> <atom label="r13$0"/> </tuple>
+   <tuple> <atom label="r18$0"/> <atom label="r5$0"/> </tuple>
+   <tuple> <atom label="r18$0"/> <atom label="r7$0"/> </tuple>
+   <tuple> <atom label="r18$0"/> <atom label="r0$0"/> </tuple>
+   <tuple> <atom label="r18$0"/> <atom label="r1$0"/> </tuple>
+   <tuple> <atom label="r18$0"/> <atom label="r2$0"/> </tuple>
+   <tuple> <atom label="r18$0"/> <atom label="r3$0"/> </tuple>
+   <tuple> <atom label="r18$0"/> <atom label="r8$0"/> </tuple>
+   <tuple> <atom label="r19$0"/> <atom label="r16$0"/> </tuple>
+   <tuple> <atom label="r19$0"/> <atom label="r17$0"/> </tuple>
+   <tuple> <atom label="r19$0"/> <atom label="r15$0"/> </tuple>
+   <tuple> <atom label="r19$0"/> <atom label="r10$0"/> </tuple>
+   <tuple> <atom label="r19$0"/> <atom label="r4$0"/> </tuple>
+   <tuple> <atom label="r19$0"/> <atom label="r6$0"/> </tuple>
+   <tuple> <atom label="r19$0"/> <atom label="r7$0"/> </tuple>
+   <tuple> <atom label="r19$0"/> <atom label="r8$0"/> </tuple>
+   <tuple> <atom label="r19$0"/> <atom label="r9$0"/> </tuple>
+   <tuple> <atom label="r4$0"/> <atom label="r1$0"/> </tuple>
+   <tuple> <atom label="r5$0"/> <atom label="r0$0"/> </tuple>
+   <tuple> <atom label="r5$0"/> <atom label="r1$0"/> </tuple>
+   <tuple> <atom label="r6$0"/> <atom label="r5$0"/> </tuple>
+   <tuple> <atom label="r6$0"/> <atom label="r3$0"/> </tuple>
+   <tuple> <atom label="r7$0"/> <atom label="r4$0"/> </tuple>
+   <tuple> <atom label="r7$0"/> <atom label="r5$0"/> </tuple>
+   <tuple> <atom label="r7$0"/> <atom label="r6$0"/> </tuple>
+   <tuple> <atom label="r7$0"/> <atom label="r0$0"/> </tuple>
+   <tuple> <atom label="r7$0"/> <atom label="r2$0"/> </tuple>
+   <tuple> <atom label="r1$0"/> <atom label="r0$0"/> </tuple>
+   <tuple> <atom label="r3$0"/> <atom label="r0$0"/> </tuple>
+   <tuple> <atom label="r3$0"/> <atom label="r1$0"/> </tuple>
+   <tuple> <atom label="r8$0"/> <atom label="r4$0"/> </tuple>
+   <tuple> <atom label="r8$0"/> <atom label="r5$0"/> </tuple>
+   <tuple> <atom label="r8$0"/> <atom label="r6$0"/> </tuple>
+   <tuple> <atom label="r8$0"/> <atom label="r0$0"/> </tuple>
+   <tuple> <atom label="r9$0"/> <atom label="r4$0"/> </tuple>
+   <tuple> <atom label="r9$0"/> <atom label="r7$0"/> </tuple>
+   <tuple> <atom label="r9$0"/> <atom label="r1$0"/> </tuple>
+   <tuple> <atom label="r9$0"/> <atom label="r2$0"/> </tuple>
+   <tuple> <atom label="r9$0"/> <atom label="r3$0"/> </tuple>
+   <tuple> <atom label="r9$0"/> <atom label="r8$0"/> </tuple>
+   <types> <type ID="40"/> <type ID="40"/> </types>
+</field>
+
+<sig label="sgac_core/prohibition" ID="71" parentID="72" one="yes">
+   <atom label="sgac_core/prohibition$0"/>
+</sig>
+
+<sig label="sgac_core/permission" ID="73" parentID="72" one="yes">
+   <atom label="sgac_core/permission$0"/>
+</sig>
+
+<sig label="sgac_core/Modality" ID="72" parentID="2" abstract="yes">
+</sig>
+
+<sig label="this/c0" ID="74" parentID="6" one="yes">
+   <atom label="c0$0"/>
+</sig>
+
+<sig label="this/c1" ID="75" parentID="6" one="yes">
+   <atom label="c1$0"/>
+</sig>
+
+<sig label="this/c2" ID="76" parentID="6" one="yes">
+   <atom label="c2$0"/>
+</sig>
+
+<sig label="this/c3" ID="77" parentID="6" one="yes">
+   <atom label="c3$0"/>
+</sig>
+
+<sig label="this/c4" ID="78" parentID="6" one="yes">
+   <atom label="c4$0"/>
+</sig>
+
+<sig label="this/c5" ID="79" parentID="6" one="yes">
+   <atom label="c5$0"/>
+</sig>
+
+<sig label="this/c6" ID="80" parentID="6" one="yes">
+   <atom label="c6$0"/>
+</sig>
+
+<sig label="this/c7" ID="81" parentID="6" one="yes">
+   <atom label="c7$0"/>
+</sig>
+
+<sig label="this/c8" ID="82" parentID="6" one="yes">
+   <atom label="c8$0"/>
+</sig>
+
+<sig label="this/c9" ID="83" parentID="6" one="yes">
+   <atom label="c9$0"/>
+</sig>
+
+<sig label="sgac_core/Context" ID="6" parentID="2">
+</sig>
+
+<sig label="this/rule9" ID="84" parentID="85" one="yes">
+   <atom label="rule9$0"/>
+</sig>
+
+<sig label="this/rule8" ID="86" parentID="85" one="yes">
+   <atom label="rule8$0"/>
+</sig>
+
+<sig label="this/rule3" ID="87" parentID="85" one="yes">
+   <atom label="rule3$0"/>
+</sig>
+
+<sig label="this/rule2" ID="88" parentID="85" one="yes">
+   <atom label="rule2$0"/>
+</sig>
+
+<sig label="this/rule1" ID="89" parentID="85" one="yes">
+   <atom label="rule1$0"/>
+</sig>
+
+<sig label="this/rule0" ID="90" parentID="85" one="yes">
+   <atom label="rule0$0"/>
+</sig>
+
+<sig label="this/rule7" ID="91" parentID="85" one="yes">
+   <atom label="rule7$0"/>
+</sig>
+
+<sig label="this/rule6" ID="92" parentID="85" one="yes">
+   <atom label="rule6$0"/>
+</sig>
+
+<sig label="this/rule5" ID="93" parentID="85" one="yes">
+   <atom label="rule5$0"/>
+</sig>
+
+<sig label="this/rule4" ID="94" parentID="85" one="yes">
+   <atom label="rule4$0"/>
+</sig>
+
+<sig label="this/rule11" ID="95" parentID="85" one="yes">
+   <atom label="rule11$0"/>
+</sig>
+
+<sig label="this/rule10" ID="96" parentID="85" one="yes">
+   <atom label="rule10$0"/>
+</sig>
+
+<sig label="sgac_core/Rule" ID="85" parentID="2">
+</sig>
+
+<field label="p" ID="97" parentID="85">
+   <tuple> <atom label="rule9$0"/> <atom label="4"/> </tuple>
+   <tuple> <atom label="rule8$0"/> <atom label="4"/> </tuple>
+   <tuple> <atom label="rule3$0"/> <atom label="0"/> </tuple>
+   <tuple> <atom label="rule2$0"/> <atom label="3"/> </tuple>
+   <tuple> <atom label="rule1$0"/> <atom label="3"/> </tuple>
+   <tuple> <atom label="rule0$0"/> <atom label="4"/> </tuple>
+   <tuple> <atom label="rule7$0"/> <atom label="0"/> </tuple>
+   <tuple> <atom label="rule6$0"/> <atom label="3"/> </tuple>
+   <tuple> <atom label="rule5$0"/> <atom label="0"/> </tuple>
+   <tuple> <atom label="rule4$0"/> <atom label="1"/> </tuple>
+   <tuple> <atom label="rule11$0"/> <atom label="0"/> </tuple>
+   <tuple> <atom label="rule10$0"/> <atom label="4"/> </tuple>
+   <types> <type ID="85"/> <type ID="1"/> </types>
+</field>
+
+<field label="s" ID="98" parentID="85">
+   <tuple> <atom label="rule9$0"/> <atom label="s22$0"/> </tuple>
+   <tuple> <atom label="rule8$0"/> <atom label="s27$0"/> </tuple>
+   <tuple> <atom label="rule3$0"/> <atom label="s0$0"/> </tuple>
+   <tuple> <atom label="rule2$0"/> <atom label="s24$0"/> </tuple>
+   <tuple> <atom label="rule1$0"/> <atom label="s27$0"/> </tuple>
+   <tuple> <atom label="rule0$0"/> <atom label="s6$0"/> </tuple>
+   <tuple> <atom label="rule7$0"/> <atom label="s29$0"/> </tuple>
+   <tuple> <atom label="rule6$0"/> <atom label="s0$0"/> </tuple>
+   <tuple> <atom label="rule5$0"/> <atom label="s2$0"/> </tuple>
+   <tuple> <atom label="rule4$0"/> <atom label="s23$0"/> </tuple>
+   <tuple> <atom label="rule11$0"/> <atom label="s22$0"/> </tuple>
+   <tuple> <atom label="rule10$0"/> <atom label="s7$0"/> </tuple>
+   <types> <type ID="85"/> <type ID="8"/> </types>
+</field>
+
+<field label="t" ID="99" parentID="85">
+   <tuple> <atom label="rule9$0"/> <atom label="r2$0"/> </tuple>
+   <tuple> <atom label="rule8$0"/> <atom label="r25$0"/> </tuple>
+   <tuple> <atom label="rule3$0"/> <atom label="r21$0"/> </tuple>
+   <tuple> <atom label="rule2$0"/> <atom label="r1$0"/> </tuple>
+   <tuple> <atom label="rule1$0"/> <atom label="r16$0"/> </tuple>
+   <tuple> <atom label="rule0$0"/> <atom label="r1$0"/> </tuple>
+   <tuple> <atom label="rule7$0"/> <atom label="r25$0"/> </tuple>
+   <tuple> <atom label="rule6$0"/> <atom label="r26$0"/> </tuple>
+   <tuple> <atom label="rule5$0"/> <atom label="r20$0"/> </tuple>
+   <tuple> <atom label="rule4$0"/> <atom label="r4$0"/> </tuple>
+   <tuple> <atom label="rule11$0"/> <atom label="r16$0"/> </tuple>
+   <tuple> <atom label="rule10$0"/> <atom label="r17$0"/> </tuple>
+   <types> <type ID="85"/> <type ID="40"/> </types>
+</field>
+
+<field label="m" ID="100" parentID="85">
+   <tuple> <atom label="rule9$0"/> <atom label="sgac_core/prohibition$0"/> </tuple>
+   <tuple> <atom label="rule8$0"/> <atom label="sgac_core/permission$0"/> </tuple>
+   <tuple> <atom label="rule3$0"/> <atom label="sgac_core/prohibition$0"/> </tuple>
+   <tuple> <atom label="rule2$0"/> <atom label="sgac_core/prohibition$0"/> </tuple>
+   <tuple> <atom label="rule1$0"/> <atom label="sgac_core/prohibition$0"/> </tuple>
+   <tuple> <atom label="rule0$0"/> <atom label="sgac_core/prohibition$0"/> </tuple>
+   <tuple> <atom label="rule7$0"/> <atom label="sgac_core/permission$0"/> </tuple>
+   <tuple> <atom label="rule6$0"/> <atom label="sgac_core/prohibition$0"/> </tuple>
+   <tuple> <atom label="rule5$0"/> <atom label="sgac_core/prohibition$0"/> </tuple>
+   <tuple> <atom label="rule4$0"/> <atom label="sgac_core/permission$0"/> </tuple>
+   <tuple> <atom label="rule11$0"/> <atom label="sgac_core/permission$0"/> </tuple>
+   <tuple> <atom label="rule10$0"/> <atom label="sgac_core/permission$0"/> </tuple>
+   <types> <type ID="85"/> <type ID="72"/> </types>
+</field>
+
+<field label="c" ID="101" parentID="85">
+   <tuple> <atom label="rule9$0"/> <atom label="c0$0"/> </tuple>
+   <tuple> <atom label="rule9$0"/> <atom label="c1$0"/> </tuple>
+   <tuple> <atom label="rule9$0"/> <atom label="c2$0"/> </tuple>
+   <tuple> <atom label="rule9$0"/> <atom label="c3$0"/> </tuple>
+   <tuple> <atom label="rule9$0"/> <atom label="c5$0"/> </tuple>
+   <tuple> <atom label="rule9$0"/> <atom label="c6$0"/> </tuple>
+   <tuple> <atom label="rule9$0"/> <atom label="c7$0"/> </tuple>
+   <tuple> <atom label="rule9$0"/> <atom label="c8$0"/> </tuple>
+   <tuple> <atom label="rule8$0"/> <atom label="c8$0"/> </tuple>
+   <tuple> <atom label="rule8$0"/> <atom label="c9$0"/> </tuple>
+   <tuple> <atom label="rule3$0"/> <atom label="c1$0"/> </tuple>
+   <tuple> <atom label="rule3$0"/> <atom label="c5$0"/> </tuple>
+   <tuple> <atom label="rule3$0"/> <atom label="c6$0"/> </tuple>
+   <tuple> <atom label="rule3$0"/> <atom label="c7$0"/> </tuple>
+   <tuple> <atom label="rule3$0"/> <atom label="c9$0"/> </tuple>
+   <tuple> <atom label="rule2$0"/> <atom label="c4$0"/> </tuple>
+   <tuple> <atom label="rule2$0"/> <atom label="c5$0"/> </tuple>
+   <tuple> <atom label="rule2$0"/> <atom label="c8$0"/> </tuple>
+   <tuple> <atom label="rule2$0"/> <atom label="c9$0"/> </tuple>
+   <tuple> <atom label="rule1$0"/> <atom label="c0$0"/> </tuple>
+   <tuple> <atom label="rule1$0"/> <atom label="c1$0"/> </tuple>
+   <tuple> <atom label="rule1$0"/> <atom label="c3$0"/> </tuple>
+   <tuple> <atom label="rule1$0"/> <atom label="c4$0"/> </tuple>
+   <tuple> <atom label="rule1$0"/> <atom label="c5$0"/> </tuple>
+   <tuple> <atom label="rule1$0"/> <atom label="c7$0"/> </tuple>
+   <tuple> <atom label="rule1$0"/> <atom label="c9$0"/> </tuple>
+   <tuple> <atom label="rule0$0"/> <atom label="c0$0"/> </tuple>
+   <tuple> <atom label="rule0$0"/> <atom label="c3$0"/> </tuple>
+   <tuple> <atom label="rule0$0"/> <atom label="c4$0"/> </tuple>
+   <tuple> <atom label="rule0$0"/> <atom label="c7$0"/> </tuple>
+   <tuple> <atom label="rule0$0"/> <atom label="c8$0"/> </tuple>
+   <tuple> <atom label="rule7$0"/> <atom label="c0$0"/> </tuple>
+   <tuple> <atom label="rule7$0"/> <atom label="c1$0"/> </tuple>
+   <tuple> <atom label="rule7$0"/> <atom label="c2$0"/> </tuple>
+   <tuple> <atom label="rule7$0"/> <atom label="c3$0"/> </tuple>
+   <tuple> <atom label="rule7$0"/> <atom label="c7$0"/> </tuple>
+   <tuple> <atom label="rule6$0"/> <atom label="c2$0"/> </tuple>
+   <tuple> <atom label="rule6$0"/> <atom label="c3$0"/> </tuple>
+   <tuple> <atom label="rule6$0"/> <atom label="c5$0"/> </tuple>
+   <tuple> <atom label="rule6$0"/> <atom label="c6$0"/> </tuple>
+   <tuple> <atom label="rule6$0"/> <atom label="c7$0"/> </tuple>
+   <tuple> <atom label="rule6$0"/> <atom label="c9$0"/> </tuple>
+   <tuple> <atom label="rule5$0"/> <atom label="c0$0"/> </tuple>
+   <tuple> <atom label="rule5$0"/> <atom label="c2$0"/> </tuple>
+   <tuple> <atom label="rule5$0"/> <atom label="c6$0"/> </tuple>
+   <tuple> <atom label="rule5$0"/> <atom label="c8$0"/> </tuple>
+   <tuple> <atom label="rule5$0"/> <atom label="c9$0"/> </tuple>
+   <tuple> <atom label="rule4$0"/> <atom label="c1$0"/> </tuple>
+   <tuple> <atom label="rule4$0"/> <atom label="c3$0"/> </tuple>
+   <tuple> <atom label="rule4$0"/> <atom label="c4$0"/> </tuple>
+   <tuple> <atom label="rule4$0"/> <atom label="c5$0"/> </tuple>
+   <tuple> <atom label="rule4$0"/> <atom label="c7$0"/> </tuple>
+   <tuple> <atom label="rule11$0"/> <atom label="c2$0"/> </tuple>
+   <tuple> <atom label="rule11$0"/> <atom label="c3$0"/> </tuple>
+   <tuple> <atom label="rule11$0"/> <atom label="c6$0"/> </tuple>
+   <tuple> <atom label="rule10$0"/> <atom label="c1$0"/> </tuple>
+   <tuple> <atom label="rule10$0"/> <atom label="c2$0"/> </tuple>
+   <tuple> <atom label="rule10$0"/> <atom label="c3$0"/> </tuple>
+   <tuple> <atom label="rule10$0"/> <atom label="c4$0"/> </tuple>
+   <tuple> <atom label="rule10$0"/> <atom label="c5$0"/> </tuple>
+   <tuple> <atom label="rule10$0"/> <atom label="c6$0"/> </tuple>
+   <tuple> <atom label="rule10$0"/> <atom label="c8$0"/> </tuple>
+   <types> <type ID="85"/> <type ID="6"/> </types>
+</field>
+
+<sig label="this/req0" ID="102" parentID="103" one="yes">
+   <atom label="req0$0"/>
+</sig>
+
+<sig label="sgac_core/Request" ID="103" parentID="2">
+   <atom label="sgac_core/Request$0"/>
+</sig>
+
+<field label="sub" ID="104" parentID="103">
+   <tuple> <atom label="req0$0"/> <atom label="s0$0"/> </tuple>
+   <tuple> <atom label="sgac_core/Request$0"/> <atom label="s4$0"/> </tuple>
+   <types> <type ID="103"/> <type ID="8"/> </types>
+</field>
+
+<field label="res" ID="105" parentID="103">
+   <tuple> <atom label="req0$0"/> <atom label="r0$0"/> </tuple>
+   <tuple> <atom label="sgac_core/Request$0"/> <atom label="r0$0"/> </tuple>
+   <types> <type ID="103"/> <type ID="40"/> </types>
+</field>
+
+<field label="ruleSucc" ID="106" parentID="103">
+   <tuple> <atom label="req0$0"/> <atom label="rule8$0"/> <atom label="rule3$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule8$0"/> <atom label="rule2$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule8$0"/> <atom label="rule1$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule8$0"/> <atom label="rule0$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule8$0"/> <atom label="rule7$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule8$0"/> <atom label="rule6$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule8$0"/> <atom label="rule5$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule8$0"/> <atom label="rule4$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule8$0"/> <atom label="rule11$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule8$0"/> <atom label="rule10$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule2$0"/> <atom label="rule3$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule2$0"/> <atom label="rule7$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule2$0"/> <atom label="rule6$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule2$0"/> <atom label="rule5$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule2$0"/> <atom label="rule4$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule2$0"/> <atom label="rule11$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule1$0"/> <atom label="rule3$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule1$0"/> <atom label="rule7$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule1$0"/> <atom label="rule6$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule1$0"/> <atom label="rule5$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule1$0"/> <atom label="rule4$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule1$0"/> <atom label="rule11$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule0$0"/> <atom label="rule3$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule0$0"/> <atom label="rule2$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule0$0"/> <atom label="rule1$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule0$0"/> <atom label="rule7$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule0$0"/> <atom label="rule6$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule0$0"/> <atom label="rule5$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule0$0"/> <atom label="rule4$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule0$0"/> <atom label="rule11$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule7$0"/> <atom label="rule3$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule7$0"/> <atom label="rule5$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule7$0"/> <atom label="rule11$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule6$0"/> <atom label="rule3$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule6$0"/> <atom label="rule7$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule6$0"/> <atom label="rule5$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule6$0"/> <atom label="rule4$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule6$0"/> <atom label="rule11$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule5$0"/> <atom label="rule3$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule4$0"/> <atom label="rule3$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule4$0"/> <atom label="rule7$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule4$0"/> <atom label="rule5$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule4$0"/> <atom label="rule11$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule11$0"/> <atom label="rule3$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule11$0"/> <atom label="rule5$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule10$0"/> <atom label="rule3$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule10$0"/> <atom label="rule2$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule10$0"/> <atom label="rule1$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule10$0"/> <atom label="rule7$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule10$0"/> <atom label="rule6$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule10$0"/> <atom label="rule5$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule10$0"/> <atom label="rule4$0"/> </tuple>
+   <tuple> <atom label="req0$0"/> <atom label="rule10$0"/> <atom label="rule11$0"/> </tuple>
+   <tuple> <atom label="sgac_core/Request$0"/> <atom label="rule8$0"/> <atom label="rule2$0"/> </tuple>
+   <tuple> <atom label="sgac_core/Request$0"/> <atom label="rule8$0"/> <atom label="rule1$0"/> </tuple>
+   <tuple> <atom label="sgac_core/Request$0"/> <atom label="rule8$0"/> <atom label="rule7$0"/> </tuple>
+   <tuple> <atom label="sgac_core/Request$0"/> <atom label="rule8$0"/> <atom label="rule4$0"/> </tuple>
+   <tuple> <atom label="sgac_core/Request$0"/> <atom label="rule8$0"/> <atom label="rule11$0"/> </tuple>
+   <tuple> <atom label="sgac_core/Request$0"/> <atom label="rule2$0"/> <atom label="rule7$0"/> </tuple>
+   <tuple> <atom label="sgac_core/Request$0"/> <atom label="rule2$0"/> <atom label="rule4$0"/> </tuple>
+   <tuple> <atom label="sgac_core/Request$0"/> <atom label="rule2$0"/> <atom label="rule11$0"/> </tuple>
+   <tuple> <atom label="sgac_core/Request$0"/> <atom label="rule1$0"/> <atom label="rule7$0"/> </tuple>
+   <tuple> <atom label="sgac_core/Request$0"/> <atom label="rule1$0"/> <atom label="rule4$0"/> </tuple>
+   <tuple> <atom label="sgac_core/Request$0"/> <atom label="rule1$0"/> <atom label="rule11$0"/> </tuple>
+   <tuple> <atom label="sgac_core/Request$0"/> <atom label="rule7$0"/> <atom label="rule11$0"/> </tuple>
+   <tuple> <atom label="sgac_core/Request$0"/> <atom label="rule4$0"/> <atom label="rule7$0"/> </tuple>
+   <tuple> <atom label="sgac_core/Request$0"/> <atom label="rule4$0"/> <atom label="rule11$0"/> </tuple>
+   <types> <type ID="103"/> <type ID="85"/> <type ID="85"/> </types>
+</field>
+
+<sig label="univ" ID="2" builtin="yes">
+</sig>
+
+</instance>
+
+</alloy>
