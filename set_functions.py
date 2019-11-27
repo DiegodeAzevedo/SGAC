@@ -1,6 +1,3 @@
-from z3 import *
-
-
 def is_transitive(node1, node2, graph):
     transitivity_found = False
     for connectedNode in graph[node1]:

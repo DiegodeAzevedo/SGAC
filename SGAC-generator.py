@@ -4,6 +4,7 @@ import subprocess
 import time
 import os
 import SGAC
+from openpyxl import Workbook
 
 Python_Sub_Graph = dict()
 Python_Res_Graph = dict()
@@ -199,8 +200,8 @@ bmachine += tab+tab+"ineffectiveSet := {ru | ru : RULE_T & not(#(req,con).(req:R
                     "!ru2.(ru2:(pseudoSink(req,con)-{ru}) => (rules(ru2))'mo = per)))))}\n"+tab+"END\n"
 bmachine += "END"
 
-directory = "C:"+os.sep+"Users"+os.sep+"diego"+os.sep+"Documents"+os.sep+"GitHub"+os.sep+"SGAC"+os.sep+"Tests"+\
-            os.sep+"Varying_the_number_of_contexts"+os.sep+"10contexts"
+directory = "C:"+os.sep+"Users"+os.sep+"dead1401"+os.sep+"PycharmProjects"+os.sep+"SGAC"+os.sep+\
+            "Tests"+os.sep+"Varying_the_number_of_contexts"+os.sep+"10contexts"
 
 onlyfiles = next(os.walk(directory))[2]
 bMachineName = "SGAC_B_"+str((len(onlyfiles)) // 8 +1)+".mch"
@@ -209,7 +210,7 @@ f.write(bmachine)
 f.close()
 
 timeB = time.time()
-p = subprocess.Popen("F:"+os.sep+"ProB"+os.sep+"Prob"+os.sep+"probcli.exe " + directory + os.sep + bMachineName,
+p = subprocess.Popen("C:"+os.sep+"ProB"+os.sep+"probcli.exe " + directory + os.sep + bMachineName,
                      stdout=subprocess.PIPE,
                      stderr=subprocess.PIPE,
                      shell=True)
@@ -237,15 +238,7 @@ f.write(str(Python_Sub_Closure_Graph)), f.write("\n")
 f.write(str(Python_Res_Closure_Graph))
 f.close()
 
-#SGAC.SGAC_random("SGAC_Z3_"+str(len(onlyfiles) // 8 + 1), directory, (len(onlyfiles)) // 8+1)
-
-f = open(directory + os.sep + bMachineName + "_", "w+")
-f = open(directory + os.sep + bMachineName + "__", "w+")
-f = open(directory + os.sep + bMachineName + "___", "w+")
-f = open(directory + os.sep + bMachineName + "____", "w+")
-f = open(directory + os.sep + bMachineName + "_____", "w+")
-f = open(directory + os.sep + bMachineName + "______", "w+")
-f.close()
+SGAC.SGAC_random("SGAC_Z3_"+str(len(onlyfiles) // 8 + 1), directory, (len(onlyfiles)) // 8+1)
 
 timeP = time.time() - timeP
 print(timeP)
@@ -265,8 +258,8 @@ for sub in subjectSink:
     for res in resourceSink:
         requests.append([sub, res])
 
-directory = "C:"+os.sep+"Users"+os.sep+"diego"+os.sep+"Documents"+os.sep+"GitHub"+os.sep+"SGAC"+os.sep+"Tests"+\
-            os.sep+"Varying_the_number_of_contexts"+os.sep+"10contexts"+os.sep+"alloy"+str(len(onlyfiles) // 8 + 1)
+directory = "C:"+os.sep+"Users"+os.sep+"dead1401"+os.sep+"PycharmProjects"+os.sep+"SGAC"+os.sep+"Tests"+os.sep+\
+            "Varying_the_number_of_contexts"+os.sep+"10contexts"+os.sep+"alloy"+str(len(onlyfiles) // 8 + 1)
 
 os.mkdir(directory)
 
@@ -347,7 +340,7 @@ for request in requests:
     f.write(alloyHidden)
     f.close()
 
-    alloyIneffective = "//***************************\n//***Determination of the ***\n" \
+    alloyIneffective = alloyGraph + "//***************************\n//***Determination of the ***\n" \
                        "//***  ineffective rules  ***\n//***************************\n\n" \
                        "fun pseudosinkRule[req: Request, cx:Context] : set Rule{\n" \
                        ""+tab+"{r : applicableRules[req] |\n" \
@@ -417,24 +410,45 @@ f = open(directory + os.sep + "sgac_core.als", "w")
 f.write(alloyCore)
 f.close()
 
-timeA = time.time()
-p = subprocess.Popen("java -cp F:"+os.sep+"curso"+os.sep+"IGL501"+os.sep+"alloy4.2_2015-02-22.jar "
-                     "edu.mit.csail.sdg.alloy4whole.ExampleUsingTheCompiler "
-                     "C:"+os.sep+"Users"+os.sep+"diego"+os.sep+"Documents"+os.sep+"GitHub"+os.sep+"SGAC"+os.sep+"Tests"+os.sep+"Varying_the_number_of_contexts"+os.sep+"10contexts"+os.sep+"alloy1"+os.sep+"graph0"+os.sep+"access"+os.sep+"req0.als "
-                     "C:"+os.sep+"Users"+os.sep+"diego"+os.sep+"Documents"+os.sep+"GitHub"+os.sep+"SGAC"+os.sep+"Tests"+os.sep+"Varying_the_number_of_contexts"+os.sep+"10contexts"+os.sep+"alloy1"+os.sep+"graph0"+os.sep+"contexts"+os.sep+"req0.als ",
-                     stdout=subprocess.PIPE,
-                     stderr=subprocess.PIPE,
-                     shell=True)
-output, errors = p.communicate()
-n = ""
-timeA = time.time() - timeA
-print(timeA)
-if True:
-    if p.returncode==0:
-        print("ProB executed successfully ("+n+")")
-        print(output)
+counter = counter - 1
+timeAComulative = 0
+for request in requests:
+    timeAInit = time.time()
+    p = subprocess.Popen("cd C:"+os.sep+"Users"+os.sep+"dead1401"+os.sep+"Documents"+os.sep+"alloy"+os.sep+
+                         "tool & java -cp \".;alloy4.2_2015-02-22.jar\" ExampleUsingTheCompiler "+
+                         directory + os.sep + "graph" + str(counter) + os.sep + "access" + os.sep + "req" +
+                         str(counter) + ".als "+
+                         directory + os.sep + "graph" + str(counter) + os.sep + "contexts" + os.sep + "req" +
+                         str(counter) + ".als "+
+                         directory + os.sep + "graph" + str(counter) + os.sep + "hidden" + os.sep + "req" +
+                         str(counter) + ".als "+
+                         directory + os.sep + "graph" + str(counter) + os.sep + "ineffective" + os.sep + "req" +
+                         str(counter) + ".als ",
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE,
+                         shell=True)
+    output, errors = p.communicate()
+    n = ""
+    timeAComulative += time.time() - timeAInit
+    if True:
+        if p.returncode==0:
+            print("Alloy Analyzer executed successfully ("+n+")")
+            print(output)
+        else:
+            print("Alloy Analyzer - error reported in "+n+" and the return code is "+str(p.returncode))
+            print(errors)
+    counter -= 1
+print(timeAComulative)
 
-    else:
-        print("ProB - error reported in "+n+" and the return code is "+str(p.returncode))
-        print(errors)
+if os.path.exists('times.xlsx'):
 
+else:
+    wb = Workbook()
+    ws = wb.active
+    ws1 = wb.create_sheet("Times")
+    ws.title = "SGAC Execution Time"
+    ws1 = wb["SGAC Execution Time"]
+    d = ws.cell(row=1, column=1, value=timeB)
+    d = ws.cell(row=1, column=2, value=timeP)
+    d = ws.cell(row=1, column=3, value=timeAComulative)
+    wb.save('times.xlsx')
