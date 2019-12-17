@@ -1,0 +1,193 @@
+s21=Vertex_Subject!val!21
+s25=Vertex_Subject!val!25
+rule1=rules!val!1
+auxRule1=rules!val!13
+r20=Vertex_Resource!val!20
+auxRule2=rules!val!14
+r37=Vertex_Resource!val!37
+s22=Vertex_Subject!val!22
+s51=Vertex_Subject!val!51
+c1=Context!val!1
+auxRes1=Vertex_Resource!val!24
+s29=Vertex_Subject!val!29
+s0=Vertex_Subject!val!0
+s27=Vertex_Subject!val!27
+s28=Vertex_Subject!val!28
+r25=Vertex_Resource!val!25
+s7=Vertex_Subject!val!7
+r36=Vertex_Resource!val!36
+c5=Context!val!5
+s18=Vertex_Subject!val!18
+r7=Vertex_Resource!val!7
+r42=Vertex_Resource!val!42
+r51=Vertex_Resource!val!51
+r23=Vertex_Resource!val!23
+s54=Vertex_Subject!val!54
+rule8=rules!val!8
+s23=Vertex_Subject!val!23
+s24=Vertex_Subject!val!24
+s44=Vertex_Subject!val!44
+r18=Vertex_Resource!val!18
+rule4=rules!val!4
+s16=Vertex_Subject!val!16
+s6=Vertex_Subject!val!6
+s34=Vertex_Subject!val!34
+r0=Vertex_Resource!val!0
+r9=Vertex_Resource!val!9
+r28=Vertex_Resource!val!28
+r53=Vertex_Resource!val!53
+r4=Vertex_Resource!val!4
+s4=Vertex_Subject!val!4
+s49=Vertex_Subject!val!49
+r12=Vertex_Resource!val!12
+s32=Vertex_Subject!val!32
+r19=Vertex_Resource!val!19
+r46=Vertex_Resource!val!46
+prohibition=ModalityType!val!1
+s31=Vertex_Subject!val!31
+s30=Vertex_Subject!val!30
+r8=Vertex_Resource!val!8
+permission=ModalityType!val!0
+r31=Vertex_Resource!val!31
+auxSub1=Vertex_Subject!val!31
+r38=Vertex_Resource!val!38
+rule5=rules!val!5
+r11=Vertex_Resource!val!11
+s14=Vertex_Subject!val!14
+r41=Vertex_Resource!val!41
+auxInt2=1
+r32=Vertex_Resource!val!32
+c8=Context!val!8
+rule2=rules!val!2
+r34=Vertex_Resource!val!34
+r35=Vertex_Resource!val!35
+s40=Vertex_Subject!val!40
+s19=Vertex_Subject!val!19
+s10=Vertex_Subject!val!10
+s15=Vertex_Subject!val!15
+s17=Vertex_Subject!val!17
+c9=Context!val!9
+r26=Vertex_Resource!val!26
+s1=Vertex_Subject!val!1
+s8=Vertex_Subject!val!8
+s11=Vertex_Subject!val!11
+r48=Vertex_Resource!val!48
+r54=Vertex_Resource!val!54
+rule12=rules!val!12
+s13=Vertex_Subject!val!13
+r40=Vertex_Resource!val!40
+r22=Vertex_Resource!val!22
+r52=Vertex_Resource!val!52
+s43=Vertex_Subject!val!43
+r24=Vertex_Resource!val!24
+r47=Vertex_Resource!val!47
+r10=Vertex_Resource!val!10
+r21=Vertex_Resource!val!21
+s5=Vertex_Subject!val!5
+r44=Vertex_Resource!val!44
+r1=Vertex_Resource!val!1
+r30=Vertex_Resource!val!30
+rule3=rules!val!3
+r27=Vertex_Resource!val!27
+c4=Context!val!4
+c7=Context!val!7
+r15=Vertex_Resource!val!15
+r45=Vertex_Resource!val!45
+auxCon=Context!val!10
+s35=Vertex_Subject!val!35
+rule9=rules!val!9
+s20=Vertex_Subject!val!20
+s48=Vertex_Subject!val!48
+s3=Vertex_Subject!val!3
+r33=Vertex_Resource!val!33
+s42=Vertex_Subject!val!42
+s50=Vertex_Subject!val!50
+rule11=rules!val!11
+s36=Vertex_Subject!val!36
+s46=Vertex_Subject!val!46
+r2=Vertex_Resource!val!2
+c2=Context!val!2
+s2=Vertex_Subject!val!2
+s37=Vertex_Subject!val!37
+s52=Vertex_Subject!val!52
+rule0=rules!val!0
+s41=Vertex_Subject!val!41
+c0=Context!val!0
+s9=Vertex_Subject!val!9
+c6=Context!val!6
+rule7=rules!val!7
+rule6=rules!val!6
+r50=Vertex_Resource!val!50
+r14=Vertex_Resource!val!14
+s38=Vertex_Subject!val!38
+s45=Vertex_Subject!val!45
+r49=Vertex_Resource!val!49
+r17=Vertex_Resource!val!17
+rule10=rules!val!10
+s39=Vertex_Subject!val!39
+s47=Vertex_Subject!val!47
+r16=Vertex_Resource!val!16
+r39=Vertex_Resource!val!39
+s12=Vertex_Subject!val!12
+auxInt1=-1
+c3=Context!val!3
+s53=Vertex_Subject!val!53
+s33=Vertex_Subject!val!33
+r6=Vertex_Resource!val!6
+r3=Vertex_Resource!val!3
+s26=Vertex_Subject!val!26
+r5=Vertex_Resource!val!5
+r29=Vertex_Resource!val!29
+r43=Vertex_Resource!val!43
+r13=Vertex_Resource!val!13
+applicable=[else ->
+ Or(And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!4),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!5),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!5),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!4),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!4),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!4),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!11),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!11),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!1),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!1),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!1),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!1),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!7),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!7),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!3),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!3),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!12),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!6),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!6),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!12),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!12),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!7),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!7),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!3),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!3),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!6),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!10),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!10),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!10),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!10),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!5),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!5),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!2),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!2),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!0),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!6),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!8),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!12),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!0),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!0),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!8),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!2),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!2),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!11),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!11),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!9),
+    And(k!8935(Var(0)) == Vertex_Subject!val!4, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!9),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!1, k!8942(Var(2)) == rules!val!9),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!9),
+    And(k!8935(Var(0)) == Vertex_Subject!val!0, k!8937(Var(1)) == Vertex_Resource!val!0, k!8942(Var(2)) == rules!val!0))]

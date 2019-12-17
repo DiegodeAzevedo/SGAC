@@ -1,0 +1,241 @@
+rule3=rule3
+rule11=rule11
+c5=c5
+rule1=rule1
+c8=c8
+rule10=rule10
+rule2=rule2
+r2=r2
+rule0=rule0
+s2=s2
+rule12=rule12
+c2=c2
+c4=c4
+c7=c7
+prohibition=prohibition
+c0=c0
+rule8=rule8
+c1=c1
+rule4=rule4
+c3=c3
+c6=c6
+permission=permission
+c9=c9
+rule9=rule9
+rule7=rule7
+r0=r0
+rule6=rule6
+s0=s0
+rule5=rule5
+s3=s3
+s1=s1
+r3=r3
+r4=r4
+s4=s4
+r1=r1
+applicable=[Or(And(s0, r0, rule8),
+    And(s0, r1, rule12),
+    And(s2, r1, rule12),
+    And(s0, r0, rule11),
+    And(s2, r0, rule12),
+    And(s2, r0, rule8),
+    And(s2, r1, rule4),
+    And(s2, r1, rule0),
+    And(s0, r1, rule11),
+    And(s0, r0, rule12),
+    And(s2, r1, rule1),
+    And(s0, r0, rule10),
+    And(s2, r0, rule3),
+    And(s0, r0, rule5),
+    And(s0, r1, rule6),
+    And(s0, r1, rule8),
+    And(s0, r0, rule9),
+    And(s2, r1, rule3),
+    And(s0, r1, rule10),
+    And(s0, r1, rule2),
+    And(s0, r1, rule7),
+    And(s2, r1, rule8),
+    And(s0, r1, rule0),
+    And(s0, r0, rule7),
+    And(s0, r0, rule2),
+    And(s2, r0, rule4),
+    And(s0, r1, rule9))]
+rule_modality=[Or(Not(Or(Not(rule0), Not(prohibition))), Not(Or(Not(rule1), Not(permission))), Not(Or(Not(rule2), Not(permission))), Not(Or(Not(rule3), Not(permission))), Not(Or(Not(rule4), Not(prohibition))), Not(Or(Not(rule5), Not(permission))), Not(Or(Not(rule6), Not(permission))), Not(Or(Not(rule7), Not(prohibition))), Not(Or(Not(rule8), Not(prohibition))), Not(Or(Not(rule9), Not(prohibition))), Not(Or(Not(rule10), Not(prohibition))), Not(Or(Not(rule11), Not(permission))), Not(Or(Not(rule12), Not(permission))))]
+rule_subject=[Or(Not(Or(Not(rule1), Not(s2))), Not(Or(Not(rule4), Not(s2))), Not(Or(Not(rule3), Not(s2))), Not(Or(Not(rule9), Not(s1))), Not(Or(Not(rule7), Not(s3))), Not(Or(Not(rule5), Not(s1))), Not(Or(Not(rule10), Not(s3))), Not(Or(Not(rule0), Not(s4))), Not(Or(Not(rule11), Not(s0))), Not(Or(Not(rule8), Not(s4))), Not(Or(Not(rule6), Not(s1))), Not(Or(Not(rule2), Not(s1))), Not(Or(Not(rule12), Not(s4))))]
+Resources_Graph=[Or(Not(Or(Not(r4), Not(r0))), Not(Or(Not(r4), Not(r3))), Not(Or(Not(r3), Not(r1))), Not(Or(Not(r4), Not(r1))), Not(Or(Not(r2), Not(r1))), Not(Or(Not(r4), Not(r2))), Not(Or(Not(r3), Not(r2))), Not(Or(Not(r2), Not(r0))), Not(Or(Not(r3), Not(r0))))]
+Transitive_Closure_Subject_Graph=[Or(Not(Or(Not(s4), Not(s1))), Not(Or(Not(s3), Not(s0))), Not(Or(Not(s4), Not(s0))), Not(Or(Not(s3), Not(s1))), Not(Or(Not(s1), Not(s0))), Not(Or(Not(s4), Not(s2))))]
+Transitive_Closure_Resources_Graph=[Or(Not(Or(Not(r4), Not(r0))), Not(Or(Not(r4), Not(r3))), Not(Or(Not(r3), Not(r1))), Not(Or(Not(r4), Not(r1))), Not(Or(Not(r2), Not(r1))), Not(Or(Not(r4), Not(r2))), Not(Or(Not(r3), Not(r2))), Not(Or(Not(r2), Not(r0))), Not(Or(Not(r3), Not(r0))))]
+REQUEST_T=[Or(Not(Or(Not(s2), Not(r0))), Not(Or(Not(s0), Not(r0))), Not(Or(Not(s0), Not(r1))), Not(Or(Not(s2), Not(r1))))]
+notDomainSub=[Or(s2, s0)]
+rule_resource=[Or(Not(Or(Not(rule9), Not(r3))), Not(Or(Not(rule5), Not(r0))), Not(Or(Not(rule10), Not(r4))), Not(Or(Not(rule2), Not(r3))), Not(Or(Not(rule7), Not(r3))), Not(Or(Not(rule1), Not(r1))), Not(Or(Not(rule6), Not(r1))), Not(Or(Not(rule11), Not(r2))), Not(Or(Not(rule8), Not(r4))), Not(Or(Not(rule12), Not(r2))), Not(Or(Not(rule0), Not(r1))), Not(Or(Not(rule4), Not(r3))), Not(Or(Not(rule3), Not(r3))))]
+Subject_Graph=[Or(Not(Or(Not(s4), Not(s1))), Not(Or(Not(s4), Not(s2))), Not(Or(Not(s3), Not(s0))), Not(Or(Not(s3), Not(s1))), Not(Or(Not(s1), Not(s0))), Not(Or(Not(s4), Not(s0))))]
+lessSpecific=[Or(And(rule12, rule2),
+    And(rule3, rule2),
+    And(rule9, rule2),
+    And(rule0, rule2),
+    And(rule3, rule10),
+    And(rule2, rule1),
+    And(rule9, rule3),
+    And(rule11, rule7),
+    And(rule12, rule7),
+    And(rule6, rule1),
+    And(rule12, rule3),
+    And(rule3, rule7),
+    And(rule12, rule9),
+    And(rule6, rule10),
+    And(rule6, rule7),
+    And(rule12, rule11),
+    And(rule0, rule10),
+    And(rule4, rule2),
+    And(rule0, rule11),
+    And(rule0, rule5),
+    And(rule4, rule10),
+    And(rule11, rule10),
+    And(rule4, rule11),
+    And(rule0, rule4),
+    And(rule12, rule8),
+    And(rule8, rule11),
+    And(rule8, rule7),
+    And(rule8, rule2),
+    And(rule8, rule9),
+    And(rule9, rule1),
+    And(rule12, rule0),
+    And(rule12, rule1),
+    And(rule12, rule5),
+    And(rule5, rule11),
+    And(rule5, rule2),
+    And(rule9, rule5),
+    And(rule5, rule7),
+    And(rule12, rule4),
+    And(rule0, rule3),
+    And(rule12, rule10),
+    And(rule11, rule2),
+    And(rule4, rule1),
+    And(rule0, rule1),
+    And(rule8, rule5),
+    And(rule5, rule1),
+    And(rule6, rule3),
+    And(rule0, rule6),
+    And(rule4, rule5),
+    And(rule4, rule3),
+    And(rule5, rule10),
+    And(rule6, rule11),
+    And(rule8, rule10),
+    And(rule9, rule10),
+    And(rule7, rule1),
+    And(rule6, rule2),
+    And(rule12, rule6),
+    And(rule4, rule7),
+    And(rule2, rule10),
+    And(rule3, rule1),
+    And(rule7, rule10),
+    And(rule7, rule2),
+    And(rule0, rule9),
+    And(rule8, rule1),
+    And(rule0, rule7),
+    And(rule8, rule6),
+    And(rule6, rule5),
+    And(rule8, rule3),
+    And(rule9, rule7),
+    And(rule11, rule1),
+    And(rule9, rule11),
+    And(rule8, rule4))]
+rule_priority=[Or(Not(Or(Not(rule4), Not(3))), Not(Or(Not(rule9), Not(3))), Not(Or(Not(rule7), Not(1))), Not(Or(Not(rule6), Not(3))), Not(Or(Not(rule11), Not(2))), Not(Or(Not(rule0), Not(3))), Not(Or(Not(rule12), Not(4))), Not(Or(Not(rule2), Not(1))), Not(Or(Not(rule10), Not(0))), Not(Or(Not(rule3), Not(2))), Not(Or(Not(rule1), Not(0))), Not(Or(Not(rule5), Not(2))), Not(Or(Not(rule8), Not(3))))]
+rule_condition=[Or(Not(Or(Not(rule3), Not(c9))),
+    Not(Or(Not(rule4), Not(c3))),
+    Not(Or(Not(rule4), Not(c5))),
+    Not(Or(Not(rule10), Not(c9))),
+    Not(Or(Not(rule4), Not(c9))),
+    Not(Or(Not(rule7), Not(c7))),
+    Not(Or(Not(rule7), Not(c2))),
+    Not(Or(Not(rule6), Not(c3))),
+    Not(Or(Not(rule6), Not(c9))),
+    Not(Or(Not(rule4), Not(c7))),
+    Not(Or(Not(rule6), Not(c5))),
+    Not(Or(Not(rule5), Not(c3))),
+    Not(Or(Not(rule5), Not(c4))),
+    Not(Or(Not(rule0), Not(c4))),
+    Not(Or(Not(rule5), Not(c7))),
+    Not(Or(Not(rule1), Not(c2))),
+    Not(Or(Not(rule7), Not(c6))),
+    Not(Or(Not(rule4), Not(c6))),
+    Not(Or(Not(rule6), Not(c6))),
+    Not(Or(Not(rule0), Not(c8))),
+    Not(Or(Not(rule11), Not(c3))),
+    Not(Or(Not(rule5), Not(c1))),
+    Not(Or(Not(rule8), Not(c2))),
+    Not(Or(Not(rule5), Not(c0))),
+    Not(Or(Not(rule10), Not(c4))),
+    Not(Or(Not(rule8), Not(c3))),
+    Not(Or(Not(rule7), Not(c5))),
+    Not(Or(Not(rule8), Not(c0))),
+    Not(Or(Not(rule0), Not(c9))),
+    Not(Or(Not(rule12), Not(c8))),
+    Not(Or(Not(rule8), Not(c4))),
+    Not(Or(Not(rule8), Not(c8))),
+    Not(Or(Not(rule5), Not(c2))),
+    Not(Or(Not(rule12), Not(c3))),
+    Not(Or(Not(rule4), Not(c1))),
+    Not(Or(Not(rule6), Not(c1))),
+    Not(Or(Not(rule11), Not(c2))),
+    Not(Or(Not(rule0), Not(c3))),
+    Not(Or(Not(rule2), Not(c5))),
+    Not(Or(Not(rule2), Not(c7))),
+    Not(Or(Not(rule2), Not(c4))),
+    Not(Or(Not(rule7), Not(c0))),
+    Not(Or(Not(rule7), Not(c8))),
+    Not(Or(Not(rule3), Not(c0))),
+    Not(Or(Not(rule12), Not(c2))),
+    Not(Or(Not(rule12), Not(c7))),
+    Not(Or(Not(rule1), Not(c1))),
+    Not(Or(Not(rule9), Not(c7))))]
+maxElem=[Or(And(s0, r1, rule10), And(s2, r1, rule1), And(s0, r0, rule10), And(s2, r0, rule3))]
+conRule=[Or(Not(Or(Not(c9), Not(rule3))),
+    Not(Or(Not(c3), Not(rule4))),
+    Not(Or(Not(c5), Not(rule4))),
+    Not(Or(Not(c9), Not(rule10))),
+    Not(Or(Not(c9), Not(rule4))),
+    Not(Or(Not(c7), Not(rule7))),
+    Not(Or(Not(c2), Not(rule7))),
+    Not(Or(Not(c3), Not(rule6))),
+    Not(Or(Not(c9), Not(rule6))),
+    Not(Or(Not(c7), Not(rule4))),
+    Not(Or(Not(c5), Not(rule6))),
+    Not(Or(Not(c3), Not(rule5))),
+    Not(Or(Not(c4), Not(rule5))),
+    Not(Or(Not(c4), Not(rule0))),
+    Not(Or(Not(c7), Not(rule5))),
+    Not(Or(Not(c2), Not(rule1))),
+    Not(Or(Not(c6), Not(rule7))),
+    Not(Or(Not(c6), Not(rule4))),
+    Not(Or(Not(c6), Not(rule6))),
+    Not(Or(Not(c8), Not(rule0))),
+    Not(Or(Not(c3), Not(rule11))),
+    Not(Or(Not(c1), Not(rule5))),
+    Not(Or(Not(c2), Not(rule8))),
+    Not(Or(Not(c0), Not(rule5))),
+    Not(Or(Not(c4), Not(rule10))),
+    Not(Or(Not(c3), Not(rule8))),
+    Not(Or(Not(c5), Not(rule7))),
+    Not(Or(Not(c0), Not(rule8))),
+    Not(Or(Not(c9), Not(rule0))),
+    Not(Or(Not(c8), Not(rule12))),
+    Not(Or(Not(c4), Not(rule8))),
+    Not(Or(Not(c8), Not(rule8))),
+    Not(Or(Not(c2), Not(rule5))),
+    Not(Or(Not(c3), Not(rule12))),
+    Not(Or(Not(c1), Not(rule4))),
+    Not(Or(Not(c1), Not(rule6))),
+    Not(Or(Not(c2), Not(rule11))),
+    Not(Or(Not(c3), Not(rule0))),
+    Not(Or(Not(c5), Not(rule2))),
+    Not(Or(Not(c7), Not(rule2))),
+    Not(Or(Not(c4), Not(rule2))),
+    Not(Or(Not(c0), Not(rule7))),
+    Not(Or(Not(c8), Not(rule7))),
+    Not(Or(Not(c0), Not(rule3))),
+    Not(Or(Not(c2), Not(rule12))),
+    Not(Or(Not(c7), Not(rule12))),
+    Not(Or(Not(c1), Not(rule1))),
+    Not(Or(Not(c7), Not(rule9))))]
+notDomainRes=[Or(r0, r1)]

@@ -1,0 +1,137 @@
+/*test/SGAC.mch
+Author: Diego Oliveira
+*/
+
+MACHINE
+    SGAC
+
+DEFINITIONS
+    SET_PREF_MAX_OPERATIONS == 1000;
+    applicable_def(req) == {rul | is_applicable(req,rul)};
+    is_applicable(req,rul) == ( rul : RULE_T & dom({req}) <: cl_e_sub[{(rules(rul))'su}] \/ {(rules(rul))'su} & ran({req}) <: cl_e_res[{(rules(rul))'re}] \/ {(rules(rul))'re});
+    maxElem(req) == {rul | rul : applicable(req) & not(#rul2.(rul2:applicable(req) & rul|->rul2: lessSpecific))};
+    access_def(req,con) == (!rsinks.(rsinks: pseudoSink(req,con) => (rules(rsinks))'mo = per) & pseudoSink(req,con)/={});
+    ruleSucc == %xx.(xx:REQUEST_T | {yy,zz| yy:applicable(xx) & zz:applicable(xx) & yy|->zz : isPrecededBy(xx) & not(#uu.(uu : RULE_T & yy |-> uu : isPrecededBy(xx) & uu |-> zz : isPrecededBy(xx) & uu /= yy & uu /= zz))})
+
+SETS
+    /*context type*/
+    CONTEXT={c0, c1, c2, c3, c4, c5, c6, c7, c8, c9};
+    /*subject vertex type*/
+    V_SUB={s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22, s23, s24, s25, s26, s27, s28, s29, s30, s31, s32, s33, s34, s35, s36, s37, s38, s39, s40, s41, s42, s43, s44, s45, s46, s47, s48, s49};
+    /*resource vertex type*/
+    V_RES={r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36, r37, r38, r39, r40, r41, r42, r43, r44, r45, r46, r47, r48, r49};
+    /*rule type*/
+    RULE_T={rule0, rule1, rule2, rule3, rule4, rule5, rule6, rule7, rule8, rule9, rule10, rule11, rule12};
+    /* modality type*/
+    MODALITY={per, pro}
+
+CONSTANTS
+    /*set of all requests*/
+    REQUEST_T,
+    /*set of rules of the policy*/
+    rules,
+    /*edges of the subject graph*/
+    e_sub,
+    /*resource graph edges*/
+    e_res,
+    /*ordering 1: lessSpecific*/
+    lessSpecific,
+    /*closure1 of e_sub, closure of e_sub, e_res*/
+    cl1_e_sub,cl_e_sub,cl1_e_res,cl_e_res
+
+PROPERTIES
+    /*types*/
+    e_sub: V_SUB <-> V_SUB &
+    e_res : V_RES <-> V_RES &
+    REQUEST_T = (V_SUB-dom(e_sub)) * (V_RES-dom(e_res)) &
+    /*rules: function that maps a rule to the rule structure*/
+    rules: RULE_T --> (struct(su:V_SUB, re:V_RES, mo: MODALITY, pr:INTEGER, co:POW(CONTEXT))) &
+    lessSpecific : RULE_T <-> RULE_T & 
+
+    /* closure definitions */
+    cl1_e_sub = closure1(e_sub) &
+    cl_e_sub = closure(e_sub) &
+    cl1_e_res = closure1(e_res) &
+    cl_e_res = closure(e_res) &
+    /*acyclicity of the graphs */
+    cl1_e_sub /\ id(V_SUB) = {} &
+    cl1_e_res /\ id(V_RES) = {} &
+
+    /* Constraints for rule ordering */
+    /* lessSpecific definition */
+    lessSpecific = {xx,yy | xx: dom(rules) & yy: dom(rules) & ((((rules(xx))'pr > (rules(yy))'pr) or (((rules(xx))'pr = (rules(yy))'pr) & (rules(yy))'su: cl1_e_sub[{(rules(xx))'su}])))}&
+
+    /* pseudo INITIALISATION  */
+    /* THE GRAPHS */
+    e_sub={s1|->s0, s2|->s1, s3|->s2, s4|->s1, s4|->s2, s4|->s3, s5|->s0, s5|->s1, s5|->s3, s6|->s1, s6|->s3, s6|->s4, s7|->s0, s8|->s2, s8|->s3, s8|->s6, s9|->s1, s9|->s2, s9|->s3, s9|->s4, s9|->s6, s9|->s8, s10|->s0, s10|->s1, s10|->s4, s10|->s6, s10|->s8, s11|->s0, s11|->s2, s11|->s4, s11|->s6, s11|->s7, s11|->s8, s11|->s10, s12|->s0, s12|->s3, s12|->s5, s12|->s10, s13|->s1, s13|->s4, s13|->s12, s14|->s0, s14|->s4, s14|->s5, s14|->s6, s14|->s7, s14|->s10, s14|->s11, s14|->s13, s15|->s2, s15|->s8, s15|->s9, s15|->s10, s15|->s12, s15|->s13, s15|->s14, s16|->s3, s16|->s5, s16|->s6, s16|->s8, s16|->s10, s16|->s11, s16|->s13, s16|->s15, s17|->s0, s17|->s1, s17|->s2, s17|->s3, s17|->s4, s17|->s5, s17|->s6, s17|->s10, s17|->s13, s17|->s15, s17|->s16, s18|->s0, s18|->s3, s18|->s4, s18|->s5, s18|->s6, s18|->s7, s18|->s8, s18|->s9, s18|->s10, s18|->s11, s18|->s12, s18|->s13, s19|->s0, s19|->s5, s19|->s6, s19|->s10, s19|->s11, s19|->s14, s19|->s16, s19|->s17, s20|->s1, s20|->s2, s20|->s3, s20|->s5, s20|->s6, s20|->s7, s20|->s8, s20|->s17, s20|->s18, s20|->s19, s21|->s0, s21|->s2, s21|->s3, s21|->s6, s21|->s8, s21|->s9, s21|->s11, s21|->s12, s21|->s13, s21|->s14, s21|->s15, s21|->s16, s21|->s17, s21|->s18, s22|->s2, s22|->s3, s22|->s4, s22|->s6, s22|->s8, s22|->s10, s22|->s11, s22|->s14, s22|->s18, s22|->s19, s22|->s20, s23|->s6, s23|->s7, s23|->s8, s23|->s9, s23|->s10, s23|->s12, s23|->s13, s23|->s14, s23|->s15, s23|->s17, s23|->s19, s24|->s0, s24|->s3, s24|->s5, s24|->s6, s24|->s7, s24|->s12, s24|->s16, s24|->s17, s24|->s18, s24|->s20, s24|->s21, s24|->s22, s25|->s5, s25|->s6, s25|->s8, s25|->s9, s25|->s15, s25|->s16, s25|->s17, s25|->s18, s25|->s20, s25|->s21, s25|->s24, s26|->s1, s26|->s3, s26|->s8, s26|->s9, s26|->s10, s26|->s11, s26|->s15, s26|->s25, s27|->s3, s27|->s4, s27|->s5, s27|->s6, s27|->s7, s27|->s9, s27|->s10, s27|->s13, s27|->s15, s27|->s16, s27|->s18, s27|->s19, s27|->s21, s27|->s22, s27|->s24, s27|->s25, s28|->s1, s28|->s2, s28|->s3, s28|->s4, s28|->s5, s28|->s6, s28|->s7, s28|->s8, s28|->s13, s28|->s15, s28|->s16, s28|->s17, s28|->s20, s28|->s21, s28|->s25, s28|->s26, s29|->s1, s29|->s4, s29|->s5, s29|->s7, s29|->s8, s29|->s10, s29|->s11, s29|->s12, s29|->s16, s29|->s19, s29|->s21, s29|->s24, s29|->s28, s30|->s0, s30|->s2, s30|->s4, s30|->s5, s30|->s6, s30|->s7, s30|->s9, s30|->s10, s30|->s11, s30|->s12, s30|->s15, s30|->s17, s30|->s19, s30|->s20, s30|->s22, s30|->s23, s30|->s26, s30|->s27, s31|->s0, s31|->s3, s31|->s4, s31|->s7, s31|->s10, s31|->s12, s31|->s15, s31|->s17, s31|->s18, s31|->s19, s31|->s21, s31|->s22, s31|->s23, s31|->s24, s31|->s25, s31|->s26, s31|->s27, s31|->s30, s32|->s0, s32|->s1, s32|->s2, s32|->s8, s32|->s10, s32|->s11, s32|->s12, s32|->s13, s32|->s15, s32|->s22, s32|->s25, s32|->s26, s32|->s29, s33|->s0, s33|->s3, s33|->s11, s33|->s12, s33|->s14, s33|->s15, s33|->s16, s33|->s17, s33|->s21, s33|->s22, s33|->s23, s33|->s24, s33|->s26, s33|->s27, s33|->s29, s33|->s31, s33|->s32, s34|->s0, s34|->s1, s34|->s3, s34|->s4, s34|->s6, s34|->s7, s34|->s8, s34|->s13, s34|->s14, s34|->s16, s34|->s17, s34|->s18, s34|->s21, s34|->s23, s34|->s25, s34|->s33, s35|->s0, s35|->s3, s35|->s4, s35|->s5, s35|->s6, s35|->s8, s35|->s10, s35|->s17, s35|->s19, s35|->s20, s35|->s23, s35|->s24, s35|->s26, s35|->s27, s35|->s31, s35|->s32, s35|->s34, s36|->s3, s36|->s5, s36|->s7, s36|->s8, s36|->s10, s36|->s13, s36|->s16, s36|->s17, s36|->s19, s36|->s22, s36|->s23, s36|->s24, s36|->s25, s36|->s26, s36|->s27, s36|->s29, s36|->s30, s36|->s34, s37|->s0, s37|->s2, s37|->s6, s37|->s8, s37|->s9, s37|->s10, s37|->s11, s37|->s16, s37|->s18, s37|->s20, s37|->s21, s37|->s26, s37|->s27, s37|->s28, s37|->s29, s37|->s31, s37|->s33, s37|->s34, s37|->s36, s38|->s3, s38|->s4, s38|->s5, s38|->s6, s38|->s7, s38|->s8, s38|->s9, s38|->s11, s38|->s12, s38|->s13, s38|->s14, s38|->s17, s38|->s18, s38|->s21, s38|->s25, s38|->s26, s38|->s29, s38|->s32, s38|->s37, s39|->s5, s39|->s7, s39|->s8, s39|->s10, s39|->s12, s39|->s13, s39|->s16, s39|->s17, s39|->s18, s39|->s20, s39|->s23, s39|->s25, s39|->s26, s39|->s27, s39|->s32, s39|->s33, s39|->s34, s39|->s36, s39|->s37, s39|->s38, s40|->s2, s40|->s4, s40|->s5, s40|->s6, s40|->s7, s40|->s10, s40|->s11, s40|->s12, s40|->s14, s40|->s15, s40|->s16, s40|->s18, s40|->s19, s40|->s22, s40|->s23, s40|->s24, s40|->s27, s40|->s32, s40|->s33, s40|->s34, s40|->s35, s40|->s38, s40|->s39, s41|->s0, s41|->s1, s41|->s2, s41|->s3, s41|->s7, s41|->s9, s41|->s11, s41|->s12, s41|->s13, s41|->s17, s41|->s18, s41|->s20, s41|->s21, s41|->s28, s41|->s29, s41|->s33, s41|->s34, s41|->s35, s41|->s36, s41|->s37, s41|->s38, s42|->s0, s42|->s1, s42|->s5, s42|->s6, s42|->s7, s42|->s9, s42|->s11, s42|->s12, s42|->s14, s42|->s16, s42|->s17, s42|->s18, s42|->s21, s42|->s25, s42|->s28, s42|->s31, s42|->s35, s42|->s36, s43|->s0, s43|->s4, s43|->s8, s43|->s12, s43|->s16, s43|->s24, s43|->s25, s43|->s27, s43|->s32, s43|->s33, s43|->s40, s44|->s0, s44|->s3, s44|->s5, s44|->s8, s44|->s9, s44|->s11, s44|->s13, s44|->s18, s44|->s20, s44|->s22, s44|->s24, s44|->s26, s44|->s28, s44|->s29, s44|->s31, s44|->s33, s44|->s34, s44|->s37, s44|->s38, s44|->s40, s44|->s41, s44|->s42, s45|->s0, s45|->s1, s45|->s5, s45|->s6, s45|->s7, s45|->s13, s45|->s16, s45|->s20, s45|->s26, s45|->s28, s45|->s29, s45|->s30, s45|->s32, s45|->s33, s45|->s34, s45|->s38, s45|->s40, s45|->s41, s46|->s0, s46|->s2, s46|->s5, s46|->s7, s46|->s9, s46|->s11, s46|->s12, s46|->s13, s46|->s14, s46|->s21, s46|->s23, s46|->s24, s46|->s25, s46|->s28, s46|->s29, s46|->s31, s46|->s33, s46|->s37, s46|->s39, s46|->s41, s46|->s42, s46|->s45, s47|->s4, s47|->s5, s47|->s7, s47|->s8, s47|->s10, s47|->s15, s47|->s19, s47|->s20, s47|->s22, s47|->s23, s47|->s24, s47|->s26, s47|->s28, s47|->s29, s47|->s30, s47|->s33, s47|->s35, s47|->s37, s47|->s39, s47|->s40, s47|->s41, s47|->s43, s47|->s45, s47|->s46, s48|->s0, s48|->s1, s48|->s2, s48|->s3, s48|->s5, s48|->s7, s48|->s9, s48|->s10, s48|->s11, s48|->s12, s48|->s14, s48|->s16, s48|->s17, s48|->s19, s48|->s25, s48|->s29, s48|->s33, s48|->s34, s48|->s36, s48|->s38, s48|->s39, s48|->s40, s48|->s43, s48|->s45, s48|->s47, s49|->s2, s49|->s3, s49|->s6, s49|->s7, s49|->s11, s49|->s18, s49|->s19, s49|->s21, s49|->s22, s49|->s27, s49|->s28, s49|->s29, s49|->s30, s49|->s31, s49|->s34, s49|->s36, s49|->s37, s49|->s38, s49|->s39, s49|->s41, s49|->s42, s49|->s43, s49|->s45, s49|->s48} &
+    e_res={r1|->r0, r2|->r1, r3|->r0, r4|->r3, r5|->r2, r5|->r4, r6|->r0, r6|->r2, r6|->r3, r6|->r4, r6|->r5, r7|->r1, r7|->r2, r7|->r3, r7|->r4, r7|->r5, r7|->r6, r8|->r3, r8|->r6, r9|->r1, r9|->r2, r9|->r3, r9|->r4, r9|->r5, r9|->r6, r9|->r7, r10|->r2, r10|->r3, r10|->r9, r11|->r0, r11|->r2, r11|->r3, r11|->r4, r11|->r9, r11|->r10, r12|->r3, r12|->r5, r12|->r7, r12|->r8, r13|->r0, r13|->r1, r13|->r2, r13|->r3, r13|->r4, r13|->r9, r13|->r12, r14|->r0, r14|->r1, r14|->r2, r14|->r6, r14|->r8, r14|->r10, r14|->r12, r15|->r0, r15|->r3, r15|->r4, r15|->r6, r15|->r9, r15|->r10, r15|->r11, r15|->r12, r15|->r14, r16|->r0, r16|->r5, r16|->r10, r16|->r11, r16|->r12, r16|->r13, r17|->r0, r17|->r1, r17|->r2, r17|->r3, r17|->r7, r17|->r8, r17|->r9, r17|->r11, r18|->r2, r18|->r3, r18|->r4, r18|->r6, r18|->r7, r18|->r8, r18|->r9, r18|->r11, r18|->r16, r18|->r17, r19|->r0, r19|->r2, r19|->r3, r19|->r4, r19|->r5, r19|->r6, r19|->r7, r19|->r11, r19|->r12, r19|->r13, r19|->r14, r19|->r15, r19|->r17, r20|->r2, r20|->r5, r20|->r6, r20|->r7, r20|->r9, r20|->r14, r20|->r15, r20|->r19, r21|->r1, r21|->r5, r21|->r8, r21|->r9, r21|->r12, r21|->r13, r21|->r15, r21|->r16, r21|->r19, r22|->r0, r22|->r1, r22|->r3, r22|->r6, r22|->r10, r22|->r11, r22|->r13, r23|->r3, r23|->r7, r23|->r10, r23|->r11, r23|->r13, r23|->r15, r23|->r16, r23|->r21, r24|->r0, r24|->r1, r24|->r2, r24|->r7, r24|->r10, r24|->r13, r24|->r14, r24|->r16, r24|->r17, r24|->r22, r24|->r23, r25|->r0, r25|->r2, r25|->r4, r25|->r5, r25|->r6, r25|->r7, r25|->r8, r25|->r12, r25|->r13, r25|->r16, r25|->r18, r25|->r21, r25|->r22, r25|->r24, r26|->r0, r26|->r1, r26|->r2, r26|->r3, r26|->r4, r26|->r10, r26|->r11, r26|->r12, r26|->r13, r26|->r14, r26|->r15, r26|->r16, r26|->r22, r26|->r24, r26|->r25, r27|->r1, r27|->r3, r27|->r5, r27|->r8, r27|->r10, r27|->r11, r27|->r13, r27|->r14, r27|->r16, r27|->r17, r27|->r18, r27|->r19, r27|->r20, r27|->r21, r27|->r23, r27|->r24, r27|->r25, r27|->r26, r28|->r14, r28|->r15, r28|->r17, r28|->r18, r28|->r21, r28|->r23, r28|->r27, r29|->r0, r29|->r3, r29|->r4, r29|->r7, r29|->r8, r29|->r9, r29|->r11, r29|->r17, r29|->r19, r29|->r20, r29|->r21, r29|->r23, r29|->r27, r30|->r3, r30|->r8, r30|->r11, r30|->r13, r30|->r14, r30|->r15, r30|->r16, r30|->r17, r30|->r19, r30|->r20, r30|->r23, r30|->r24, r30|->r25, r30|->r26, r30|->r27, r30|->r28, r31|->r0, r31|->r2, r31|->r4, r31|->r6, r31|->r7, r31|->r11, r31|->r12, r31|->r13, r31|->r14, r31|->r15, r31|->r17, r31|->r18, r31|->r21, r31|->r22, r31|->r23, r31|->r24, r31|->r25, r31|->r27, r31|->r28, r31|->r29, r31|->r30, r32|->r0, r32|->r2, r32|->r3, r32|->r4, r32|->r5, r32|->r7, r32|->r9, r32|->r11, r32|->r12, r32|->r14, r32|->r16, r32|->r19, r32|->r20, r32|->r21, r32|->r22, r32|->r23, r32|->r25, r32|->r26, r32|->r30, r33|->r0, r33|->r4, r33|->r5, r33|->r7, r33|->r8, r33|->r9, r33|->r11, r33|->r13, r33|->r14, r33|->r18, r33|->r19, r33|->r20, r33|->r21, r33|->r22, r33|->r24, r33|->r26, r33|->r27, r33|->r28, r33|->r29, r33|->r30, r34|->r0, r34|->r2, r34|->r3, r34|->r5, r34|->r6, r34|->r7, r34|->r10, r34|->r12, r34|->r17, r34|->r18, r34|->r20, r34|->r21, r34|->r24, r34|->r25, r34|->r27, r34|->r28, r34|->r29, r34|->r30, r34|->r32, r35|->r3, r35|->r5, r35|->r6, r35|->r7, r35|->r9, r35|->r11, r35|->r14, r35|->r15, r35|->r21, r35|->r22, r35|->r23, r35|->r24, r35|->r25, r35|->r27, r35|->r29, r35|->r30, r35|->r31, r35|->r34, r36|->r2, r36|->r3, r36|->r4, r36|->r5, r36|->r6, r36|->r7, r36|->r8, r36|->r9, r36|->r11, r36|->r12, r36|->r14, r36|->r16, r36|->r19, r36|->r23, r36|->r26, r36|->r27, r36|->r30, r36|->r31, r36|->r32, r36|->r33, r36|->r35, r37|->r0, r37|->r3, r37|->r5, r37|->r7, r37|->r10, r37|->r11, r37|->r13, r37|->r15, r37|->r17, r37|->r18, r37|->r19, r37|->r20, r37|->r23, r37|->r24, r37|->r27, r37|->r28, r37|->r31, r37|->r33, r37|->r34, r37|->r35, r38|->r0, r38|->r2, r38|->r7, r38|->r9, r38|->r11, r38|->r14, r38|->r15, r38|->r19, r38|->r20, r38|->r22, r38|->r23, r38|->r25, r38|->r26, r38|->r29, r38|->r30, r38|->r31, r38|->r32, r38|->r34, r38|->r36, r39|->r0, r39|->r1, r39|->r4, r39|->r8, r39|->r9, r39|->r11, r39|->r12, r39|->r16, r39|->r18, r39|->r19, r39|->r22, r39|->r23, r39|->r24, r39|->r25, r39|->r26, r39|->r32, r39|->r33, r39|->r35, r39|->r36, r40|->r1, r40|->r3, r40|->r4, r40|->r7, r40|->r10, r40|->r12, r40|->r14, r40|->r15, r40|->r16, r40|->r20, r40|->r21, r40|->r22, r40|->r23, r40|->r27, r40|->r28, r40|->r29, r40|->r33, r40|->r34, r40|->r35, r40|->r37, r40|->r39, r41|->r3, r41|->r6, r41|->r7, r41|->r9, r41|->r10, r41|->r11, r41|->r12, r41|->r13, r41|->r14, r41|->r15, r41|->r16, r41|->r17, r41|->r20, r41|->r21, r41|->r22, r41|->r23, r41|->r24, r41|->r26, r41|->r27, r41|->r29, r41|->r31, r41|->r35, r41|->r36, r41|->r38, r41|->r39, r42|->r1, r42|->r6, r42|->r7, r42|->r8, r42|->r12, r42|->r13, r42|->r14, r42|->r15, r42|->r18, r42|->r20, r42|->r22, r42|->r23, r42|->r26, r42|->r27, r42|->r30, r42|->r34, r42|->r36, r42|->r37, r42|->r38, r42|->r40, r43|->r2, r43|->r4, r43|->r5, r43|->r9, r43|->r10, r43|->r11, r43|->r13, r43|->r15, r43|->r19, r43|->r21, r43|->r24, r43|->r26, r43|->r27, r43|->r29, r43|->r30, r43|->r31, r43|->r34, r43|->r35, r43|->r36, r43|->r37, r43|->r38, r43|->r39, r43|->r41, r43|->r42, r44|->r0, r44|->r1, r44|->r2, r44|->r3, r44|->r5, r44|->r6, r44|->r9, r44|->r12, r44|->r15, r44|->r17, r44|->r19, r44|->r20, r44|->r21, r44|->r22, r44|->r24, r44|->r25, r44|->r29, r44|->r30, r44|->r39, r44|->r40, r44|->r41, r44|->r42, r44|->r43, r45|->r1, r45|->r3, r45|->r5, r45|->r6, r45|->r9, r45|->r12, r45|->r15, r45|->r19, r45|->r20, r45|->r21, r45|->r22, r45|->r25, r45|->r27, r45|->r28, r45|->r29, r45|->r31, r45|->r33, r45|->r34, r45|->r36, r45|->r37, r45|->r39, r45|->r41, r45|->r42, r45|->r43, r46|->r0, r46|->r1, r46|->r3, r46|->r4, r46|->r6, r46|->r7, r46|->r9, r46|->r10, r46|->r15, r46|->r16, r46|->r19, r46|->r20, r46|->r21, r46|->r22, r46|->r23, r46|->r24, r46|->r25, r46|->r29, r46|->r33, r46|->r34, r46|->r35, r46|->r42, r46|->r43, r46|->r45, r47|->r3, r47|->r4, r47|->r5, r47|->r8, r47|->r9, r47|->r10, r47|->r14, r47|->r15, r47|->r16, r47|->r19, r47|->r20, r47|->r21, r47|->r22, r47|->r23, r47|->r24, r47|->r26, r47|->r27, r47|->r28, r47|->r31, r47|->r32, r47|->r33, r47|->r36, r47|->r37, r47|->r38, r47|->r40, r47|->r42, r47|->r43, r48|->r1, r48|->r4, r48|->r5, r48|->r6, r48|->r8, r48|->r9, r48|->r15, r48|->r16, r48|->r18, r48|->r19, r48|->r22, r48|->r23, r48|->r25, r48|->r26, r48|->r30, r48|->r34, r48|->r35, r48|->r45, r48|->r46, r49|->r2, r49|->r5, r49|->r6, r49|->r8, r49|->r9, r49|->r10, r49|->r12, r49|->r14, r49|->r18, r49|->r22, r49|->r24, r49|->r25, r49|->r27, r49|->r28, r49|->r30, r49|->r33, r49|->r35, r49|->r37, r49|->r40, r49|->r41, r49|->r43, r49|->r47, r49|->r48} &
+    rules={rule0|->(rec(su:s12,re:r28,mo:per,pr: 3,co:{c7,c9,c5,c1})), rule1|->(rec(su:s32,re:r4,mo:per,pr: 0,co:{c3,c6})), rule2|->(rec(su:s37,re:r30,mo:pro,pr: 1,co:{c6,c3,c2})), rule3|->(rec(su:s1,re:r11,mo:pro,pr: 0,co:{c6})), rule4|->(rec(su:s5,re:r37,mo:pro,pr: 0,co:{c0,c5})), rule5|->(rec(su:s7,re:r42,mo:pro,pr: 4,co:{c0,c9})), rule6|->(rec(su:s45,re:r21,mo:pro,pr: 2,co:{c5,c6,c3,c9,c2,c8})), rule7|->(rec(su:s18,re:r24,mo:pro,pr: 3,co:{c6,c8,c5,c2,c9,c3})), rule8|->(rec(su:s33,re:r26,mo:pro,pr: 0,co:{c4})), rule9|->(rec(su:s20,re:r15,mo:pro,pr: 3,co:{c6})), rule10|->(rec(su:s32,re:r31,mo:per,pr: 1,co:{c9})), rule11|->(rec(su:s44,re:r24,mo:pro,pr: 2,co:{c3,c0,c2})), rule12|->(rec(su:s16,re:r24,mo:pro,pr: 0,co:{c3,c7,c9,c2,c1,c8,c0}))}
+
+VARIABLES
+    /*applicable: contains all applicable rule to a request*/
+    applicable,
+    /*conRule: associate a condition to its rules*/
+    conRule,
+    /*ordering 2:isPrecededBy*/
+    isPrecededBy,
+    /*closure of ruleSucc*/
+    cl1_ruleSucc,
+    /*function returning the pseudosinks of a request+context*/
+    pseudoSink
+
+INVARIANT
+    applicable :  REQUEST_T -->POW(RULE_T) &
+    conRule : CONTEXT --> POW(RULE_T) &
+    isPrecededBy : REQUEST_T --> (RULE_T <-> RULE_T) &
+    cl1_ruleSucc : REQUEST_T --> (RULE_T <-> RULE_T) &
+    pseudoSink : (REQUEST_T * CONTEXT)--> POW(RULE_T)
+
+INITIALISATION
+    BEGIN
+    applicable :=  %rr.(rr:REQUEST_T|applicable_def(rr));
+    conRule := %con.(con:CONTEXT|{cc|cc:dom(rules) & con : (rules(cc))'co});
+    /*isPrecededBy definition*/
+    isPrecededBy := %xx.(xx:REQUEST_T | {yy, zz | yy:applicable(xx) & zz:applicable(xx) & yy/=zz & (yy|->zz : lessSpecific or ({yy,zz}<:maxElem(xx) & (rules(yy))'mo = per & (rules(zz))'mo = pro))});
+    cl1_ruleSucc := %xx.(xx:REQUEST_T | closure1(isPrecededBy(xx)));
+    pseudoSink := %(req,con).(req:REQUEST_T & con:dom(conRule) | {ru | ru : applicable(req) &ru : conRule(con) & !subrule.(subrule : cl1_ruleSucc(req)[{ru}] => not( subrule: conRule(con)))})
+    END
+
+OPERATIONS
+    /*checks the access from the request req under the context con*/
+    access <-- CheckAccess(req, con)=
+    PRE
+        req : REQUEST_T & con : CONTEXT
+    THEN
+        access := bool(access_def(req,con))
+    END;
+
+    /*checks if there is a hidden document under the context con*/
+    hidden<-- HiddenDocument(con)=
+    PRE
+        con : CONTEXT
+    THEN
+        hidden := bool(#(hdoc).(hdoc:(V_RES - dom(e_res)) & !req.((req:REQUEST_T & prj2(V_SUB,V_RES)(req)=hdoc) => not(access_def(req,con)))))
+    END;
+
+    /*returns the set of the hidden documents under the condition con*/
+    hiddenSet <-- HiddenDataSet(con)=
+    PRE
+        con : CONTEXT
+    THEN
+        hiddenSet := { hdoc | hdoc : V_RES - dom(e_res) & !req.((req:REQUEST_T & prj2(V_SUB,V_RES)(req)=hdoc) => not(access_def(req,con)))}
+    END;
+
+    /*determines the contexts that grant a request*/
+    granting <-- GrantingContexts(req)=
+    PRE
+        req : REQUEST_T
+    THEN
+        granting := { con | con : CONTEXT & access_def(req,con)}
+    END;
+
+    /*returns the set of the rules that are never used*/
+    ineffectiveSet <-- IneffectiveRuleSet =
+    BEGIN
+        ineffectiveSet := {ru | ru : RULE_T & not(#(req,con).(req:REQUEST_T & ru : conRule(con) &ru : pseudoSink(req,con) &	(pseudoSink(req,con) - {ru} = {} or((rules(ru))'mo = pro & !ru2.(ru2:(pseudoSink(req,con)-{ru}) => (rules(ru2))'mo = per)))))}
+    END
+END

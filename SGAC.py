@@ -5,12 +5,12 @@ import re
 def SGAC_random(testName, dir, testNumber):
     #ts = time.time()
 
-    set_param(max_width=3000)
+    set_param(max_width=5000)
     set_param(max_depth=5000000000000000000000000000000000000)
     set_param(max_args=10000000000000000000000000000000000000)
     set_param(max_lines=10000000000000)
     set_param(max_indent=100000000000000000)
-    set_param(memory_max_size=429496729500000)
+    set_param(memory_max_size=4294967295000000)
 
     s = Solver()  # Declaring the Z3 solver and storing it to the variable s.
 
@@ -339,6 +339,9 @@ def SGAC_random(testName, dir, testNumber):
         f.close()
         for key in dictOfSubstitutions.keys():
             modelContent = re.sub(r"" + str(dictOfSubstitutions[key]) + "", str(key), modelContent)
+        #for key in dictOfSubstitutions.keys():
+        #    modelContent = re.sub(r""+str(key)+"=\w*(?<!"+str(key)+")\n",
+        #                          str(key)+"="+str(key)+"\n", modelContent, 0, re.MULTILINE)
         # Erasing the k!#### and replacing for the variables
         modelContent = re.sub(r"(k![0-9]+\(Var\([0-9]\)\)) == ", "", modelContent)
         # Erasing k!#### variables
@@ -414,6 +417,7 @@ def SGAC_random(testName, dir, testNumber):
         r.add(eval(predicate_res1), eval(predicate_sub1))
         r.add(Distinct(permission, prohibition))
         r.add(eval(predicate_context))
+
         for formula in dictOfFormulas.keys():
             if formula == 'Subject_Graph':
                 predicate = eval(

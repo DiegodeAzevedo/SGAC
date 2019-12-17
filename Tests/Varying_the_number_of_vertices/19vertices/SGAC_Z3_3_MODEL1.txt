@@ -1,0 +1,328 @@
+rule11=rule11
+auxRule1=rule13
+rule1=rule1
+s8=s8
+r2=r2
+c2=c2
+s2=s2
+rule0=rule0
+rule12=rule12
+auxRule2=rule14
+prohibition=prohibition
+c0=c0
+c1=c1
+r8=r8
+permission=permission
+c6=c6
+s9=s9
+auxSub1=s5
+auxRes1=r8
+rule7=rule7
+rule6=rule6
+s0=s0
+rule5=rule5
+s5=s5
+r1=r1
+auxInt2=4
+s7=s7
+rule3=rule3
+c5=c5
+c8=c8
+rule10=rule10
+rule2=rule2
+r7=r7
+c4=c4
+c7=c7
+auxInt1=1
+rule8=rule8
+rule4=rule4
+c3=c3
+auxCon=c10
+c9=c9
+s6=s6
+rule9=rule9
+r0=r0
+r6=r6
+s3=s3
+s1=s1
+r3=r3
+r4=r4
+r5=r5
+s4=s4
+applicable=[Or(And(s0, r1, rule6),
+    And(s0, r1, rule7),
+    And(s2, r1, rule7),
+    And(s2, r3, rule7),
+    And(s2, r1, rule6),
+    And(s2, r0, rule7),
+    And(s0, r0, rule6),
+    And(s0, r3, rule7),
+    And(s2, r1, rule10),
+    And(s0, r3, rule6),
+    And(s2, r3, rule3),
+    And(s0, r1, rule9),
+    And(s0, r0, rule2),
+    And(s2, r3, rule6),
+    And(s0, r1, rule10),
+    And(s2, r0, rule6),
+    And(s2, r1, rule9),
+    And(s0, r1, rule4),
+    And(s0, r0, rule7),
+    And(s2, r1, rule8),
+    And(s0, r0, rule4),
+    And(s2, r0, rule0),
+    And(s0, r3, rule11),
+    And(s2, r0, rule1),
+    And(s0, r1, rule12),
+    And(s0, r0, rule1),
+    And(s0, r1, rule5),
+    And(s0, r1, rule8),
+    And(s0, r3, rule3))]
+rule_modality=[Or(Not(Or(Not(rule0), Not(permission))), Not(Or(Not(rule1), Not(permission))), Not(Or(Not(rule2), Not(permission))), Not(Or(Not(rule3), Not(prohibition))), Not(Or(Not(rule4), Not(permission))), Not(Or(Not(rule5), Not(prohibition))), Not(Or(Not(rule6), Not(permission))), Not(Or(Not(rule7), Not(permission))), Not(Or(Not(rule8), Not(permission))), Not(Or(Not(rule9), Not(permission))), Not(Or(Not(rule10), Not(permission))), Not(Or(Not(rule11), Not(permission))), Not(Or(Not(rule12), Not(permission))))]
+rule_subject=[Or(And(rule11, s0), And(rule10, s4), And(rule1, s4), And(rule4, s0), And(rule6, s5), And(rule5, s1), And(rule8, s7), And(rule12, s0), And(rule3, s6), And(rule9, s6), And(rule7, s4), And(rule2, s1), And(rule0, s8))]
+Resources_Graph=[Or(And(r7, r1),
+    And(r7, r6),
+    And(r2, r1),
+    And(r8, r2),
+    And(r6, r0),
+    And(r8, r3),
+    And(r8, r4),
+    And(r6, r2),
+    And(r5, r1),
+    And(r7, r2),
+    And(r7, r4),
+    And(r8, r5),
+    And(r7, r0),
+    And(r8, r6),
+    And(r4, r1))]
+Transitive_Closure_Subject_Graph=[Or(And(s7, s3), And(s5, s3), And(s7, s5), And(s9, s3), And(s5, s4), And(s9, s4), And(s9, s0), And(s7, s4), And(s9, s1), And(s5, s0), And(s8, s2), And(s9, s2), And(s7, s2), And(s6, s2), And(s5, s1), And(s7, s0), And(s7, s1), And(s5, s2), And(s4, s2), And(s6, s3), And(s9, s5), And(s1, s0), And(s6, s0), And(s6, s1), And(s4, s0), And(s4, s3), And(s9, s7), And(s8, s3), And(s6, s4), And(s9, s8), And(s3, s2))]
+Transitive_Closure_Resources_Graph=[Or(And(r7, r1),
+    And(r7, r0),
+    And(r8, r1),
+    And(r8, r6),
+    And(r6, r1),
+    And(r2, r1),
+    And(r8, r4),
+    And(r8, r0),
+    And(r8, r2),
+    And(r7, r6),
+    And(r8, r3),
+    And(r7, r4),
+    And(r7, r2),
+    And(r8, r5),
+    And(r6, r2),
+    And(r6, r0),
+    And(r4, r1),
+    And(r5, r1))]
+notDomainSub=[Or(s0, s2)]
+REQUEST_T=[Or(And(s2, r1),
+    And(s0, r1),
+    And(s2, r0),
+    And(s2, r3),
+    And(s0, r3),
+    And(s0, r0))]
+rule_resource=[Or(And(rule9, r1),
+    And(rule1, r0),
+    And(rule7, r8),
+    And(rule2, r0),
+    And(rule11, r3),
+    And(rule4, r7),
+    And(rule12, r2),
+    And(rule3, r3),
+    And(rule6, r8),
+    And(rule0, r0),
+    And(rule8, r2),
+    And(rule5, r1),
+    And(rule10, r5))]
+Subject_Graph=[Or(And(s9, s3),
+    And(s6, s3),
+    And(s7, s4),
+    And(s9, s5),
+    And(s5, s4),
+    And(s9, s8),
+    And(s5, s2),
+    And(s7, s2),
+    And(s9, s2),
+    And(s9, s1),
+    And(s4, s0),
+    And(s4, s2),
+    And(s6, s4),
+    And(s7, s5),
+    And(s7, s1),
+    And(s6, s1),
+    And(s1, s0),
+    And(s8, s3),
+    And(s4, s3),
+    And(s5, s0),
+    And(s7, s0),
+    And(s9, s7),
+    And(s3, s2),
+    And(s9, s0),
+    And(s5, s1))]
+lessSpecific=[Or(And(rule7, rule2),
+    And(rule7, rule4),
+    And(rule7, rule12),
+    And(rule7, rule3),
+    And(rule9, rule7),
+    And(rule0, rule7),
+    And(rule8, rule7),
+    And(rule5, rule7),
+    And(rule6, rule7),
+    And(rule6, rule2),
+    And(rule6, rule4),
+    And(rule6, rule12),
+    And(rule6, rule5),
+    And(rule6, rule3),
+    And(rule0, rule6),
+    And(rule8, rule6),
+    And(rule11, rule7),
+    And(rule11, rule6),
+    And(rule11, rule2),
+    And(rule11, rule9),
+    And(rule11, rule4),
+    And(rule11, rule12),
+    And(rule11, rule5),
+    And(rule11, rule3),
+    And(rule0, rule11),
+    And(rule8, rule11),
+    And(rule10, rule2),
+    And(rule10, rule4),
+    And(rule10, rule12),
+    And(rule10, rule3),
+    And(rule6, rule10),
+    And(rule9, rule10),
+    And(rule0, rule10),
+    And(rule8, rule10),
+    And(rule5, rule10),
+    And(rule11, rule10),
+    And(rule1, rule7),
+    And(rule1, rule10),
+    And(rule1, rule6),
+    And(rule1, rule2),
+    And(rule1, rule9),
+    And(rule1, rule4),
+    And(rule1, rule12),
+    And(rule1, rule8),
+    And(rule1, rule5),
+    And(rule1, rule11),
+    And(rule1, rule3),
+    And(rule12, rule2),
+    And(rule3, rule2),
+    And(rule9, rule2),
+    And(rule9, rule12),
+    And(rule9, rule3),
+    And(rule0, rule2),
+    And(rule0, rule9),
+    And(rule0, rule12),
+    And(rule0, rule3),
+    And(rule2, rule4),
+    And(rule9, rule4),
+    And(rule0, rule4),
+    And(rule12, rule4),
+    And(rule3, rule4),
+    And(rule5, rule2),
+    And(rule5, rule4),
+    And(rule5, rule12),
+    And(rule5, rule3),
+    And(rule9, rule5),
+    And(rule0, rule5),
+    And(rule8, rule2),
+    And(rule8, rule9),
+    And(rule8, rule4),
+    And(rule8, rule12),
+    And(rule8, rule5),
+    And(rule8, rule3),
+    And(rule0, rule8),
+    And(rule12, rule3))]
+rule_priority=[Or(And(rule7, 1), And(rule10, 1), And(rule6, 2), And(rule2, 0), And(rule9, 2), And(rule4, 0), And(rule0, 4), And(rule12, 1), And(rule8, 3), And(rule5, 2), And(rule11, 3), And(rule1, 4), And(rule3, 0))]
+rule_condition=[Or(And(rule4, c2),
+    And(rule11, c6),
+    And(rule9, c4),
+    And(rule7, c6),
+    And(rule11, c3),
+    And(rule10, c3),
+    And(rule10, c7),
+    And(rule3, c3),
+    And(rule6, c4),
+    And(rule9, c9),
+    And(rule10, c9),
+    And(rule3, c9),
+    And(rule2, c9),
+    And(rule10, c8),
+    And(rule12, c2),
+    And(rule6, c9),
+    And(rule4, c8),
+    And(rule9, c7),
+    And(rule12, c6),
+    And(rule4, c3),
+    And(rule3, c4),
+    And(rule11, c7),
+    And(rule5, c2),
+    And(rule5, c5),
+    And(rule0, c9),
+    And(rule0, c8),
+    And(rule12, c0),
+    And(rule6, c1),
+    And(rule2, c6),
+    And(rule2, c0),
+    And(rule8, c2),
+    And(rule1, c3),
+    And(rule2, c7),
+    And(rule9, c1),
+    And(rule9, c0),
+    And(rule8, c6),
+    And(rule9, c8),
+    And(rule8, c9),
+    And(rule10, c6),
+    And(rule11, c8),
+    And(rule11, c4),
+    And(rule4, c6),
+    And(rule3, c0),
+    And(rule10, c1),
+    And(rule11, c2))]
+conRule=[Or(And(c2, rule4),
+    And(c6, rule11),
+    And(c4, rule9),
+    And(c6, rule7),
+    And(c3, rule11),
+    And(c3, rule10),
+    And(c7, rule10),
+    And(c3, rule3),
+    And(c4, rule6),
+    And(c9, rule9),
+    And(c9, rule10),
+    And(c9, rule3),
+    And(c9, rule2),
+    And(c8, rule10),
+    And(c2, rule12),
+    And(c9, rule6),
+    And(c8, rule4),
+    And(c7, rule9),
+    And(c6, rule12),
+    And(c3, rule4),
+    And(c4, rule3),
+    And(c7, rule11),
+    And(c2, rule5),
+    And(c5, rule5),
+    And(c9, rule0),
+    And(c8, rule0),
+    And(c0, rule12),
+    And(c1, rule6),
+    And(c6, rule2),
+    And(c0, rule2),
+    And(c2, rule8),
+    And(c3, rule1),
+    And(c7, rule2),
+    And(c1, rule9),
+    And(c0, rule9),
+    And(c6, rule8),
+    And(c8, rule9),
+    And(c9, rule8),
+    And(c6, rule10),
+    And(c8, rule11),
+    And(c4, rule11),
+    And(c6, rule4),
+    And(c0, rule3),
+    And(c1, rule10),
+    And(c2, rule11))]
+notDomainRes=[Or(r1, r3, r0)]
