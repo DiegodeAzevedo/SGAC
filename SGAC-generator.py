@@ -7,7 +7,7 @@ import SGAC
 from openpyxl import Workbook
 from openpyxl import load_workbook
 
-for number in range(0, 5):
+for number in range(0, 1):
     Python_Sub_Graph = dict()
     Python_Res_Graph = dict()
     Python_Sub_Closure_Graph = dict()
@@ -20,23 +20,37 @@ for number in range(0, 5):
     maximum_resource_nodes = 20
     #minimum_resource_node = 5
     #minimum_rules = 13
-    maximum_rules = 30
+    maximum_rules = 10
     #minimum_contexts = 10
     maximum_contexts = 10
     biggestCon = 0
+    numberOfRequests = 0
+    desiredNumberOfRequests = 15
 
     #for node in range(0, random.randrange(minimum_resource_node, maximum_subject_nodes, 1)):
-    for node in range(0, maximum_subject_nodes):
-        Python_Sub_Graph["s"+str(node)] = []
-        for childNode in range(0, node):
-            if random.randint(0, 1):
-                Python_Sub_Graph["s"+str(node)].append("s"+str(childNode))
+    while numberOfRequests != desiredNumberOfRequests:
+        numberOfSubSinks = 0
+        numberOfResSinks = 0
+        for node in range(0, maximum_subject_nodes):
+            Python_Sub_Graph["s"+str(node)] = []
+            for childNode in range(0, node):
+                if random.randint(0, 1):
+                    Python_Sub_Graph["s"+str(node)].append("s"+str(childNode))
 
-    for node in range(0, maximum_resource_nodes):
-        Python_Res_Graph["r"+str(node)] = []
-        for childNode in range(0, node):
-            if random.randint(0, 1):
-                Python_Res_Graph["r"+str(node)].append("r"+str(childNode))
+        for node in range(0, maximum_resource_nodes):
+            Python_Res_Graph["r"+str(node)] = []
+            for childNode in range(0, node):
+                if random.randint(0, 1):
+                    Python_Res_Graph["r"+str(node)].append("r"+str(childNode))
+
+        for node in Python_Sub_Graph.keys():
+            if not Python_Sub_Graph[node]:
+                numberOfSubSinks += 1
+        for node in Python_Res_Graph.keys():
+            if not Python_Res_Graph[node]:
+                numberOfResSinks += 1
+
+        numberOfRequests = numberOfSubSinks * numberOfResSinks
 
     for context in range(0, maximum_contexts):
         Python_Context.append("c"+str(context))
@@ -203,7 +217,7 @@ for number in range(0, 5):
     bmachine += "END"
 
     directory = "C:"+os.sep+"Users"+os.sep+"dead1401"+os.sep+"PycharmProjects"+os.sep+"SGAC"+os.sep+\
-                "Tests"+os.sep+"varying_the_number_of_rules"+os.sep+"30rules"
+                "Tests"+os.sep+"varying_the_number_of_requests"+os.sep+"15requests"
 
     onlyfiles = next(os.walk(directory))[2]
     bMachineName = "SGAC_B_"+str((len(onlyfiles)) // 8 +1)+".mch"
@@ -261,7 +275,7 @@ for number in range(0, 5):
             requests.append([sub, res])
 
     directory = "C:"+os.sep+"Users"+os.sep+"dead1401"+os.sep+"PycharmProjects"+os.sep+"SGAC"+os.sep+"Tests"+os.sep+\
-                "varying_the_number_of_rules"+os.sep+"30rules"
+                "varying_the_number_of_requests"+os.sep+"15requests"
 
     os.mkdir(directory+os.sep+"alloy"+str(len(onlyfiles) // 8 + 1))
 
@@ -443,16 +457,16 @@ for number in range(0, 5):
     print(timeAComulative)
 
     directory = "C:"+os.sep+"Users"+os.sep+"dead1401"+os.sep+"PycharmProjects"+os.sep+"SGAC"+os.sep+"Tests"+os.sep+\
-                "varying_the_number_of_rules"
+                "varying_the_number_of_requests"
 
-    if os.path.exists(directory+os.sep+'times30rules.xlsx'):
-        wb = load_workbook(directory+os.sep+'times30rules.xlsx')
+    if os.path.exists(directory+os.sep+'times15requests.xlsx'):
+        wb = load_workbook(directory+os.sep+'times15requests.xlsx')
         ws = wb.worksheets[0]
         row_count = ws.max_row
         d = ws.cell(row=row_count+1, column=1, value=timeB)
         d = ws.cell(row=row_count+1, column=2, value=timeP)
         d = ws.cell(row=row_count+1, column=3, value=timeAComulative)
-        wb.save(directory+os.sep+'times30rules.xlsx')
+        wb.save(directory+os.sep+'times15requests.xlsx')
     else:
         wb = Workbook()
         ws = wb.active
@@ -465,4 +479,4 @@ for number in range(0, 5):
         d = ws.cell(row=2, column=1, value=timeB)
         d = ws.cell(row=2, column=2, value=timeP)
         d = ws.cell(row=2, column=3, value=timeAComulative)
-        wb.save(directory+os.sep+'times30rules.xlsx')
+        wb.save(directory+os.sep+'times15requests.xlsx')

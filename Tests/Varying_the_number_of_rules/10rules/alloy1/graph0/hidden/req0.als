@@ -329,7 +329,7 @@ pred HiddenDocument[reso:Resource,c:Context]{
     some reso: documentsG[] | HiddenDocument[reso,c]
 }
 //***Hidden Data Existence and determination***
-check HiddenDocument_r0_c0{ HiddenDocument[r0,c0]} for 4
+check HiddenDocument_r0_c0{ HiddenDocument[ r0,c0]} for 4
 check HiddenDocument_r0_c1{ HiddenDocument[r0,c1]} for 4
 check HiddenDocument_r0_c2{ HiddenDocument[r0,c2]} for 4
 check HiddenDocument_r0_c3{ HiddenDocument[r0,c3]} for 4

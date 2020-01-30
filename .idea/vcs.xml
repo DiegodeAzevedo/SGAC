@@ -8,5 +8,8 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/SGAC" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/abz2020-sgac-z3" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sgac-z3py" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sgac-z3py/SGAC" vcs="Git" />
   </component>
 </project>
